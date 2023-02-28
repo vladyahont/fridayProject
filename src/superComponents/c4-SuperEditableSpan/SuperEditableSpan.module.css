@@ -1,0 +1,16 @@
+.spanBlock {
+}
+
+.span {
+    displya: inline-block;
+    height: 30px;
+    padiding-top: 10px;
+    cursor: pointer;
+    color: #000777;
+}
+
+.input {
+}
+
+.pen {
+}

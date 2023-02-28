@@ -1,0 +1,47 @@
+.button {
+    position: relative;
+    margin: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    background: cornflowerblue;
+}
+
+.disabled {
+    background: #1077dc;
+}
+
+.secondary {
+    background: papayawhip;
+}
+
+.default {
+    background: #65b0ff;
+    color: #000777;
+    outline: none;
+}
+
+.red {
+    background: #cc0000;
+}
+
+.default:hover {
+}
+
+.red:hover {
+}
+
+.secondary:hover {
+}
+
+
+.default:active {
+}
+
+.secondary:active {
+}
+
+.red:active {
+}
+
+.button:disabled {
+}

@@ -1,24 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {Route, Routes} from "react-router-dom";
+import {PasswordRecovery} from "./PassworRecovery";
+import {NewPasswordPage} from "./NewPasswordPage";
+import {ShowSuperComp} from "./ShowSuperComp";
+import {ErrorPage} from "./ErrorPage";
+import {Profile} from "./Profile";
+import {Registration} from "./Registration";
+import {Login} from "./Login";
 
 function App() {
+
+  const base = '/fridayProject'
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+    <div>
+      <Routes>
+        <Route path={`${base}/login`} element={<Login/>}/>
+        <Route path={`${base}/registration`} element={<Registration/>}/>
+        <Route path={`${base}/`} element={<Profile/>}/>
+        <Route path={`${base}/404`} element={<ErrorPage/>}/>
+        <Route path={`${base}/recovery`} element={<PasswordRecovery/>}/>
+        <Route path={`${base}/newPassword`} element={<NewPasswordPage/>}/>
+        <Route path={`${base}/test`} element={<ShowSuperComp/>}/>
+      </Routes>
     </div>
   );
 }
