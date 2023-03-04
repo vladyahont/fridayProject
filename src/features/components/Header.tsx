@@ -6,7 +6,7 @@ import { ErrorPage } from './ErrorPage'
 import { Login } from './Login'
 import { NewPasswordPage } from './NewPasswordPage'
 import { PasswordRecovery } from './PassworRecovery'
-import { Profile } from './Profile'
+import { Profile } from './profile/Profile'
 import { Registration } from './Registration'
 import { ShowSuperComp } from './ShowSuperComp'
 
