@@ -7,7 +7,7 @@ import { Login } from './Login'
 import { NewPasswordPage } from './NewPasswordPage'
 import { PasswordRecovery } from './PassworRecovery'
 import { Profile } from './Profile'
-import { Registration } from './Registration'
+import { SignUp } from '../auth/sign-up/SignUp'
 import { ShowSuperComp } from './ShowSuperComp'
 
 export const Header = () => {
@@ -18,7 +18,7 @@ export const Header = () => {
       <Routes>
         <Route path={`${base}/`} element={<Profile />} />
         <Route path={`${base}/login`} element={<Login />} />
-        <Route path={`${base}/registration`} element={<Registration />} />
+        <Route path={`${base}/registration`} element={<SignUp />} />
         <Route path={`${base}/404`} element={<ErrorPage />} />
         <Route path={`${base}/recovery`} element={<PasswordRecovery />} />
         <Route path={`${base}/newPassword`} element={<NewPasswordPage />} />
