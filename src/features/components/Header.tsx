@@ -8,7 +8,7 @@ import { Login } from '../auth/sing-in/Login'
 import { ErrorPage } from './ErrorPage'
 import { NewPasswordPage } from './NewPasswordPage'
 import { PasswordRecovery } from './PassworRecovery'
-import { Profile } from './Profile'
+import { Profile } from './profile/Profile'
 import { ShowSuperComp } from './ShowSuperComp'
 
 export const Header = () => {
