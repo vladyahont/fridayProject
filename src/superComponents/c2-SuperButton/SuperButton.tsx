@@ -6,7 +6,7 @@ type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonE
     HTMLButtonElement>
 
 type SuperButtonPropsType = DefaultButtonPropsType & {
-    xType?: "logAut"
+    xType?: "logAut"| "save"
 }
 
 const SuperButton: React.FC<SuperButtonPropsType> = (
@@ -24,7 +24,7 @@ const SuperButton: React.FC<SuperButtonPropsType> = (
         + (className ? ' ' + className : s.button)*/
   let finalClassName = (disabled
       ? ' ' + s.disabled : xType === 'logAut'
-        ? ' ' + s.logAut : xType === 'secondary'
+        ? ' ' + s.logAut : xType === 'save'
           ? ' ' + s.secondary : ' ' + s.default)
   finalClassName  += (className ? ' ' + className :  ' ' + s.button)
   return (

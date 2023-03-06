@@ -24,16 +24,8 @@ export const Profile = () => {
         <img src={avatar} alt="avatar" className={s.imgAvatar}/>
         <PhotoCameraIcon className={s.iconAvatar}/>
       </div>
-      {/*----------------------------*/}
-      {/*<div className={s.nameContainer}>
-        <span className={s.nameText}>{name}</span>
-        <DriveFileRenameOutlineIcon className={s.iconName}/>
-      </div>*/}
       <SuperEditableSpan value={name} onChange={changeNameHandler}/>
       <span className={s.emailText}>{email}</span>
-            {/*  <Button  startIcon={<Logout/>} onClick={logOutHandler}>
-               Log out
-               </Button>*/}
       <SuperButton className={s.btnLogAut} onClick={logOutHandler} xType={"logAut"}>
         <Logout className={s.btnIcon}/>
         <div className={s.btnText}>

@@ -22,12 +22,11 @@ type SuperEditableSpanType = Omit<DefaultInputPropsType, 'type'> & {
     onChangeText?: (value: string) => void
     onEnter?: () => void
     error?: string
-    xType?:"save"
     spanProps?: DefaultSpanPropsType  & {defaultText?: string}// пропсы для спана
 }
 
 const SuperEditableSpan: React.FC<SuperEditableSpanType> = (
-    {   xType,
+    {
         autoFocus,
         onBlur,
         onEnter,
@@ -63,7 +62,6 @@ const SuperEditableSpan: React.FC<SuperEditableSpanType> = (
         <div className={s.container}>
             {editMode ? (
                 <SuperInputText
-                    xType = {xType}
                     autoFocus={autoFocus || true}
                     onBlur={onBlurCallback}
                     onEnter={onEnterCallback}

@@ -15,6 +15,18 @@
     color: #000777;
     outline: none;
 }
+.safe {
+    font-family: 'Montserrat', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;
+    background: #366EFF;
+    border-radius: 2px;
+}
 
 .logAut {
     display: flex;
@@ -28,7 +40,6 @@
     height: 36px;
     left: 577px;
     top: 408px;
-
     color: rgba(0, 0, 0, 0.68);
 
 }
