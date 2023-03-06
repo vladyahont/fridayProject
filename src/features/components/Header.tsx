@@ -6,9 +6,10 @@ import { ErrorPage } from './ErrorPage'
 import { Login } from './Login'
 import { NewPasswordPage } from './NewPasswordPage'
 import { PasswordRecovery } from './PassworRecovery'
-import { Profile } from './Profile'
+
 import { SignUp } from '../auth/sign-up/SignUp'
 import { ShowSuperComp } from './ShowSuperComp'
+import {Profile} from "./profile/Profile";
 
 export const Header = () => {
   const base = '/fridayProject'
