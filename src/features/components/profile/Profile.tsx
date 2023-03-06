@@ -4,6 +4,7 @@ import avatar from "../../../assest/imgs/ava.png"
 import {Logout} from "@mui/icons-material";
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera'
 import SuperEditableSpan from "../../../superComponents/c4-SuperEditableSpan/SuperEditableSpan";
+import SuperButton from "../../../superComponents/c2-SuperButton/SuperButton";
 
 export const Profile = () => {
   //useSelect
@@ -33,12 +34,12 @@ export const Profile = () => {
             {/*  <Button  startIcon={<Logout/>} onClick={logOutHandler}>
                Log out
                </Button>*/}
-      <button className={s.btnLogAut} onClick={logOutHandler}>
+      <SuperButton className={s.btnLogAut} onClick={logOutHandler} xType={"logAut"}>
         <Logout className={s.btnIcon}/>
         <div className={s.btnText}>
           Log out
         </div>
-      </button>
+      </SuperButton>
     </div>
   );
 }
