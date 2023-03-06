@@ -1,9 +1,10 @@
 import React from 'react'
 
+import Visibility from '@mui/icons-material/Visibility'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import {
   Button,
   FormControl,
-  FormGroup,
   Grid,
   IconButton,
   Input,
@@ -11,14 +12,9 @@ import {
   InputLabel,
   TextField,
 } from '@mui/material'
-
-import Visibility from '@mui/icons-material/Visibility'
-
-import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import { NavLink } from 'react-router-dom'
 
 import auth from '../auth.module.css'
-
-import { NavLink } from 'react-router-dom'
 
 export const SignUp = () => {
   const [showPassword, setShowPassword] = React.useState(false)

@@ -2,12 +2,13 @@ import React from 'react'
 
 import { NavLink, Route, Routes } from 'react-router-dom'
 
+import { SignUp } from '../auth/sign-up/SignUp'
+import { Login } from '../auth/sing-in/Login'
+
 import { ErrorPage } from './ErrorPage'
-import { Login } from './Login'
 import { NewPasswordPage } from './NewPasswordPage'
 import { PasswordRecovery } from './PassworRecovery'
 import { Profile } from './Profile'
-import { SignUp } from '../auth/sign-up/SignUp'
 import { ShowSuperComp } from './ShowSuperComp'
 
 export const Header = () => {
@@ -24,7 +25,7 @@ export const Header = () => {
         <Route path={`${base}/newPassword`} element={<NewPasswordPage />} />
         <Route path={`${base}/test`} element={<ShowSuperComp />} />
       </Routes>
-      <NavLink to={`${base}/`}>Profile</NavLink>|<NavLink to={`${base}/login`}>Login</NavLink> |
+      <NavLink to={`${base}/`}>Profile</NavLink> |
       <NavLink to={`${base}/registration`}>Registration</NavLink> |
       <NavLink to={`${base}/login`}>Login</NavLink> |<NavLink to={`${base}/404`}>ErrorPage</NavLink>{' '}
       |<NavLink to={`${base}/recovery`}>PasswordRecovery</NavLink> |
