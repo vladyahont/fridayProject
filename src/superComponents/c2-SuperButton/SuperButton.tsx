@@ -25,7 +25,7 @@ const SuperButton: React.FC<SuperButtonPropsType> = (
   let finalClassName = (disabled
       ? ' ' + s.disabled : xType === 'logAut'
         ? ' ' + s.logAut : xType === 'save'
-          ? ' ' + s.secondary : ' ' + s.default)
+          ? ' ' + s.safe : ' ' + s.default)
   finalClassName  += (className ? ' ' + className :  ' ' + s.button)
   return (
         <button

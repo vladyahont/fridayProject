@@ -1,0 +1,35 @@
+.spanBlock {
+    display: flex;
+    justify-content:center;
+}
+.container{
+    display: flex;
+    justify-content:center;
+    width: 150px;
+}
+.spanText{
+    font-family: 'Montserrat', serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+}
+.span {
+    display: inline-block;
+    height: 30px;
+    cursor: pointer;
+    color: #000000;
+    font-family: 'Montserrat', serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+.input {
+    width: 150px;
+}
+
+.pen {
+    align-self: baseline;
+}

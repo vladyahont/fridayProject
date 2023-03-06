@@ -25,7 +25,10 @@
     align-items: center;
     color: #FFFFFF;
     background: #366EFF;
+    border: #366EFF 1px solid;
     border-radius: 2px;
+    height: 20px;
+    width: 40px;
 }
 
 .logAut {
@@ -41,7 +44,6 @@
     left: 577px;
     top: 408px;
     color: rgba(0, 0, 0, 0.68);
-
 }
 
 .default:hover {

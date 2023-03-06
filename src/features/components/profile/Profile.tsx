@@ -1,30 +1,40 @@
 import React, {useCallback} from 'react'
 import s from "./profile.module.css"
-import avatar from "../../../assest/imgs/ava.png"
 import {Logout} from "@mui/icons-material";
-import PhotoCameraIcon from '@mui/icons-material/PhotoCamera'
-import SuperEditableSpan from "../../../superComponents/c4-SuperEditableSpan/SuperEditableSpan";
 import SuperButton from "../../../superComponents/c2-SuperButton/SuperButton";
+import EditableSpanProfile from "./editSpan/EditableSpanProfile";
+import {LoadAva} from "./loadAva/LoadAva";
+
+
 
 export const Profile = () => {
   //useSelect
   const email = "j&johnson@gmail.com"
-  const name = "Ivan"
+  const value = "ivan"
+  const isLoggedIn = true
 
-  let logOutHandler = useCallback(() => {
-  },[]);
 
-  const changeNameHandler = useCallback(() =>{},[name])
+  if (!isLoggedIn) {
+    return <div>
+      redirect
+    </div>;
+  }
+
+  const logOutHandler = useCallback(() => {
+  }, []);
+
+  const changeNameHandler = useCallback((value: string) => {
+    //запрос
+    alert(value)
+  }, [value])
 
   return (
     <div className={s.profileBlock}>
       <span className={s.title}>Personal Information</span>
-      {/*вынести в отдельную компоненту с функционалом подгрузки своей авы с файла*/}
-      <div className={s.avatarContainer}>
-        <img src={avatar} alt="avatar" className={s.imgAvatar}/>
-        <PhotoCameraIcon className={s.iconAvatar}/>
+      <LoadAva/>
+      <div className={s.nameContainer}>
+        <EditableSpanProfile value={value} onChange={changeNameHandler}/>
       </div>
-      <SuperEditableSpan value={name} onChange={changeNameHandler}/>
       <span className={s.emailText}>{email}</span>
       <SuperButton className={s.btnLogAut} onClick={logOutHandler} xType={"logAut"}>
         <Logout className={s.btnIcon}/>
