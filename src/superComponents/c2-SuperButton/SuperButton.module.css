@@ -1,8 +1,7 @@
 .button {
-    position: relative;
-    margin: 10px;
-    overflow: hidden;
-    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: cornflowerblue;
 }
 
@@ -10,37 +9,53 @@
     background: #1077dc;
 }
 
-.secondary {
-    background: papayawhip;
-}
 
 .default {
     background: #65b0ff;
     color: #000777;
     outline: none;
 }
+.safe {
+    font-family: 'Montserrat', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;
+    background: #366EFF;
+    border: #366EFF 1px solid;
+    border-radius: 2px;
+    height: 20px;
+    width: 40px;
+}
 
-.red {
-    background: #cc0000;
+.logAut {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #FFFFFF;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    border: white 1px solid;
+    width: 127px;
+    height: 36px;
+    left: 577px;
+    top: 408px;
+    color: rgba(0, 0, 0, 0.68);
 }
 
 .default:hover {
 }
 
-.red:hover {
+.logAut:hover {
 }
-
-.secondary:hover {
-}
-
 
 .default:active {
 }
 
-.secondary:active {
-}
-
-.red:active {
+.logAut:active {
 }
 
 .button:disabled {
