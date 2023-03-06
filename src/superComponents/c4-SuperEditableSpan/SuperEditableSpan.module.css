@@ -1,16 +1,28 @@
 .spanBlock {
+    display: flex;
+    justify-content:center;
 }
-
+.container{
+    display: flex;
+    justify-content:center;
+    width: 20px;
+}
 .span {
-    displya: inline-block;
+    display: inline-block;
     height: 30px;
-    padiding-top: 10px;
     cursor: pointer;
-    color: #000777;
+    color: #000000;
+    font-family: 'Montserrat', serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
 }
 
 .input {
+ width: 150px;
 }
 
 .pen {
+align-self: baseline;
 }
