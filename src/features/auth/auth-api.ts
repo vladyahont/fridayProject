@@ -27,6 +27,7 @@ export const authApi = {
     })
   },
 }
+
 type RegisterResponseType = {
   addedUser: {
     created: string
@@ -46,7 +47,7 @@ type InfoResponseType = {
   info: string
   error: string
 }
-type UserResponseType = {
+export type UserResponseType = {
   _id: string
   email: string
   name: string
