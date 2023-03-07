@@ -16,6 +16,8 @@ import * as Yup from 'yup'
 
 import { AppStateType } from '../../../app/store'
 
+import auth from '../auth.module.css'
+
 import log from './Login.module.css'
 
 export const Login = () => {
@@ -46,23 +48,23 @@ export const Login = () => {
   }
 
   return (
-    <Grid container className={log.container}>
-      <h1 className={log.h1}>Sign in</h1>
+    <Grid container className={auth.container}>
+      <h1 className={auth.h1}>Sign in</h1>
       <form onSubmit={formik.handleSubmit}>
-        <FormControl variant="standard" className={log.formControl}>
+        <FormControl variant="standard" className={auth.formControl}>
           <TextField
             label="Email"
             name="email"
             variant="standard"
-            value={formik.values.email}
+            //value={formik.values.email}  <<< если оставить, то лейбл теряется при потере фокуса и пустом поле
             //sx={}
             //onChange={formik.handleSubmit}
           />
         </FormControl>
-        {formik.errors.email && formik.touched.email && (
+        {/*{formik.errors.email && formik.touched.email && (
           <div style={{ color: 'red' }}>{formik.errors.email}</div>
-        )}
-        <FormControl variant="standard" className={log.formControl}>
+        )}*/}
+        <FormControl variant="standard" className={auth.formControl}>
           <InputLabel>Password</InputLabel>
           <Input
             name="password"
@@ -81,9 +83,9 @@ export const Login = () => {
             }
           />
         </FormControl>
-        {formik.errors.email && formik.touched.email && (
+        {/*{formik.errors.email && formik.touched.email && (
           <div style={{ color: 'red' }}>{formik.errors.email}</div>
-        )}
+        )}*/}
         <FormControlLabel
           name="rememberMe"
           className={log.remMe}
@@ -93,13 +95,13 @@ export const Login = () => {
         <a href={`/recovery`} className={log.forgPass}>
           Forgot Password?
         </a>
-        <Button type={'submit'} variant={'contained'} className={log.button}>
+        <Button type={'submit'} variant={'contained'} className={auth.button}>
           Sign in
         </Button>
       </form>
-      <p className={log.haveAccText}>Already have an account?</p>
+      <p className={auth.haveAccText}>Already have an account?</p>
       <NavLink to={`/fridayProject/registration`}>
-        <p className={log.haveAccLink}>Sign Up</p>
+        <p className={auth.haveAccLink}>Sign Up</p>
       </NavLink>
     </Grid>
   )

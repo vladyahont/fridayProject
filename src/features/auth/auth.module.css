@@ -7,7 +7,7 @@
 
     width: 413px!important;
     margin: 60px auto 72px auto!important;
-    padding: 35px 0 38px 0!important;
+    padding-bottom: 38px!important;
 
     font-weight: 600;
     text-align: center;
@@ -33,6 +33,7 @@
 }
 .haveAccLink{
     margin-top: 11px!important;
+    margin-bottom: 0!important;
 
     font-size: 16px;
     line-height: 24px;
@@ -44,6 +45,9 @@
 }
 
 .h1{
+    margin-top: 35px;
+    margin-bottom: 41px;
+
     font-size: 26px;
     font-weight: 600;
     line-height: 32px;
@@ -52,6 +56,9 @@
 .button {
     width: 85%!important;
     margin: 60px 0 0 0!important;
+
+    font-size: 16px!important;
+    text-transform: capitalize!important;
 
     background: #366EFF!important;
     border-radius: 30px!important;
