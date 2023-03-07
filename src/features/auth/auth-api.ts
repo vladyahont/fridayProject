@@ -8,7 +8,10 @@ export const authApi = {
     name: string,
     avatar: string // url or base64
   ) {
-    return instance.put<UserResponseType>(`auth/me`, { name, avatar })
+    return instance.put<{ updatedUser: UserResponseType; error?: string }>(`auth/me`, {
+      name,
+      avatar,
+    })
   },
   logIn(email: string, password: string, rememberMe: boolean) {
     return instance.post<UserResponseType>(`auth/login`, {
@@ -17,7 +20,7 @@ export const authApi = {
       rememberMe,
     })
   },
-  logAut() {
+  logout() {
     return instance.delete<InfoResponseType>(`auth/me`)
   },
   register(email: string, password: string) {
@@ -28,7 +31,7 @@ export const authApi = {
   },
 }
 
-type RegisterResponseType = {
+export type RegisterResponseType = {
   addedUser: {
     created: string
     email: string

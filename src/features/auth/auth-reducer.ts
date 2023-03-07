@@ -1,13 +1,14 @@
 import { authApi, UserResponseType } from './auth-api'
 import { Dispatch } from 'redux'
 import { AxiosResponse } from 'axios'
+import ava from '/src/assest/imgs/ava.png'
 
 const initialState: UserResponseType & { isLoggedIn: boolean } = {
   isLoggedIn: false,
   _id: '',
   email: 'j&johnson@gmail.com',
   name: 'ivan',
-  avatar: '',
+  avatar: ava,
   publicCardPacksCount: 0, // количество колод
 
   created: new Date(),
@@ -21,22 +22,34 @@ const initialState: UserResponseType & { isLoggedIn: boolean } = {
 
 type InitialStateType = typeof initialState
 
+// Types of action constants
 const SET_LOGIN = 'SET-LOGIN'
+const SET_LOGOUT = 'SET-LOGOUT'
+const SET_REGISTER = 'SET-REGISTER'
+const UPD_USER_DATA = 'UPD-USER-DATA'
 
 export const authReducer = (
   state: InitialStateType = initialState,
   action: ActionsType
 ): InitialStateType => {
   switch (action.type) {
-    case 'SET-LOGIN':
+    case SET_LOGIN:
       const data = action.payload.data
       return { ...state, ...data }
+    case SET_LOGOUT:
+      return { ...state, isLoggedIn: false }
+    case UPD_USER_DATA:
+      return { ...state, name: action.payload.name, avatar: action.payload.avatar }
     default:
       return state
   }
 }
 
-type ActionsType = setLoginACType
+/* --- Actions Type --- */
+
+type ActionsType = setLoginACType | setLogoutACType | updUserDataACType
+
+/* --- LOGIN --- */
 
 type setLoginACType = ReturnType<typeof setLoginAC>
 export const setLoginAC = (data: UserResponseType & { isLoggedIn: boolean }) => {
@@ -57,3 +70,44 @@ export const setLoginTC =
         dispatch(setLoginAC({ ...data, isLoggedIn: true }))
       })
   }
+
+/* --- LOGOUT --- */
+
+type setLogoutACType = ReturnType<typeof setLogoutAC>
+export const setLogoutAC = () => {
+  return {
+    type: SET_LOGOUT,
+  } as const
+}
+
+export const setLogoutTC = () => (dispatch: Dispatch) => {
+  return authApi.logout().then(res => {
+    dispatch(setLogoutAC())
+  })
+}
+
+/* --- REGISTER --- */
+
+export const registerTC = (email: string, password: string) => {
+  return authApi.register(email, password).then(res => {})
+}
+
+/* --- UPDATE USER --- */
+
+type updUserDataACType = ReturnType<typeof updUserDataAC>
+export const updUserDataAC = (name: string, avatar: string) => {
+  return {
+    type: UPD_USER_DATA,
+    payload: {
+      name,
+      avatar,
+    },
+  } as const
+}
+
+export const updUserDataTC = (name: string, avatar: string) => (dispatch: Dispatch) => {
+  return authApi.updateMe(name, avatar).then(res => {
+    const { name, avatar } = res.data.updatedUser
+    dispatch(updUserDataAC(name, avatar ? avatar : ava))
+  })
+}
