@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
@@ -9,8 +9,10 @@ import FormControl from '@mui/material/FormControl'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField'
-import { useSelector } from 'react-redux'
+import { useFormik } from 'formik'
+import { useDispatch, useSelector } from 'react-redux'
 import { Navigate, NavLink } from 'react-router-dom'
+import * as Yup from 'yup'
 
 import { AppStateType } from '../../../app/store'
 
@@ -18,8 +20,24 @@ import log from './Login.module.css'
 
 export const Login = () => {
   const isLoggedIn = useSelector<AppStateType, boolean>(state => state.auth.isLoggedIn)
+  const dispatch = useDispatch()
 
-  const [showPassword, setShowPassword] = React.useState(false)
+  const [showPassword, setShowPassword] = useState(false)
+
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+      rememberMe: false,
+    },
+    onSubmit: values => {
+      console.log(values)
+    },
+    validationSchema: Yup.object().shape({
+      email: Yup.string().required('Please enter email').email('Invalid email address'),
+      password: Yup.string().required('Please enter password'),
+    }),
+  })
 
   const handleClickShowPassword = () => setShowPassword(!showPassword)
 
@@ -30,31 +48,55 @@ export const Login = () => {
   return (
     <Grid container className={log.container}>
       <h1 className={log.h1}>Sign in</h1>
-      <FormControl variant="standard" className={log.formControl}>
-        <TextField label="Email" variant="standard" />
-      </FormControl>
-      <FormControl variant="standard" className={log.formControl}>
-        <InputLabel>Password</InputLabel>
-        <Input
-          id="standard-adornment-password"
-          className={log.input}
-          type={showPassword ? 'text' : 'password'}
-          endAdornment={
-            <InputAdornment position="end">
-              <IconButton aria-label="toggle password visibility" onClick={handleClickShowPassword}>
-                {showPassword ? <VisibilityOff /> : <Visibility />}
-              </IconButton>
-            </InputAdornment>
-          }
+      <form onSubmit={formik.handleSubmit}>
+        <FormControl variant="standard" className={log.formControl}>
+          <TextField
+            label="Email"
+            name="email"
+            variant="standard"
+            value={formik.values.email}
+            //sx={}
+            //onChange={formik.handleSubmit}
+          />
+        </FormControl>
+        {formik.errors.email && formik.touched.email && (
+          <div style={{ color: 'red' }}>{formik.errors.email}</div>
+        )}
+        <FormControl variant="standard" className={log.formControl}>
+          <InputLabel>Password</InputLabel>
+          <Input
+            name="password"
+            id="standard-adornment-password"
+            className={log.input}
+            type={showPassword ? 'text' : 'password'}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+        </FormControl>
+        {formik.errors.email && formik.touched.email && (
+          <div style={{ color: 'red' }}>{formik.errors.email}</div>
+        )}
+        <FormControlLabel
+          name="rememberMe"
+          className={log.remMe}
+          label={'Remember me'}
+          control={<Checkbox />}
         />
-      </FormControl>
-      <FormControlLabel className={log.remMe} label={'Remember me'} control={<Checkbox />} />
-      <a href={`/recovery`} className={log.forgPass}>
-        Forgot Password?
-      </a>
-      <Button type={'submit'} variant={'contained'} className={log.button}>
-        Sign in
-      </Button>
+        <a href={`/recovery`} className={log.forgPass}>
+          Forgot Password?
+        </a>
+        <Button type={'submit'} variant={'contained'} className={log.button}>
+          Sign in
+        </Button>
+      </form>
       <p className={log.haveAccText}>Already have an account?</p>
       <NavLink to={`/fridayProject/registration`}>
         <p className={log.haveAccLink}>Sign Up</p>
