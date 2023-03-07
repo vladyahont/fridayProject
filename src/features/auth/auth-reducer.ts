@@ -1,7 +1,7 @@
 import { authApi, UserResponseType } from './auth-api'
 import { Dispatch } from 'redux'
 import { AxiosResponse } from 'axios'
-import ava from '/src/assest/imgs/ava.png'
+import ava from '../../assest/imgs/ava.png'
 
 const initialState: UserResponseType & { isLoggedIn: boolean } = {
   isLoggedIn: false,
