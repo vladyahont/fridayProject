@@ -6,7 +6,7 @@ export const authApi = {
   },
   updateMe(
     name: string,
-    avatar: string // url or base64
+    avatar?: string // url or base64
   ) {
     return instance.put<{ updatedUser: UserResponseType; error?: string }>(`auth/me`, {
       name,

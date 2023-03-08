@@ -8,29 +8,40 @@ import EditableSpanProfile from './editSpan/EditableSpanProfile'
 import {LoadAva} from './loadAva/LoadAva'
 import s from './profile.module.css'
 import backIcon from "../../../assest/imgs/icons/back.svg"
+import {useAppDispatch, useAppSelector} from "../../../app/store";
+import {
+  isLoggedInSelector,
+  userEmailSelector,
+  userNameSelector
+} from "../../../app/selectors";
+import {logoutTC, updUserDataTC} from "../../auth/auth-reducer";
+import {Navigate} from "react-router-dom";
 
 export const Profile = () => {
-  //useSelect
-  const email = 'j&johnson@gmail.com'
-  const value = 'ivan'
-  const isLoggedIn = true
+
+  const dispatch = useAppDispatch()
+
+  const name = useAppSelector(userNameSelector)
+  const email = useAppSelector(userEmailSelector)
+  const isLoggedIn = useAppSelector(isLoggedInSelector)
+
 
   if (!isLoggedIn) {
-    return <div>redirect</div>
+    return <Navigate to ="/login" />;
   }
 
   const logOutHandler = useCallback(() => {
+    dispatch(logoutTC())
   }, [])
 
   const changeNameHandler = useCallback(
-    (value: string) => {
-      //запрос
-      alert(value)
+    (name: string) => {
+      dispatch(updUserDataTC(name))
     },
-    [value]
+    [name]
   )
   const onBackToPackList = () => {
-    console.log("click")
+    console.log("onBackToPackList")
   }
 
   return (
@@ -43,7 +54,7 @@ export const Profile = () => {
         <span className={s.title}>Personal Information</span>
         <LoadAva/>
         <div className={s.nameContainer}>
-          <EditableSpanProfile value={value} onChange={changeNameHandler}/>
+          <EditableSpanProfile value={name} onChange={changeNameHandler}/>
         </div>
         <span className={s.emailText}>{email}</span>
         <SuperButton className={s.btnLogAut} onClick={logOutHandler} xType={'logAut'}>

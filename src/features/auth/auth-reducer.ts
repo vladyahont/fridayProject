@@ -2,6 +2,7 @@ import { authApi, UserResponseType } from './auth-api'
 import { Dispatch } from 'redux'
 import { AxiosResponse } from 'axios'
 import ava from '../../assest/imgs/ava.png'
+import {RootThunkType} from "../../app/store";
 
 const initialState: UserResponseType & { isLoggedIn: boolean } = {
   isLoggedIn: false,
@@ -81,17 +82,20 @@ export const setLogoutAC = () => {
   } as const
 }
 
-export const setLogoutTC = () => (dispatch: Dispatch) => {
+export const logoutTC = ():RootThunkType => (dispatch: Dispatch) => {
   return authApi.logout().then(res => {
     dispatch(setLogoutAC())
   })
 }
 
+
 /* --- REGISTER --- */
 
-export const registerTC = (email: string, password: string) => {
-  return authApi.register(email, password).then(res => {})
-}
+/*export const registerTC = (email: string, password: string):RootThunkType => {
+  return authApi.register(email, password).then(res => {
+    dispatch()
+  })
+}*/
 
 /* --- UPDATE USER --- */
 
@@ -106,9 +110,9 @@ export const updUserDataAC = (name: string, avatar: string) => {
   } as const
 }
 
-export const updUserDataTC = (name: string, avatar: string) => (dispatch: Dispatch) => {
-  return authApi.updateMe(name, avatar).then(res => {
+export const updUserDataTC = (name: string, avatar?: string):RootThunkType => (dispatch: Dispatch) =>
+  authApi.updateMe(name, avatar).then(res => {
     const { name, avatar } = res.data.updatedUser
     dispatch(updUserDataAC(name, avatar ? avatar : ava))
   })
-}
+
