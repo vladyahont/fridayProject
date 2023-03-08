@@ -30,7 +30,7 @@ const UPD_USER_DATA = 'UPD-USER-DATA'
 
 export const authReducer = (
   state: InitialStateType = initialState,
-  action: ActionsType
+  action: AuthActionsType
 ): InitialStateType => {
   switch (action.type) {
     case SET_LOGIN:
@@ -48,7 +48,7 @@ export const authReducer = (
 
 /* --- Actions Type --- */
 
-type ActionsType = setLoginACType | setLogoutACType | updUserDataACType
+export type AuthActionsType = setLoginACType | setLogoutACType | updUserDataACType
 
 /* --- LOGIN --- */
 
