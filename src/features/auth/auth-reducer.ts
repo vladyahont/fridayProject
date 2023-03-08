@@ -64,7 +64,7 @@ export const setLoginAC = (data: UserResponseType & { isLoggedIn: boolean }) => 
 }
 
 export const setLoginTC =
-  (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch) => {
+  (email: string, password: string, rememberMe: boolean) :RootThunkType => (dispatch: Dispatch) => {
     return authApi
       .logIn(email, password, rememberMe)
       .then((res: AxiosResponse<UserResponseType, any>) => {
@@ -91,11 +91,11 @@ export const logoutTC = ():RootThunkType => (dispatch: Dispatch) => {
 
 /* --- REGISTER --- */
 
-/*export const registerTC = (email: string, password: string):RootThunkType => {
-  return authApi.register(email, password).then(res => {
-    dispatch()
+export const registerTC = (email: string, password: string):RootThunkType => (dispatch: Dispatch) =>
+{authApi.register(email, password).then(res => {
+    alert(res.data)
   })
-}*/
+}
 
 /* --- UPDATE USER --- */
 

@@ -9,20 +9,22 @@ import FormControl from '@mui/material/FormControl'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField'
-import { useFormik } from 'formik'
+import {Field, useFormik} from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
 import { Navigate, NavLink } from 'react-router-dom'
 import * as Yup from 'yup'
 
-import { AppStateType } from '../../../app/store'
+import {AppStateType, useAppDispatch} from '../../../app/store'
 
 import auth from '../auth.module.css'
 
 import log from './Login.module.css'
+import {registerTC, setLoginTC} from "../auth-reducer";
+import {isLoggedInSelector} from "../../../app/selectors";
 
 export const Login = () => {
-  const isLoggedIn = useSelector<AppStateType, boolean>(state => state.auth.isLoggedIn)
-  const dispatch = useDispatch()
+  const isLoggedIn = useSelector(isLoggedInSelector)
+  const dispatch = useAppDispatch()
 
   const [showPassword, setShowPassword] = useState(false)
 
@@ -34,6 +36,8 @@ export const Login = () => {
     },
     onSubmit: values => {
       console.log(values)
+      /*dispatch(setLoginTC(values.email,values.password,values.rememberMe))*/
+      dispatch(setLoginTC("test123123123@gmail.com","testfsdf12345test",true))
     },
     validationSchema: Yup.object().shape({
       email: Yup.string().required('Please enter email').email('Invalid email address'),
@@ -48,7 +52,7 @@ export const Login = () => {
   }
 
   return (
-    <Grid container className={auth.container}>
+  /*  <Grid container className={auth.container}>
       <h1 className={auth.h1}>Sign in</h1>
       <form onSubmit={formik.handleSubmit}>
         <FormControl variant="standard" className={auth.formControl}>
@@ -61,9 +65,9 @@ export const Login = () => {
             //onChange={formik.handleSubmit}
           />
         </FormControl>
-        {/*{formik.errors.email && formik.touched.email && (
+        {/!*{formik.errors.email && formik.touched.email && (
           <div style={{ color: 'red' }}>{formik.errors.email}</div>
-        )}*/}
+        )}*!/}
         <FormControl variant="standard" className={auth.formControl}>
           <InputLabel>Password</InputLabel>
           <Input
@@ -83,9 +87,9 @@ export const Login = () => {
             }
           />
         </FormControl>
-        {/*{formik.errors.email && formik.touched.email && (
+        {/!*{formik.errors.email && formik.touched.email && (
           <div style={{ color: 'red' }}>{formik.errors.email}</div>
-        )}*/}
+        )}*!/}
         <FormControlLabel
           name="rememberMe"
           className={log.remMe}
@@ -103,6 +107,35 @@ export const Login = () => {
       <NavLink to={`/fridayProject/registration`}>
         <p className={auth.haveAccLink}>Sign Up</p>
       </NavLink>
-    </Grid>
+    </Grid>*/
+
+    <div>
+      <form onSubmit={formik.handleSubmit}>
+          <TextField
+            fullWidth
+            id="email"
+            name="email"
+            label="Email"
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            error={formik.touched.email && Boolean(formik.errors.email)}
+            helperText={formik.touched.email && formik.errors.email}
+          />
+          <TextField
+            fullWidth
+            id="password"
+            name="password"
+            label="Password"
+            type="password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            error={formik.touched.password && Boolean(formik.errors.password)}
+            helperText={formik.touched.password && formik.errors.password}
+          />
+        <Button color="primary" variant="contained" fullWidth type="submit">
+          Submit
+        </Button>
+      </form>
+    </div>
   )
 }
