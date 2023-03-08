@@ -40,6 +40,7 @@ export const authReducer = (
       return { ...state, isLoggedIn: false }
     case UPD_USER_DATA:
       return { ...state, name: action.payload.name, avatar: action.payload.avatar }
+
     default:
       return state
   }
