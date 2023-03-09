@@ -2,11 +2,14 @@ import { authApi, UserResponseType } from './auth-api'
 import { Dispatch } from 'redux'
 import { AxiosResponse } from 'axios'
 import ava from '../../assest/imgs/ava.png'
-import {RootThunkType} from "../../app/store";
+import {RootActionType, RootThunkType} from "../../app/store";
+import {AppActionsType, initializeAppAC, initializeAppActionType, setAppStatusAC} from "../../app/app-reducer";
 
 const initialState: UserResponseType & { isLoggedIn: boolean ,isRegistered:boolean} = {
   isRegistered:false,
   isLoggedIn: false,
+
+
   _id: '',
   email: 'j&johnson@gmail.com',
   name: 'ivan',
@@ -36,8 +39,13 @@ export const authReducer = (
 ): InitialStateType => {
   switch (action.type) {
     case SET_LOGIN:
-      const data = action.payload.data
-      return { ...state, ...data }
+      return { ...state,
+        isLoggedIn:true,
+        _id:action.payload._id,
+        email:action.payload.email,
+        name:action.payload.name,
+        avatar:action.payload.avatar,
+        publicCardPacksCount:action.payload.publicCardPacksCount, }
     case SET_LOGOUT:
       return { ...state, isLoggedIn: false }
     case UPD_USER_DATA:
@@ -48,18 +56,53 @@ export const authReducer = (
   }
 }
 
+export type AuthActionsType = setLoginACType | setLogoutACType | updUserDataACType
+
+export const initializeProfileTC = () :RootThunkType => (dispatch)   =>{
+  dispatch(setAppStatusAC("loading"))
+  authApi.me().then((res) => {
+    if (res.data.name) {
+      const { name, email, _id, publicCardPacksCount,avatar } = res.data
+        dispatch(setLoginAC(
+          _id,
+        email,
+        name,
+        avatar,
+        publicCardPacksCount))
+        dispatch(setAppStatusAC('succeeded'))
+    }
+  }).finally(() => {
+    dispatch(initializeAppAC()
+    )}
+  )
+}
+
+
+
+
 /* --- Actions Type --- */
 
-export type AuthActionsType = setLoginACType | setLogoutACType | updUserDataACType
+
 
 /* --- LOGIN --- */
 
 type setLoginACType = ReturnType<typeof setLoginAC>
-export const setLoginAC = (data: UserResponseType & { isLoggedIn: boolean }) => {
+
+// пока данных хватит
+export const setLoginAC = (_id: string,
+                           email: string,
+                           name: string,
+                           avatar: string = ava, // временно
+                           publicCardPacksCount: number) => {
   return {
     type: SET_LOGIN,
     payload: {
-      data,
+      _id,
+      email,
+      name,
+      avatar,
+      publicCardPacksCount,
+      isLoggedIn: true,
     },
   } as const
 }
@@ -69,9 +112,15 @@ export const setLoginTC =
     return authApi
       .logIn(email, password, rememberMe)
       .then((res: AxiosResponse<UserResponseType, any>) => {
-        const { ...data } = res.data
-        dispatch(setLoginAC({ ...data, isLoggedIn: true }))
-      })
+        const { name, email, _id, publicCardPacksCount,avatar } = res.data
+        dispatch(setLoginAC(
+          _id,
+          email,
+          name,
+          avatar,
+          publicCardPacksCount))
+      }
+      )
   }
 
 /* --- LOGOUT --- */

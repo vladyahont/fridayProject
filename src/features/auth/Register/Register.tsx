@@ -1,21 +1,17 @@
 import React, {useCallback, useState} from 'react'
 import {
-  Alert,
+
   Button,
   FormControl,
   FormGroup,
-  Grid,
-  IconButton,
+
   Input,
-  InputAdornment,
+
   InputLabel,
-  LinearProgress,
-  TextField
+
 } from "@material-ui/core";
 import {useFormik} from "formik";
 import {Navigate, NavLink} from 'react-router-dom';
-import {useDispatch} from "react-redux";
-import {Visibility, VisibilityOff} from "@material-ui/icons";
 import {useAppDispatch, useAppSelector} from "../../../app/store";
 import {isLoggedInSelector, isRegisteredSelector} from "../../../app/selectors";
 import {registerTC} from "../auth-reducer";
