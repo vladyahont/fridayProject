@@ -26,7 +26,6 @@ export const appReducer = (
         appStatus: action.payload.appStatus,
       }
     case SET_INITIALIZE:
-      debugger
       return {
         ...state,
         isInitialized: true,
