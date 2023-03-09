@@ -55,7 +55,7 @@ import {PATH} from "../../../app/Path";
     return (
       <Grid container className={auth.container}>
         <h1 className={auth.h1}>Sign in</h1>
-        <form onSubmit={formik.handleSubmit}>
+        <form onSubmit={formik.handleSubmit} style={{marginTop: '16px'}}>
           <FormControl variant="standard" className={auth.formControl}>
             <TextField
               label="Email"
@@ -69,7 +69,7 @@ import {PATH} from "../../../app/Path";
           {/*{formik.errors.email && formik.touched.email && (
           <div style={{ color: 'red' }}>{formik.errors.email}</div>
         )}*/}
-          <FormControl variant="standard" className={auth.formControl}>
+          <FormControl variant="standard" className={auth.formControl} margin={'normal'} style={{marginBottom: '0'}}>
             <InputLabel>Password</InputLabel>
             <Input
               name="password"
@@ -104,8 +104,8 @@ import {PATH} from "../../../app/Path";
             Sign in
           </Button>
         </form>
-        <p className={auth.haveAccText}>Already have an account?</p>
-        <NavLink to={`/fridayProject/registration`}>
+        <p className={auth.haveAccText}>Don't have an account?</p>
+        <NavLink to={`${PATH.REGISTRATION}`}>
           <p className={auth.haveAccLink}>Sign Up</p>
         </NavLink>
       </Grid>
