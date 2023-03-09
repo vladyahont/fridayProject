@@ -21,6 +21,7 @@ import auth from '../auth.module.css'
 import log from './Login.module.css'
 
 import {isLoggedInSelector} from "../../../app/selectors";
+import {PATH} from "../../../app/Path";
 
   export const Login = () => {
     const isLoggedIn = useSelector(isLoggedInSelector)
@@ -48,7 +49,7 @@ import {isLoggedInSelector} from "../../../app/selectors";
     const handleClickShowPassword = () => setShowPassword(!showPassword)
 
     if (isLoggedIn) {
-      return <Navigate to={'/fridayProject/profile'} />
+      return <Navigate to={PATH.PROFILE} />
     }
 
     return (

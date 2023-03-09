@@ -69,8 +69,8 @@ export const initializeProfileTC = () :RootThunkType => (dispatch)   =>{
         name,
         avatar,
         publicCardPacksCount))
-        dispatch(setAppStatusAC('succeeded'))
     }
+    dispatch(setAppStatusAC('succeeded'))
   }).finally(() => {
     dispatch(initializeAppAC()
     )}

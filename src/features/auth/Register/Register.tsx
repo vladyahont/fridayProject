@@ -15,6 +15,7 @@ import {Navigate, NavLink} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from "../../../app/store";
 import {isLoggedInSelector, isRegisteredSelector} from "../../../app/selectors";
 import {registerTC} from "../auth-reducer";
+import {PATH} from "../../../app/Path";
 
 
 type RegFormikErrorsType = {
@@ -76,11 +77,11 @@ export const Register = () => {
 
   //если зарегистрировался, переходим на login
   if (isRegistered) {
-    return <Navigate to={'/login'}/>
+    return <Navigate to={PATH.LOGIN}/>
   }
 
   if (isLoggedIn) {
-    return <Navigate to={'/profile'}/>
+    return <Navigate to={PATH.PROFILE}/>
   }
 
 
