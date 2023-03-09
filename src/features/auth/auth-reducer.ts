@@ -4,7 +4,8 @@ import { AxiosResponse } from 'axios'
 import ava from '../../assest/imgs/ava.png'
 import {RootThunkType} from "../../app/store";
 
-const initialState: UserResponseType & { isLoggedIn: boolean } = {
+const initialState: UserResponseType & { isLoggedIn: boolean ,isRegistered:boolean} = {
+  isRegistered:false,
   isLoggedIn: false,
   _id: '',
   email: 'j&johnson@gmail.com',
