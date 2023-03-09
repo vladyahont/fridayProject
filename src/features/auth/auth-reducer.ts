@@ -34,11 +34,12 @@ type InitialStateType = typeof initialState
 // Types of action constants
 const SET_LOGIN = 'AUTH/SET_LOGIN'
 const SET_LOGOUT = 'AUTH/SET_LOGOUT'
+const SET_REGISTERED = 'AUTH/SET_REGISTERED'
 const UPD_USER_DATA = 'AUTH/UPD_USER_DATA'
 
 export const authReducer = (
-  state: InitialStateType = initialState,
-  action: AuthActionsType
+    state: InitialStateType = initialState,
+    action: AuthActionsType
 ): InitialStateType => {
   switch (action.type) {
     case SET_LOGIN:
@@ -53,6 +54,8 @@ export const authReducer = (
       }
     case SET_LOGOUT:
       return { ...state, isLoggedIn: false }
+    case SET_REGISTERED:
+      return { ...state, isRegistered: action.payload.isRegistered }
     case UPD_USER_DATA:
       return { ...state, name: action.payload.name, avatar: action.payload.avatar }
 
@@ -61,28 +64,32 @@ export const authReducer = (
   }
 }
 
-export type AuthActionsType = setLoginACType | setLogoutACType | updUserDataACType
+export type AuthActionsType =
+    | setLoginACType
+    | setLogoutACType
+    | updUserDataACType
+    | setRegisteredACType
 
 /* --- INITIALIZE PROFILE --- */
 
 export const initializeProfileTC = (): RootThunkType => dispatch => {
   dispatch(setAppStatusAC('loading'))
   authApi
-    .me()
-    .then(res => {
-      if (res.data.name) {
-        const { name, email, _id, publicCardPacksCount, avatar } = res.data
-        dispatch(setLoginAC(_id, email, name, avatar, publicCardPacksCount))
-      }
-      dispatch(setAppStatusAC('succeeded'))
-    })
-    .catch(reason => {
-      console.log(reason)
-      dispatch(setAppStatusAC('failed'))
-    })
-    .finally(() => {
-      dispatch(initializeAppAC())
-    })
+      .me()
+      .then(res => {
+        if (res.data.name) {
+          const { name, email, _id, publicCardPacksCount, avatar } = res.data
+          dispatch(setLoginAC(_id, email, name, avatar, publicCardPacksCount))
+        }
+        dispatch(setAppStatusAC('succeeded'))
+      })
+      .catch(reason => {
+        console.log(reason)
+        dispatch(setAppStatusAC('failed'))
+      })
+      .finally(() => {
+        dispatch(initializeAppAC())
+      })
 }
 
 /* --- LOGIN --- */
@@ -91,11 +98,11 @@ type setLoginACType = ReturnType<typeof setLoginAC>
 
 // пока данных хватит
 export const setLoginAC = (
-  _id: string,
-  email: string,
-  name: string,
-  avatar: string = ava, // временно
-  publicCardPacksCount: number
+    _id: string,
+    email: string,
+    name: string,
+    avatar: string = ava, // временно
+    publicCardPacksCount: number
 ) => {
   return {
     type: SET_LOGIN,
@@ -111,15 +118,15 @@ export const setLoginAC = (
 }
 
 export const setLoginTC =
-  (email: string, password: string, rememberMe: boolean): RootThunkType =>
-  (dispatch: Dispatch) => {
-    return authApi
-      .logIn(email, password, rememberMe)
-      .then((res: AxiosResponse<UserResponseType, any>) => {
-        const { name, email, _id, publicCardPacksCount, avatar } = res.data
-        dispatch(setLoginAC(_id, email, name, avatar, publicCardPacksCount))
-      })
-  }
+    (email: string, password: string, rememberMe: boolean): RootThunkType =>
+        (dispatch: Dispatch) => {
+          return authApi
+              .logIn(email, password, rememberMe)
+              .then((res: AxiosResponse<UserResponseType, any>) => {
+                const { name, email, _id, publicCardPacksCount, avatar } = res.data
+                dispatch(setLoginAC(_id, email, name, avatar, publicCardPacksCount))
+              })
+        }
 
 /* --- LOGOUT --- */
 
@@ -136,15 +143,26 @@ export const logoutTC = (): RootThunkType => (dispatch: Dispatch) => {
   })
 }
 
-/* --- REGISTER --- */
+/* --- REGISTRATION --- */
+
+type setRegisteredACType = ReturnType<typeof setRegisteredAC>
+export const setRegisteredAC = (isRegistered: boolean) => {
+  return {
+    type: SET_REGISTERED,
+    payload: {
+      isRegistered,
+    },
+  } as const
+}
 
 export const registerTC =
-  (email: string, password: string): RootThunkType =>
-  (dispatch: Dispatch) => {
-    authApi.register(email, password).then(res => {
-      alert(JSON.stringify(res.data.addedUser))
-    })
-  }
+    (email: string, password: string): RootThunkType =>
+        (dispatch: Dispatch) => {
+          authApi.register(email, password).then(res => {
+            alert(JSON.stringify(res.data.addedUser))
+            dispatch(setRegisteredAC(true))
+          })
+        }
 
 /* --- UPDATE USER --- */
 
@@ -160,9 +178,9 @@ export const updUserDataAC = (name: string, avatar: string) => {
 }
 
 export const updUserDataTC =
-  (name: string, avatar?: string): RootThunkType =>
-  (dispatch: Dispatch) =>
-    authApi.updateMe(name, avatar).then(res => {
-      const { name, avatar } = res.data.updatedUser
-      dispatch(updUserDataAC(name, avatar ? avatar : ava))
-    })
+    (name: string, avatar?: string): RootThunkType =>
+        (dispatch: Dispatch) =>
+            authApi.updateMe(name, avatar).then(res => {
+              const { name, avatar } = res.data.updatedUser
+              dispatch(updUserDataAC(name, avatar ? avatar : ava))
+            })
