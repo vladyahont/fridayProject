@@ -8,7 +8,7 @@ import { useFormik } from 'formik'
 import { Navigate, NavLink } from 'react-router-dom'
 import {useAppDispatch, useAppSelector} from '../../../app/store'
 import log from './Login.module.css'
-import {isLoggedInSelector, isRegisteredSelector} from "../../../app/selectors";
+import {isLoggedInSelector} from "../../../app/selectors";
 import {PATH} from "../../../app/Path";
 import {setLoginTC} from "../auth-reducer";
 import {FormGroup} from "@material-ui/core";
