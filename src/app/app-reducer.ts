@@ -60,9 +60,9 @@ export const setAppErrorAC = (errorMessage: string | null) =>
     },
   } as const)
 
-type SetAppStatusActionType = ReturnType<typeof setAppStatusAC>
+export type SetAppStatusActionType = ReturnType<typeof setAppStatusAC>
 export type initializeAppActionType = ReturnType<typeof initializeAppAC>
-type setAppErrorACActionType = ReturnType<typeof setAppErrorAC>
+export type setAppErrorACActionType = ReturnType<typeof setAppErrorAC>
 
 export type AppActionsType =
   | SetAppStatusActionType
