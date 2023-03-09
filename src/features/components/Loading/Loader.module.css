@@ -1,0 +1,30 @@
+.loaderContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+
+    height: 100vh;
+}
+
+.loader {
+    width: 90px;
+    height: 90px;
+
+    border-top: 4.5px solid #512DE4;
+    border-right: 4.5px solid transparent;
+    border-radius: 50%;
+
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

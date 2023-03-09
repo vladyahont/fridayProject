@@ -3,31 +3,38 @@ export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 type AppStatusType = RequestStatusType
 
 const initialState = {
-  isInitialized:false,
+  isInitialized: false,
   appStatus: 'idle' as AppStatusType,
   appError: null as string | null,
 }
 
 type InitialStateType = typeof initialState
+
+// Types of action constants
+const SET_APP_STATUS = 'APP/SET_APP_STATUS'
+const SET_INITIALIZE = 'APP/SET_INITIALIZE'
+const SET_APP_ERROR = 'APP/SET_APP_ERROR'
+
 export const appReducer = (
   state: InitialStateType = initialState,
   action: AppActionsType
 ): InitialStateType => {
   switch (action.type) {
-    case 'APP/SET_APP_STATUS':
+    case SET_APP_STATUS:
       return {
         ...state,
-        appStatus: action.appStatus,
+        appStatus: action.payload.appStatus,
       }
-    case 'APP/SET_INITIALIZE':
+    case SET_INITIALIZE:
+      debugger
       return {
         ...state,
         isInitialized: true,
       }
-    case 'APP/SET_APP_ERROR':
+    case SET_APP_ERROR:
       return {
         ...state,
-        appError: action.appError,
+        appError: action.payload.appError,
       }
     default:
       return state
@@ -36,25 +43,28 @@ export const appReducer = (
 
 export const setAppStatusAC = (newStatus: AppStatusType) =>
   ({
-    type: 'APP/SET_APP_STATUS',
-    appStatus: newStatus,
+    type: SET_APP_STATUS,
+    payload: {
+      appStatus: newStatus,
+    },
   } as const)
 export const initializeAppAC = () =>
   ({
-    type: 'APP/SET_INITIALIZE',
+    type: SET_INITIALIZE,
   } as const)
 export const setAppErrorAC = (errorMessage: string | null) =>
   ({
-    type: 'APP/SET_APP_ERROR',
-    appError: errorMessage,
+    type: SET_APP_ERROR,
+    payload: {
+      appError: errorMessage,
+    },
   } as const)
 
-
 type SetAppStatusActionType = ReturnType<typeof setAppStatusAC>
- export  type initializeAppActionType = ReturnType<typeof initializeAppAC>
+export type initializeAppActionType = ReturnType<typeof initializeAppAC>
 type setAppErrorACActionType = ReturnType<typeof setAppErrorAC>
 
 export type AppActionsType =
-  SetAppStatusActionType |
-  setAppErrorACActionType |
-  initializeAppActionType
+  | SetAppStatusActionType
+  | setAppErrorACActionType
+  | initializeAppActionType
