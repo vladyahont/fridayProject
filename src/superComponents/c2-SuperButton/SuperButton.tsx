@@ -9,7 +9,7 @@ type DefaultButtonPropsType = DetailedHTMLProps<
 >
 
 type SuperButtonPropsType = DefaultButtonPropsType & {
-  xType?: 'logAut' | 'save'
+  xType?: 'logout' | 'save'
 }
 
 const SuperButton: React.FC<SuperButtonPropsType> = ({
@@ -27,7 +27,7 @@ const SuperButton: React.FC<SuperButtonPropsType> = ({
   let finalClassName = disabled
     ? ' ' + s.disabled
     : // eslint-disable-next-line no-nested-ternary
-    xType === 'logAut'
+    xType === 'logout'
     ? ' ' + s.logAut
     : xType === 'save'
     ? ' ' + s.safe

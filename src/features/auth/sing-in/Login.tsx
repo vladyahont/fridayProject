@@ -39,7 +39,7 @@ export const Login = () => {
     },
     validationSchema: Yup.object<LogFormikErrorsType>().shape({
             email: Yup.string().required('please enter email').email('invalid email address'),
-            password: Yup.string().required('please enter password').min(5).max(16),
+            password: Yup.string().required('please enter password').min(8).max(16),
           }),
     onSubmit: values => {
       const { email, password, rememberMe } = values
@@ -48,8 +48,7 @@ export const Login = () => {
     },
   })
 
-  useEffect(() => {  isLoggedIn && navigate(`${PATH.PROFILE}`)
-  }, [isLoggedIn])
+  useEffect(() => { isLoggedIn && navigate(`${PATH.PROFILE}`) }, [isLoggedIn])
 
   /*if (isLoggedIn) {
     console.log(isLoggedIn)
@@ -66,11 +65,12 @@ export const Login = () => {
               <FormControl margin={'normal'}>
                 <InputLabel>Email</InputLabel>
                 <Input {...formik.getFieldProps('email')} className={log.input}/>
+                {formik.errors.email && formik.touched.email && (
+                    <div className={auth.inputError}>{formik.errors.email}</div>
+                )}
               </FormControl>
-              {formik.errors.email && formik.touched.email && (
-                  <div style={{ color: 'crimson' }}>{formik.errors.email}</div>
-              )}
-              <FormControl margin={'normal'}>
+
+              <FormControl margin={'normal'} style={{marginTop: '33px'}}>
                 <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
                 <Input
                     type={showPassword ? 'text' : 'password'}
@@ -87,16 +87,18 @@ export const Login = () => {
                       </InputAdornment>
                     }
                 />
+                {formik.errors.password && formik.touched.password && (
+                    <div className={auth.inputError}>{formik.errors.password}</div>
+                )}
               </FormControl>
-              {formik.errors.password && formik.touched.password && (
-                  <div style={{ color: 'crimson' }}>{formik.errors.password}</div>
-              )}
+
               <FormControlLabel
                   {...formik.getFieldProps('email')}
                   className={log.remMe}
                   label={'Remember me'}
                   control={<Checkbox name="rememberMe"/>}
               />
+              <a href={`${PATH.RECOVERY}`} className={log.forgPass}>Forgot Password?</a>
               <Button
                   className={log.button}
                   style={{ marginTop: '10px' }}
@@ -108,8 +110,10 @@ export const Login = () => {
               </Button>
             </FormGroup>
           </form>
-            <p className={log.haveAccText}>Already have an account?</p>
-          <NavLink to={PATH.REGISTRATION}>Sign Up</NavLink>
+            <p className={log.haveAccText}>Don't have an account?</p>
+          <NavLink to={PATH.REGISTRATION}>
+            <p className={auth.haveAccLink}>Sign Up</p>
+          </NavLink>
         </FormControl>
       </Grid>
   )

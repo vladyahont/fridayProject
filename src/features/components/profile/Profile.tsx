@@ -49,17 +49,19 @@ export const Profile = () => {
         <img src={backIcon} alt=" "/>
         <span>Back to Packs List</span>
       </div>
-      <div className={s.profileBlock}>
-        <span className={s.title}>Personal Information</span>
-        <LoadAva/>
-        <div className={s.nameContainer}>
-          <EditableSpanProfile value={name} onChange={changeNameHandler}/>
+      <div className={s.profileContainer}>
+        <div className={s.profileBlock}>
+          <span className={s.title}>Personal Information</span>
+          <LoadAva/>
+          <div className={s.nameContainer}>
+            <EditableSpanProfile value={name} onChange={changeNameHandler}/>
+          </div>
+          <span className={s.emailText}>{email}</span>
+          <SuperButton className={s.btnLogout} onClick={logOutHandler} xType={'logout'}>
+            <Logout className={s.btnIcon}/>
+            <div className={s.btnText}>Log out</div>
+          </SuperButton>
         </div>
-        <span className={s.emailText}>{email}</span>
-        <SuperButton className={s.btnLogAut} onClick={logOutHandler} xType={'logAut'}>
-          <Logout className={s.btnIcon}/>
-          <div className={s.btnText}>Log out</div>
-        </SuperButton>
       </div>
     </>
   )

@@ -15,6 +15,7 @@ import {PATH} from "./Path";
 import {Loading} from "../features/components/Loading/Loading";
 import {Loader} from "../features/components/Loading/Loader";
 import {appStatusSelector, isInitializedSelector} from "./selectors";
+import {DevFooter} from "../features/components/DevFooter/DevFooter";
 
 function App() {
   const dispatch = useAppDispatch()
@@ -47,6 +48,7 @@ function App() {
         <Route path={PATH.NEWPASSWORD} element={<NewPasswordPage />} />
         <Route path={'*'} element={<Navigate to={PATH['404']} />} />
       </Routes>
+      <DevFooter/>
     </div>
   )
 }

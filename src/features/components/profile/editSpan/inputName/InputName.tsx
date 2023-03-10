@@ -20,6 +20,11 @@ const InputName = (props: PropsType) => {
         return {
           name: 'Name is required',
         }
+      if (values.name.length > 20) {
+        return {
+          name: 'Nickname should be less than 20',
+        }
+      }
     },
     onSubmit: values => {
       props.onChange(values.name)
@@ -30,7 +35,7 @@ const InputName = (props: PropsType) => {
 
   return (
     <form className={s.formContainer} onSubmit={formik.handleSubmit}>
-      <label className={s.formLabel}>Nick Name</label>
+      <label className={s.formLabel}>Nickname</label>
       <div className={s.form}>
         <input
           className={s.formInput}
