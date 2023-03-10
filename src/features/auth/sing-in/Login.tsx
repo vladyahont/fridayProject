@@ -9,7 +9,7 @@ import {Navigate, NavLink, useNavigate} from 'react-router-dom'
 import {useAppDispatch, useAppSelector} from '../../../app/store'
 import {isLoggedInSelector} from "../../../app/selectors";
 import {PATH} from "../../../app/Path";
-import {setLoginTC} from "../auth-reducer";
+import {loginTC} from "../auth-reducer";
 import {FormGroup} from "@material-ui/core";
 import * as Yup from 'yup'
 import log from "./Login.module.css";
@@ -44,7 +44,7 @@ export const Login = () => {
     onSubmit: values => {
       const { email, password, rememberMe } = values
 
-      dispatch(setLoginTC(email, password, rememberMe))
+      dispatch(loginTC(email, password, rememberMe))
     },
   })
 

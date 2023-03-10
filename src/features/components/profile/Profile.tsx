@@ -28,9 +28,6 @@ export const Profile = () => {
   useEffect(
     () => {  !isLoggedIn && navigate(`${PATH.LOGIN}`)
   }, [isLoggedIn])
-  /*if (!isLoggedIn) {
-    return <Navigate to={PATH.LOGIN} />;
-  }*/
 
   const logOutHandler = useCallback(() => {
     dispatch(logoutTC())
