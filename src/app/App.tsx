@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { Header } from '../features/components/Header'
+import { Header } from '../features/components/Header/Header'
 import './App.css'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { Profile } from '../features/components/profile/Profile'
@@ -8,14 +8,13 @@ import { Login } from '../features/auth/sing-in/Login'
 import { ErrorPage } from '../features/components/ErrorPage'
 import { PasswordRecovery } from '../features/components/PassworRecovery'
 import { NewPasswordPage } from '../features/components/NewPasswordPage'
-import { ShowSuperComp } from '../features/components/ShowSuperComp'
 import { useAppDispatch, useAppSelector } from './store'
-import { appStatusSelector, isInitializedSelector } from './selectors'
-import { Loading } from '../features/components/Loading/Loading'
 import { initializeProfileTC } from '../features/auth/auth-reducer'
-import { PATH } from './Path'
-import { Loader } from '../features/components/Loading/Loader'
 import {SignUp} from "../features/auth/sign-up/SignUp";
+import {PATH} from "./Path";
+import {Loading} from "../features/components/Loading/Loading";
+import {Loader} from "../features/components/Loading/Loader";
+import {appStatusSelector, isInitializedSelector} from "./selectors";
 
 function App() {
   const dispatch = useAppDispatch()
