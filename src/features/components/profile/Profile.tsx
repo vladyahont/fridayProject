@@ -25,7 +25,8 @@ export const Profile = () => {
   const isLoggedIn = useAppSelector(isLoggedInSelector)
   const navigate = useNavigate()
 
-  useEffect(() => {  !isLoggedIn && navigate(`${PATH.LOGIN}`)
+  useEffect(
+    () => {  !isLoggedIn && navigate(`${PATH.LOGIN}`)
   }, [isLoggedIn])
   /*if (!isLoggedIn) {
     return <Navigate to={PATH.LOGIN} />;

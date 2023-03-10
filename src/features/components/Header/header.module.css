@@ -1,0 +1,48 @@
+
+
+
+.active {
+    color: black;
+}
+
+.navBlock a {
+    padding: 0 10px;
+    text-decoration: none;
+}
+
+.navBlock {
+    display: flex;
+    justify-content: space-around;
+    font-family: 'Montserrat', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #000000;
+    opacity: 0.5;
+}
+
+.profileBlock {
+    display: flex;
+    align-items: center;
+    gap: 3px
+}
+
+.profileImg {
+    max-width: 50px;
+    max-height: 50px;
+    border-radius: 50%;
+}
+
+.profileText {
+    font-family: 'Montserrat', serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #000000;
+}
+
+.navText {
+
+}
