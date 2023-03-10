@@ -1,6 +1,6 @@
 import { authApi, UserResponseType } from './auth-api'
 import { Dispatch } from 'redux'
-import { AxiosResponse } from 'axios'
+import {AxiosError, AxiosResponse} from 'axios'
 import ava from '../../assest/imgs/ava.png'
 import { RootActionType, RootThunkType } from '../../app/store'
 import {
@@ -9,6 +9,7 @@ import {
   initializeAppActionType,
   setAppStatusAC,
 } from '../../app/app-reducer'
+import {errorUtils} from "../../utils/error-utils";
 
 const initialState: UserResponseType & { isLoggedIn: boolean; isRegistered: boolean } = {
   isRegistered: false,
@@ -138,9 +139,13 @@ export const setLogoutAC = () => {
 }
 
 export const logoutTC = (): RootThunkType => (dispatch: Dispatch) => {
+  dispatch(setAppStatusAC("loading"));
   return authApi.logout().then(res => {
     dispatch(setLogoutAC())
-  })
+    dispatch(setAppStatusAC("succeeded"));
+  }).catch((err: AxiosError<{ error: string }>) => {
+    errorUtils(err, dispatch);
+  });
 }
 
 /* --- REGISTRATION --- */

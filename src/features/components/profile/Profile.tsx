@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react'
+import React, {useCallback, useEffect} from 'react'
 
 import {Logout} from '@mui/icons-material'
 
@@ -15,7 +15,8 @@ import {
   userNameSelector
 } from "../../../app/selectors";
 import {logoutTC, updUserDataTC} from "../../auth/auth-reducer";
-import {Navigate} from "react-router-dom";
+import {Navigate, useNavigate} from "react-router-dom";
+import {PATH} from "../../../app/Path";
 
 export const Profile = () => {
 
@@ -24,11 +25,13 @@ export const Profile = () => {
   const name = useAppSelector(userNameSelector)
   const email = useAppSelector(userEmailSelector)
   const isLoggedIn = useAppSelector(isLoggedInSelector)
+  const navigate = useNavigate()
 
-
-  if (!isLoggedIn) {
-    return <Navigate to ="/login" />;
-  }
+  useEffect(() => {  !isLoggedIn && navigate(`${PATH.LOGIN}`)
+  }, [isLoggedIn])
+  /*if (!isLoggedIn) {
+    return <Navigate to={PATH.LOGIN} />;
+  }*/
 
   const logOutHandler = useCallback(() => {
     dispatch(logoutTC())

@@ -27,6 +27,7 @@
 }
 
 .input {
+    all: unset;
     width: 150px;
 }
 

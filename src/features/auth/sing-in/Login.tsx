@@ -1,11 +1,11 @@
-import React, {useCallback, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import {Grid, IconButton, Input, InputAdornment, InputLabel} from '@mui/material'
 import Button from '@mui/material/Button'
 import Checkbox from '@mui/material/Checkbox'
 import FormControl from '@mui/material/FormControl'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import { useFormik } from 'formik'
-import { Navigate, NavLink } from 'react-router-dom'
+import {Navigate, NavLink, useNavigate} from 'react-router-dom'
 import {useAppDispatch, useAppSelector} from '../../../app/store'
 import {isLoggedInSelector} from "../../../app/selectors";
 import {PATH} from "../../../app/Path";
@@ -26,7 +26,7 @@ type LogFormikErrorsType = {
 export const Login = () => {
   const dispatch = useAppDispatch()
   const isLoggedIn = useAppSelector(isLoggedInSelector)
-
+  const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false)
 
   const handleClickShowPassword = useCallback(() => setShowPassword(!showPassword), [])
@@ -48,9 +48,13 @@ export const Login = () => {
     },
   })
 
-  if (isLoggedIn) {
+  useEffect(() => {  isLoggedIn && navigate(`${PATH.PROFILE}`)
+  }, [isLoggedIn])
+
+  /*if (isLoggedIn) {
+    console.log(isLoggedIn)
     return <Navigate to={PATH.PROFILE} />
-  }
+  }*/
   console.log(formik.values)
 
   return (
