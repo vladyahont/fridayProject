@@ -16,6 +16,7 @@ import log from "./Login.module.css";
 import auth from "../auth.module.css";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
+import {PasswordField} from "../PasswordField/PasswordField";
 
 type LogFormikErrorsType = {
   email?: string
@@ -30,6 +31,7 @@ export const Login = () => {
   const [showPassword, setShowPassword] = useState(false)
 
   const handleClickShowPassword = useCallback(() => setShowPassword(!showPassword), [])
+  const handleMouseDownPassword = useCallback((event: React.MouseEvent<HTMLButtonElement>) => event.preventDefault(), [])
 
   const formik = useFormik({
     initialValues: {
@@ -57,14 +59,14 @@ export const Login = () => {
   console.log(formik.values)
 
   return (
-      <Grid container className={log.container}>
-        <FormControl variant="standard" className={log.formControl}>
-          <h1 className={log.h1}> Sing In </h1>
+      <Grid container className={auth.container}>
+        <FormControl variant="standard" className={auth.formControl}>
+          <h1 className={auth.h1}> Sing In </h1>
           <form onSubmit={formik.handleSubmit}>
             <FormGroup style={{marginTop:'0'}}>
               <FormControl margin={'normal'}>
                 <InputLabel>Email</InputLabel>
-                <Input {...formik.getFieldProps('email')} className={log.input}/>
+                <Input {...formik.getFieldProps('email')}/>
                 {formik.errors.email && formik.touched.email && (
                     <div className={auth.inputError}>{formik.errors.email}</div>
                 )}
@@ -75,7 +77,6 @@ export const Login = () => {
                 <Input
                     type={showPassword ? 'text' : 'password'}
                     {...formik.getFieldProps('password')}
-                    className={auth.input}
                     endAdornment={
                       <InputAdornment position="end">
                         <IconButton
@@ -100,7 +101,7 @@ export const Login = () => {
               />
               <a href={`${PATH.RECOVERY}`} className={log.forgPass}>Forgot Password?</a>
               <Button
-                  className={log.button}
+                  className={auth.button}
                   style={{ marginTop: '10px' }}
                   type={'submit'}
                   variant={'contained'}
@@ -110,7 +111,7 @@ export const Login = () => {
               </Button>
             </FormGroup>
           </form>
-            <p className={log.haveAccText}>Don't have an account?</p>
+            <p className={auth.haveAccText}>Don't have an account?</p>
           <NavLink to={PATH.REGISTRATION}>
             <p className={auth.haveAccLink}>Sign Up</p>
           </NavLink>

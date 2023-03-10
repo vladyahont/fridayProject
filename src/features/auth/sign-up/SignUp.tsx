@@ -7,18 +7,19 @@ import {isRegisteredSelector} from '../../../app/selectors'
 import {registerTC, setRegisteredAC} from '../auth-reducer'
 import {PATH} from '../../../app/Path'
 import auth from "../auth.module.css";
-import {Grid, IconButton, InputAdornment} from "@mui/material";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import Visibility from "@mui/icons-material/Visibility";
+import {Grid} from "@mui/material";
+import {PasswordField} from "../PasswordField/PasswordField";
+import {EmailField} from "../EmailField/EmailField";
 
-type RegFormikErrorsType = {
+type FormikErrorsType = {
     email?: string
     password?: string
     confirmPassword?: string
+    rememberMe?: boolean
 }
 
-const validate = (values: RegFormikErrorsType) => {
-    const errors: RegFormikErrorsType = {}
+export const validate = (values: FormikErrorsType) => {
+    const errors: FormikErrorsType = {}
     if (!values.email) {
         errors.email = 'Required'
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
@@ -45,7 +46,7 @@ export const SignUp = () => {
 
     const isRegistered = useAppSelector(isRegisteredSelector)
 
-    const [disabled, setDisabled] = useState(false)
+    //const [disabled, setDisabled] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
     const [confirmPassword, setShowConfirmPassword] = useState(false)
 
@@ -61,6 +62,7 @@ export const SignUp = () => {
             email: '',
             password: '',
             confirmPassword: '',
+            rememberMe: false
         },
         validate,
         onSubmit: values => {
@@ -81,75 +83,40 @@ export const SignUp = () => {
             <FormControl variant="standard" className={auth.formControl}>
                 <h1 className={auth.h1}>Sign Up</h1>
                 <form onSubmit={formik.handleSubmit}>
-                    <FormGroup style={{marginTop:'0'}}>
-                        <FormControl margin={'normal'}>
-                            <InputLabel>Email</InputLabel>
-                            <Input {...formik.getFieldProps('email')} className={auth.input}/>
-                            {formik.errors.email && formik.touched.email && (
-                                <div className={auth.inputError}>{formik.errors.email}</div>
-                            )}
-                        </FormControl>
 
+                    <FormGroup style={{marginTop: '0'}}>
 
                         <FormControl margin={'normal'}>
-                            <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
-                            <Input
-                                type={showPassword ? 'text' : 'password'}
-                                {...formik.getFieldProps('password')}
-                                className={auth.input}
-                                endAdornment={
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                            aria-label="toggle password visibility"
-                                            onClick={handleClickShowPassword}
-                                            onMouseDown={handleMouseDownPassword}
-                                        >
-                                            {showPassword ? <VisibilityOff/> : <Visibility/>}
-                                        </IconButton>
-                                    </InputAdornment>
-                                }
-                            />
-                            {formik.errors.password && formik.touched.password && (
-                                <div className={auth.inputError}>{formik.errors.password}</div>
-                            )}
+                            <EmailField formik={formik}/>
                         </FormControl>
 
-                        <FormControl margin={'normal'} >
-                            <InputLabel htmlFor="standard-adornment-password">Confirm password</InputLabel>
-                            <Input
-                                type={confirmPassword ? 'text' : 'password'}
-                                {...formik.getFieldProps('confirmPassword')}
-                                className={auth.input}
-                                endAdornment={
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                            aria-label="toggle password visibility"
-                                            onClick={handleClickShowConfirmPassword}
-                                            onMouseDown={handleMouseDownPassword}
-                                        >
-                                            {confirmPassword ? <VisibilityOff/> : <Visibility/>}
-                                        </IconButton>
-                                    </InputAdornment>
-                                }
-                            />
-                            {formik.errors.confirmPassword && formik.touched.confirmPassword && (
-                                <div className={auth.inputError}>{formik.errors.confirmPassword}</div>
-                            )}
+                        <FormControl margin={'normal'}>
+                            <PasswordField showPassword={showPassword}
+                                           formik={formik}
+                                           fieldType={'password'}
+                                           handleClickShowPassword={handleClickShowPassword}
+                                           handleMouseDownPassword={handleMouseDownPassword}/>
+                        </FormControl>
+
+                        <FormControl margin={'normal'}>
+                            <PasswordField showPassword={confirmPassword}
+                                           formik={formik}
+                                           fieldType={'confirmPassword'}
+                                           handleClickShowPassword={handleClickShowConfirmPassword}
+                                           handleMouseDownPassword={handleMouseDownPassword}/>
                         </FormControl>
 
                         <Button
                             type={'submit'}
                             variant={'contained'}
                             className={auth.button}
-                            style={{textAlign: 'center', color: 'white'}}
-                            disabled={disabled}
-                            onSubmit={() => {
-                                setDisabled(false)
-                            }}
+                            color={'primary'}
                         >
                             Sign Up
                         </Button>
+
                     </FormGroup>
+
                 </form>
                 <p className={auth.haveAccText}>Already have an account?</p>
                 <NavLink to={`${PATH.LOGIN}`}>
