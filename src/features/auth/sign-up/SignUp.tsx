@@ -10,6 +10,7 @@ import auth from "../auth.module.css";
 import {Grid} from "@mui/material";
 import {PasswordField} from "../PasswordField/PasswordField";
 import {EmailField} from "../EmailField/EmailField";
+import * as Yup from "yup";
 
 type FormikErrorsType = {
     email?: string
@@ -18,27 +19,6 @@ type FormikErrorsType = {
     rememberMe?: boolean
 }
 
-export const validate = (values: FormikErrorsType) => {
-    const errors: FormikErrorsType = {}
-    if (!values.email) {
-        errors.email = 'Required'
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = 'Invalid email address'
-    }
-
-    if (!values.password) {
-        errors.password = 'Required'
-    } else if (values.password.length < 8) {
-        errors.password = 'Should be 8 or more chars'
-    }
-
-    if (!values.confirmPassword) {
-        errors.confirmPassword = 'Required'
-    } else if (values.password !== values.confirmPassword) {
-        errors.confirmPassword = "Passwords are not equal"
-    }
-    return errors
-}
 
 export const SignUp = () => {
     const dispatch = useAppDispatch()
@@ -61,10 +41,14 @@ export const SignUp = () => {
         initialValues: {
             email: '',
             password: '',
-            confirmPassword: '',
-            rememberMe: false
+            confirmPassword: ''
         },
-        validate,
+        validationSchema: Yup.object<FormikErrorsType>().shape({
+            email: Yup.string().required('please enter email').email('invalid email address'),
+            password: Yup.string().required('please enter password').min(8).max(16),
+            confirmPassword: Yup.string().required('please enter password')
+                .oneOf(['password'], 'passwords are not equal'),
+        }),
         onSubmit: values => {
             const {email, password} = values
             dispatch(registerTC(email, password))
