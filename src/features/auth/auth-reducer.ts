@@ -30,18 +30,12 @@ const initialState: UserResponseType & { isLoggedIn: boolean; isRegistered: bool
 
 type InitialStateType = typeof initialState
 
-// Types of action constants
-const SET_LOGIN = 'AUTH/SET_LOGIN'
-const SET_LOGOUT = 'AUTH/SET_LOGOUT'
-const SET_REGISTERED = 'AUTH/SET_REGISTERED'
-const UPD_USER_DATA = 'AUTH/UPD_USER_DATA'
-
 export const authReducer = (
   state: InitialStateType = initialState,
   action: AuthActionsType
 ): InitialStateType => {
   switch (action.type) {
-    case SET_LOGIN:
+    case 'AUTH/SET-LOGIN':
       return {
         ...state,
         isLoggedIn: true,
@@ -51,26 +45,59 @@ export const authReducer = (
         avatar: action.payload.avatar,
         publicCardPacksCount: action.payload.publicCardPacksCount,
       }
-    case SET_LOGOUT:
+    case 'AUTH/SET-LOGOUT':
       return {...state, isLoggedIn: false}
-    case SET_REGISTERED:
+    case 'AUTH/SET-REGISTERED':
       return {...state, isRegistered: action.payload.isRegistered}
-    case UPD_USER_DATA:
+    case 'AUTH/UPD-USER-DATA':
       return {...state, name: action.payload.name, avatar: action.payload.avatar}
 
     default:
       return state
   }
 }
-type updUserDataACType = ReturnType<typeof updUserDataAC>
-type setRegisteredACType = ReturnType<typeof setRegisteredAC>
-type setLoginACType = ReturnType<typeof setLoginAC>
 
-export type AuthActionsType =
-  | setLoginACType
-  | setLogoutACType
-  | updUserDataACType
-  | setRegisteredACType
+export const setLoginAC = (
+    _id: string,
+    email: string,
+    name: string,
+    avatar: string = ava, // временно
+    publicCardPacksCount: number
+) => {
+  return {
+    type: 'AUTH/SET-LOGIN',
+    payload: {
+      _id,
+      email,
+      name,
+      avatar,
+      publicCardPacksCount,
+      isLoggedIn: true,
+    },
+  } as const
+}
+export const setLogoutAC = () => {
+  return {
+    type: 'AUTH/SET-LOGOUT',
+  } as const
+}
+export const setRegisteredAC = (isRegistered: boolean) => {
+  return {
+    type: 'AUTH/SET-REGISTERED',
+    payload: {
+      isRegistered,
+    },
+  } as const
+}
+export const updUserDataAC = (name: string, avatar: string) => {
+  return {
+    type: 'AUTH/UPD-USER-DATA',
+    payload: {
+      name,
+      avatar,
+    },
+  } as const
+}
 
 export const initializeProfileTC = (): RootThunkType => dispatch => {
   dispatch(setAppStatusAC('loading'))
@@ -141,47 +168,17 @@ export const updUserDataTC =
       })
 }
 
-export const updUserDataAC = (name: string, avatar: string) => {
-  return {
-    type: UPD_USER_DATA,
-    payload: {
-      name,
-      avatar,
-    },
-  } as const
-}
-export const setRegisteredAC = (isRegistered: boolean) => {
-  return {
-    type: SET_REGISTERED,
-    payload: {
-      isRegistered,
-    },
-  } as const
-}
+type updUserDataACType = ReturnType<typeof updUserDataAC>
+type setRegisteredACType = ReturnType<typeof setRegisteredAC>
+type setLoginACType = ReturnType<typeof setLoginAC>
+
+export type AuthActionsType =
+    | setLoginACType
+    | setLogoutACType
+    | updUserDataACType
+    | setRegisteredACType
 
 type setLogoutACType = ReturnType<typeof setLogoutAC>
-export const setLogoutAC = () => {
-  return {
-    type: SET_LOGOUT,
-  } as const
-}
-// пока данных хватит
-export const setLoginAC = (
-  _id: string,
-  email: string,
-  name: string,
-  avatar: string = ava, // временно
-  publicCardPacksCount: number
-) => {
-  return {
-    type: SET_LOGIN,
-    payload: {
-      _id,
-      email,
-      name,
-      avatar,
-      publicCardPacksCount,
-      isLoggedIn: true,
-    },
-  } as const
-}
+
+
+

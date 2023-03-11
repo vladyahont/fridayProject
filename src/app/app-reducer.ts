@@ -1,36 +1,29 @@
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
-type AppStatusType = RequestStatusType
-
 const initialState = {
   isInitialized: false,
-  appStatus: 'idle' as AppStatusType,
+  appStatus: 'idle' as RequestStatusType,
   appError: null as string | null,
 }
 
 type InitialStateType = typeof initialState
-
-// Types of action constants
-const SET_APP_STATUS = 'APP/SET_APP_STATUS'
-const SET_INITIALIZE = 'APP/SET_INITIALIZE'
-const SET_APP_ERROR = 'APP/SET_APP_ERROR'
 
 export const appReducer = (
   state: InitialStateType = initialState,
   action: AppActionsType
 ): InitialStateType => {
   switch (action.type) {
-    case SET_APP_STATUS:
+    case 'APP/SET-APP-STATUS':
       return {
         ...state,
         appStatus: action.payload.appStatus,
       }
-    case SET_INITIALIZE:
+    case 'APP/SET-INITIALIZE':
       return {
         ...state,
         isInitialized: true,
       }
-    case SET_APP_ERROR:
+      case 'APP/SET_APP_ERROR':
       return {
         ...state,
         appError: action.payload.appError,
@@ -40,20 +33,20 @@ export const appReducer = (
   }
 }
 
-export const setAppStatusAC = (newStatus: AppStatusType) =>
+export const setAppStatusAC = (newStatus: RequestStatusType) =>
   ({
-    type: SET_APP_STATUS,
+    type: 'APP/SET-APP-STATUS',
     payload: {
       appStatus: newStatus,
     },
   } as const)
 export const initializeAppAC = () =>
   ({
-    type: SET_INITIALIZE,
+    type: 'APP/SET-INITIALIZE',
   } as const)
 export const setAppErrorAC = (errorMessage: string | null) =>
   ({
-    type: SET_APP_ERROR,
+    type: 'APP/SET_APP_ERROR',
     payload: {
       appError: errorMessage,
     },
