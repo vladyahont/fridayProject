@@ -1,7 +1,6 @@
 import { instance } from '../../app/instance'
 import {AxiosResponse} from "axios";
 
-//<'',AxiosResponse<UserResponseType>,''>
 export const authApi = {
   me() {
     return instance.post<UserResponseType>(`auth/me`).then(res=>res.data)
@@ -18,7 +17,12 @@ export const authApi = {
   register(data:RegisterDataType) {
     return instance.post<any,AxiosResponse<RegisterResponseType>,RegisterDataType>(`auth/register`, data).then(res=>res.data)
   },
-
+  forgot(data:ForgotDataType){
+    return instance.post<any,AxiosResponse<InfoResponseType>,ForgotDataType>(`auth/forgot`,data).then(res=>alert(res.data))
+  },
+  setNewPassword(data:NewPasswordDataType){
+    return instance.post<any,AxiosResponse<InfoResponseType>,NewPasswordDataType>(`/auth/set-new-password`,data).then(res=>alert(res.data))
+  }
 }
 
 type RegisterDataType = Omit<LoginDataType, "rememberMe">
@@ -35,6 +39,16 @@ type UpdateUserResponseType = {
   updatedUser: UserResponseType
   error?: string
 }
+type NewPasswordDataType = {
+  password: string
+  resetPasswordToken: string
+}
+type ForgotDataType = {
+  email: string,
+  from: string,
+  message: string
+}
+
 
 type RegisterResponseType =  Omit<UpdateUserResponseType, "updatedUser"> & { "addedUser":UpdateUserResponseType["updatedUser"]}
 type InfoResponseType = {

@@ -22,7 +22,6 @@ function App() {
   const isInitialized = useAppSelector(isInitializedSelector)
   const status = useAppSelector(appStatusSelector)
 
-  // просим me
   useEffect(() => dispatch(initializeProfileTC()), [])
 
   if (!isInitialized) {
