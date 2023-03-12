@@ -17,11 +17,22 @@ export const authApi = {
   register(data:RegisterDataType) {
     return instance.post<any,AxiosResponse<RegisterResponseType>,RegisterDataType>(`auth/register`, data).then(res=>res.data)
   },
-  forgot(data:ForgotDataType){
-    return instance.post<any,AxiosResponse<InfoResponseType>,ForgotDataType>(`auth/forgot`,data).then(res=>alert(res.data))
+  forgot(email:
+  string){
+    const data = {
+      email: email,
+      from: 'test-front-admin<ai73a@yandex.by>',
+/*      <a href='https://github.com/vladyahont/fridayProject/#/set-new-password/$token$'>link</a>*/
+      message: `<div style="background-color: lime; padding: 15px"> password recovery link:  
+                
+                <a href='http://localhost:3000/#/set-new-password/$token$'>link</a>
+                </div>`,
+    }
+    return instance.post<any,AxiosResponse<InfoResponseType>,ForgotDataType>("https://neko-back.herokuapp.com/2.0/auth/forgot",data)//.then(res=>alert(JSON.stringify(res.data)))
   },
   setNewPassword(data:NewPasswordDataType){
-    return instance.post<any,AxiosResponse<InfoResponseType>,NewPasswordDataType>(`/auth/set-new-password`,data).then(res=>alert(res.data))
+    console.log(data)
+    return instance.post<any,AxiosResponse<InfoResponseType>,NewPasswordDataType>(`https://neko-back.herokuapp.com/2.0/auth/set-new-password`,data)//.then(res=>alert(res.data))
   }
 }
 
