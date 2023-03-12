@@ -31,7 +31,7 @@ export const authApi = {
     return instance.post<any,AxiosResponse<InfoResponseType>,ForgotDataType>("/auth/forgot",data)//.then(res=>alert(JSON.stringify(res.data)))
   },
   setNewPassword(data:NewPasswordDataType){
-    console.log(data)
+   // console.log(data)
     return instance.post<any,AxiosResponse<InfoResponseType>,NewPasswordDataType>(`/auth/set-new-password`,data)//.then(res=>alert(res.data))
   }
 }

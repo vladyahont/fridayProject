@@ -37,9 +37,8 @@ export const NewPassword = () => {
          type="password"
          {...formik.getFieldProps("password")}
        />
-       <NavLink to={PATH.LOGIN}>
-         <button type="submit">Submit</button>
-     </NavLink>
+       <button type="submit">Submit</button>
+       <NavLink to={PATH.LOGIN}>nnb</NavLink>
 
      </form>
    );
