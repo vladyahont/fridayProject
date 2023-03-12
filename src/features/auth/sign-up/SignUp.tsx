@@ -12,9 +12,9 @@ import {PasswordField} from "../PasswordField/PasswordField";
 import {EmailField} from "../EmailField/EmailField";
 import * as Yup from "yup";
 
-type FormikErrorsType = {
-    email?: string
-    password?: string
+export type FormikErrorsType = {
+    email: string
+    password: string
     confirmPassword?: string
     rememberMe?: boolean
 }

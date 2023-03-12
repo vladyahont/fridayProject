@@ -2,7 +2,7 @@ import { instance } from '../../app/instance'
 
 export const authApi = {
   me() {
-    return instance.post<UserResponseType>(`auth/me`)
+    return instance.post<UserResponseType>(`auth/me`, {})
   },
   updateMe(
     name: string,
