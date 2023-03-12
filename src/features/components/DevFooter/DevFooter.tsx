@@ -18,6 +18,8 @@ export const DevFooter = () => {
                          className={({isActive}) => (isActive ? s.active : " ")}>PasswordRecovery</NavLink>
                 <NavLink to={PATH.NEWPASSWORD}
                          className={({isActive}) => (isActive ? s.active : " ")}>NewPasswordPage</NavLink>
+                <NavLink to={PATH.PACKS}
+                         className={({isActive}) => (isActive ? s.active : " ")}>PacksPage</NavLink>
             </div>
         </AppBar>
     )

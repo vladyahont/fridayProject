@@ -27,7 +27,6 @@ import { AppStateType } from './store'
 
 /* --- App-reducer selectors --- */
 export const appStatusSelector = (state: AppStateType) => state.app.appStatus
-
 export const isInitializedSelector = (state: AppStateType) => state.app.isInitialized
 
 /* --- Auth-reducer selectors --- */
@@ -39,3 +38,6 @@ export const userAvatarSelector = (state: AppStateType) => state.auth.avatar
 export const userEmailSelector = (state: AppStateType) => state.auth.email
 export const publicCardPacksCountSelector = (state: AppStateType) => state.auth.publicCardPacksCount
 export const isAdminSelector = (state: AppStateType) => state.auth.isAdmin
+
+/* --- Packs-reducer selector --- */
+export const packsSelector = (state: AppStateType) => state.packs.cardPacks

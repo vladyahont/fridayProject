@@ -16,6 +16,7 @@ import {Loading} from "../features/components/Loading/Loading";
 import {Loader} from "../features/components/Loading/Loader";
 import {appStatusSelector, isInitializedSelector} from "./selectors";
 import {DevFooter} from "../features/components/DevFooter/DevFooter";
+import {Packs} from "../features/packs/Packs";
 
 function App() {
   const dispatch = useAppDispatch()
@@ -46,6 +47,7 @@ function App() {
         <Route path={PATH['404']} element={<ErrorPage />} />
         <Route path={PATH.RECOVERY} element={<PasswordRecovery />} />
         <Route path={PATH.NEWPASSWORD} element={<NewPasswordPage />} />
+        <Route path={PATH.PACKS} element={<Packs />} />
         <Route path={'*'} element={<Navigate to={PATH['404']} />} />
       </Routes>
       <DevFooter/>
