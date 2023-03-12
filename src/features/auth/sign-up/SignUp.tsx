@@ -100,7 +100,6 @@ export const SignUp = () => {
                         </Button>
 
                     </FormGroup>
-
                 </form>
                 <p className={auth.haveAccText}>Already have an account?</p>
                 <NavLink to={`${PATH.LOGIN}`}>

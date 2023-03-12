@@ -1,6 +1,6 @@
 import {authApi, UserResponseType} from './auth-api'
 import {Dispatch} from 'redux'
-import {AxiosError, AxiosResponse} from 'axios'
+import {AxiosError} from 'axios'
 import ava from '../../assest/imgs/ava.png'
 import {RootThunkType} from '../../app/store'
 import {
@@ -10,22 +10,14 @@ import {
 import {errorUtils} from "../../utils/error-utils";
 
 const initialState: UserResponseType & { isLoggedIn: boolean; isRegistered: boolean } = {
+
   isRegistered: false,
   isLoggedIn: false,
 
-  _id: '',
   email: 'j&johnson@gmail.com',
   name: 'ivan',
   avatar: ava,
-  publicCardPacksCount: 0, // количество колод
-
-  created: new Date(),
-  updated: new Date(),
-  isAdmin: false,
-  verified: false, // подтвердил ли почту
-  rememberMe: false,
-
-  error: '',
+  publicCardPacksCount: 0,
 }
 
 type InitialStateType = typeof initialState
@@ -39,7 +31,6 @@ export const authReducer = (
       return {
         ...state,
         isLoggedIn: true,
-        _id: action.payload._id,
         email: action.payload.email,
         name: action.payload.name,
         avatar: action.payload.avatar,
@@ -58,7 +49,6 @@ export const authReducer = (
 }
 
 export const setLoginAC = (
-    _id: string,
     email: string,
     name: string,
     avatar: string = ava, // временно
@@ -67,7 +57,6 @@ export const setLoginAC = (
   return {
     type: 'AUTH/SET-LOGIN',
     payload: {
-      _id,
       email,
       name,
       avatar,
@@ -103,10 +92,10 @@ export const initializeProfileTC = (): RootThunkType => dispatch => {
   dispatch(setAppStatusAC('loading'))
   authApi
     .me()
-    .then(res => {
-      if (res.data.name) {
-        const {name, email, _id, publicCardPacksCount, avatar} = res.data
-        dispatch(setLoginAC(_id, email, name, avatar, publicCardPacksCount))
+    .then(data => {
+      if (data.name) {
+        const {name, email,publicCardPacksCount, avatar} = data
+        dispatch(setLoginAC( email, name, avatar, publicCardPacksCount))
       }
       dispatch(setAppStatusAC('succeeded'))
     })
@@ -123,10 +112,10 @@ export const loginTC =
   (email: string, password: string, rememberMe: boolean): RootThunkType =>
     (dispatch: Dispatch) => {
       dispatch(setAppStatusAC('loading'))
-      authApi.logIn(email, password, rememberMe)
-        .then((res: AxiosResponse<UserResponseType, any>) => {
-          const {name, email, _id, publicCardPacksCount, avatar} = res.data
-          dispatch(setLoginAC(_id, email, name, avatar, publicCardPacksCount))
+      authApi.login({email, password, rememberMe})
+        .then((data) => {
+          const {name, email, publicCardPacksCount, avatar} = data
+          dispatch(setLoginAC(email, name, avatar, publicCardPacksCount))
           dispatch(setAppStatusAC('succeeded'))
         }).catch((err: AxiosError<{ error: string }>) => {
         errorUtils(err, dispatch);
@@ -135,7 +124,7 @@ export const loginTC =
 
 export const logoutTC = (): RootThunkType => (dispatch: Dispatch) => {
   dispatch(setAppStatusAC('loading'))
-  authApi.logout().then(res => {
+  authApi.logout().then(() => {
     dispatch(setLogoutAC())
     dispatch(setAppStatusAC('succeeded'))
   }).catch((err: AxiosError<{ error: string }>) => {
@@ -146,8 +135,7 @@ export const registerTC =
   (email: string, password: string): RootThunkType =>
     (dispatch: Dispatch) => {
       dispatch(setAppStatusAC('loading'))
-      authApi.register(email, password).then(res => {
-        /*alert(JSON.stringify(res.data.addedUser))*/
+      authApi.register({email, password}).then(() => {
         dispatch(setRegisteredAC(true))
         dispatch(setAppStatusAC('succeeded'))
       }).catch((err: AxiosError<{ error: string }>) => {
@@ -159,8 +147,8 @@ export const updUserDataTC =
   (name: string, avatar?: string): RootThunkType =>
     (dispatch: Dispatch) =>{
       dispatch(setAppStatusAC('loading'))
-      authApi.updateMe(name, avatar).then(res => {
-        const {name, avatar} = res.data.updatedUser
+      authApi.updateMe({name, avatar}).then(data => {
+        const {name, avatar} = data.updatedUser
         dispatch(updUserDataAC(name, avatar ? avatar : ava))
         dispatch(setAppStatusAC('succeeded'))
       }).catch((err: AxiosError<{ error: string }>) => {

@@ -1,66 +1,49 @@
 import { instance } from '../../app/instance'
+import {AxiosResponse} from "axios";
 
+//<'',AxiosResponse<UserResponseType>,''>
 export const authApi = {
   me() {
-    return instance.post<UserResponseType>(`auth/me`)
+    return instance.post<UserResponseType>(`auth/me`).then(res=>res.data)
   },
-  updateMe(
-    name: string,
-    avatar?: string // url or base64
-  ) {
-    return instance.put<{ updatedUser: UserResponseType; error?: string }>(`auth/me`, {
-      name,
-      avatar,
-    })
+  updateMe(data:UpdateUserDataType) {
+    return instance.put<any,AxiosResponse<UpdateUserResponseType>,UpdateUserDataType>(`auth/me`, data).then(res=>res.data)
   },
-  logIn(email: string, password: string, rememberMe: boolean) {
-    return instance.post<UserResponseType>(`auth/login`, {
-      email,
-      password,
-      rememberMe,
-    })
+  login(data:LoginDataType) {
+    return instance.post<any,AxiosResponse<UserResponseType>,LoginDataType>(`auth/login`, data).then(res=>res.data)
   },
   logout() {
-    return instance.delete<InfoResponseType>(`auth/me`)
+    return instance.delete<InfoResponseType>(`auth/me`).then(res=>res.data)
   },
-  register(email: string, password: string) {
-    return instance.post<RegisterResponseType>(`auth/register`, {
-      email,
-      password,
-    })
+  register(data:RegisterDataType) {
+    return instance.post<any,AxiosResponse<RegisterResponseType>,RegisterDataType>(`auth/register`, data).then(res=>res.data)
   },
+
 }
 
-export type RegisterResponseType = {
-  addedUser: {
-    created: string
-    email: string
-    isAdmin: boolean
-    name: string
-    publicCardPacksCount: number
-    rememberMe: boolean
-    updated: string
-    verified: boolean
-    __v: number
-    _id: string
-  }
+type RegisterDataType = Omit<LoginDataType, "rememberMe">
+type LoginDataType = {
+  email: string,
+  password: string,
+  rememberMe: boolean
+}
+type UpdateUserDataType ={
+  name: string,
+  avatar?: string
+}
+type UpdateUserResponseType = {
+  updatedUser: UserResponseType
   error?: string
 }
+
+type RegisterResponseType =  Omit<UpdateUserResponseType, "updatedUser"> & { "addedUser":UpdateUserResponseType["updatedUser"]}
 type InfoResponseType = {
   info: string
   error: string
 }
 export type UserResponseType = {
-  _id: string
   email: string
   name: string
   avatar?: string
-  publicCardPacksCount: number // количество колод
-
-  created: Date
-  updated: Date
-  isAdmin: boolean
-  verified: boolean // подтвердил ли почту
-  rememberMe: boolean
-  error?: string
+  publicCardPacksCount: number
 }
