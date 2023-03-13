@@ -22,7 +22,9 @@ export const packsReducer = (
 ): InitialStateType => {
     switch (action.type) {
         case "PACKS/GET-PACKS":
-            return {...state, cardPacks: [...state.cardPacks, ...action.payload.cardPacks]}
+            debugger
+            return {...state, cardPacks: action.payload.cardPacks}
+
         default:
             return state
     }
@@ -40,11 +42,11 @@ export const getPacksAC = (cardPacks: CardPackType[]) => {
     } as const
 }
 
-export const getPacksTC = (): RootThunkType =>
+export const getPacksTC = (user_id?: string): RootThunkType =>
         (dispatch: Dispatch) => {
             dispatch(setAppStatusAC('loading'))
-            packsApi.getPacks()
-                .then((res: AxiosResponse<PacksResponseType, any>) => {
+            packsApi.getPacks(user_id)
+                .then((res) => {
                     const {cardPacks} = res.data
                     dispatch(getPacksAC(cardPacks))
                     dispatch(setAppStatusAC('succeeded'))

@@ -21,7 +21,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import {visuallyHidden} from '@mui/utils';
 
-type TableDataType = {
+export type TableDataType = {
     name: string
     cards: number
     lastUpdated: string
@@ -29,7 +29,7 @@ type TableDataType = {
     action: 'learn' | 'edit' | 'delete'
 }
 
-function createData(
+export function createData(
     name: string,
     cards: number,
     lastUpdated: string,
@@ -45,7 +45,7 @@ function createData(
     };
 }
 
-const rows = [
+const rowsExample = [
     createData('Pack Name', 305, '28 feb', 'Me', 'learn',),
     createData('Pack Name', 308, '28 feb', 'Me', 'learn',),
     createData('Pack Name', 305, '28 feb', 'Me', 'learn',),
@@ -181,7 +181,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     );
 }
 
-export default function EnhancedTable() {
+export default function EnhancedTable(props: {rows: TableDataType[] }) {
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof TableDataType>('name');
     //const [selected, setSelected] = React.useState<readonly string[]>([]);
@@ -215,7 +215,7 @@ export default function EnhancedTable() {
 
     // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows =
-        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - props.rows.length) : 0;
 
     return (
         <Box sx={{width: '100%'}}>
@@ -226,13 +226,13 @@ export default function EnhancedTable() {
                         aria-labelledby="tableTitle"
                         size={dense ? 'small' : 'medium'}
                     >
-                        <EnhancedTableHead rowCount={rows.length + 1}
+                        <EnhancedTableHead rowCount={props.rows.length + 1}
                                            onRequestSort={handleRequestSort}
                                            order={order}
                                            orderBy={orderBy}
                         />
                         <TableBody>
-                            {stableSort(rows, getComparator(order, orderBy))
+                            {stableSort(props.rows, getComparator(order, orderBy))
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, index) => {
                                     const labelId = `enhanced-table-checkbox-${index}`;
@@ -277,7 +277,7 @@ export default function EnhancedTable() {
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 25]}
                     component="div"
-                    count={rows.length}
+                    count={props.rows.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}

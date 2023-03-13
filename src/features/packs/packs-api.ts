@@ -1,9 +1,12 @@
 import {instance} from '../../app/instance'
 
 export const packsApi = {
-    getPacks() {
-        return instance.get<PacksResponseType>(`cards/pack`, {})
-    },
+    getPacks(user_id?: string) {
+        return instance.get('cards/pack', {
+                params: {
+                    user_id
+                },}
+        )},
 }
 
 export type CardPackType = {
@@ -11,7 +14,7 @@ export type CardPackType = {
     user_id: string
     user_name: string
     private?: boolean
-    name?: string
+    name: string
     path?: string
     grade?: number
     shots?: number
