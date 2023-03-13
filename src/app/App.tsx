@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-
 import { Header } from '../features/components/Header/Header'
 import './App.css'
 import { Navigate, Route, Routes } from 'react-router-dom'
@@ -23,7 +22,9 @@ function App() {
   const status = useAppSelector(appStatusSelector)
 
   // просим me
-  useEffect(() => dispatch(initializeProfileTC()), [])
+  useEffect(() => {
+      dispatch(initializeProfileTC())
+  }, [dispatch])
 
   if (!isInitialized) {
     // ждем Me
