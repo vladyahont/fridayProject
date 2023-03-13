@@ -108,7 +108,6 @@ export const initializeProfileTC = (): RootThunkType => async dispatch => {
         dispatch(setAppStatusAC('succeeded'))
         dispatch(initializeAppAC())
     } catch (err) {
-        console.log(err)
         dispatch(setAppStatusAC('failed'))
         dispatch(initializeAppAC())
     }
@@ -165,14 +164,12 @@ export const updUserDataTC = (name: string, avatar?: string): RootThunkType => a
     dispatch(setAppStatusAC('loading'))
     try {
        const res = await authApi.updateMe(name, avatar)
-        console.log(res)
         if (res.data.updatedUser) {
             const {name, avatar} = res.data.updatedUser
             dispatch(updUserDataAC(name, avatar ? avatar : ava))
             dispatch(setAppStatusAC('succeeded'))
         }
     } catch (err: unknown) {
-        console.log(err)
         if (err instanceof AxiosError) {
             if (err.response) {
                 errorUtils(err.response.data.error, dispatch)
