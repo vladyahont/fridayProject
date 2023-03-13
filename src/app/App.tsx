@@ -8,7 +8,6 @@ import {Login} from '../features/auth/sing-in/Login'
 import {ErrorPage} from '../features/components/ErrorPage'
 import {useAppDispatch, useAppSelector} from './store'
 import {initializeProfileTC} from '../features/auth/auth-reducer'
-import {SignUp} from "../features/auth/sign-up/SignUp";
 import {PATH} from "./Path";
 import {Loading} from "../features/components/Loading/Loading";
 import {Loader} from "../features/components/Loading/Loader";
@@ -17,6 +16,7 @@ import {DevFooter} from "../features/components/DevFooter/DevFooter";
 import {PasswordRecovery} from "../features/auth/RecoveryPassword/PasswordRecovery";
 import {CheckEmail} from "../features/auth/RecoveryPassword/CheckEmail/CheckEmail";
 import {NewPassword} from "../features/auth/RecoveryPassword/CreadeNew/NewPassword";
+import {SignUp} from "../features/auth/sign-up/SignUp";
 
 
 function App() {
@@ -26,7 +26,6 @@ function App() {
   useEffect(() => dispatch(initializeProfileTC()), [])
 
   if (!isInitialized) {
-    // ждем Me
     return (
       <>
         <Loader />
@@ -55,3 +54,8 @@ function App() {
 }
 
 export default App
+
+
+
+
+

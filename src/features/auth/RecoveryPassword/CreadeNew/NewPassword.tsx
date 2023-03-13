@@ -2,7 +2,7 @@ import React from 'react';
 import {useAppDispatch} from "../../../../app/store";
 
 import {NavLink, useParams} from "react-router-dom";
-import {useFormik} from "formik";
+import {FormikErrors, FormikTouched, useField, useFormik} from "formik";
 import {setNewPasswordTC} from "../../auth-reducer";
 import {PATH} from "../../../../app/Path";
 

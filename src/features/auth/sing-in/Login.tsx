@@ -4,8 +4,8 @@ import Button from '@mui/material/Button'
 import Checkbox from '@mui/material/Checkbox'
 import FormControl from '@mui/material/FormControl'
 import FormControlLabel from '@mui/material/FormControlLabel'
-import { useFormik } from 'formik'
-import {Navigate, NavLink, useNavigate} from 'react-router-dom'
+import {useFormik} from 'formik'
+import {NavLink, useNavigate} from 'react-router-dom'
 import {useAppDispatch, useAppSelector} from '../../../app/store'
 import {isLoggedInSelector} from "../../../app/selectors";
 import {PATH} from "../../../app/Path";
@@ -16,7 +16,6 @@ import log from "./Login.module.css";
 import auth from "../auth.module.css";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
-import {PasswordField} from "../PasswordField/PasswordField";
 
 type LogFormikErrorsType = {
   email?: string
