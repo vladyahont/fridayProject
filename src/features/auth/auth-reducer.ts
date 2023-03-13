@@ -1,60 +1,60 @@
 import {authApi, UserResponseType} from './auth-api'
 import {Dispatch} from 'redux'
-import {AxiosError, AxiosResponse} from 'axios'
+import {AxiosError} from 'axios'
 import ava from '../../assest/imgs/ava.png'
 import {RootThunkType} from '../../app/store'
 import {
-  initializeAppAC,
-  setAppStatusAC,
+    initializeAppAC,
+    setAppStatusAC,
 } from '../../app/app-reducer'
 import {errorUtils} from "../../utils/error-utils";
 
 const initialState: UserResponseType & { isLoggedIn: boolean; isRegistered: boolean } = {
-  isRegistered: false,
-  isLoggedIn: false,
+    isRegistered: false,
+    isLoggedIn: false,
 
-  _id: '',
-  email: 'j&johnson@gmail.com',
-  name: 'ivan',
-  avatar: ava,
-  publicCardPacksCount: 0, // количество колод
+    _id: '',
+    email: 'j&johnson@gmail.com',
+    name: 'ivan',
+    avatar: ava,
+    publicCardPacksCount: 0, // количество колод
 
-  created: new Date(),
-  updated: new Date(),
-  isAdmin: false,
-  verified: false, // подтвердил ли почту
-  rememberMe: false,
+    created: new Date(),
+    updated: new Date(),
+    isAdmin: false,
+    verified: false, // подтвердил ли почту
+    rememberMe: false,
 
-  error: '',
+    error: '',
 }
 
 type InitialStateType = typeof initialState
 
 export const authReducer = (
-  state: InitialStateType = initialState,
-  action: AuthActionsType
+    state: InitialStateType = initialState,
+    action: AuthActionsType
 ): InitialStateType => {
-  switch (action.type) {
-    case 'AUTH/SET-LOGIN':
-      return {
-        ...state,
-        isLoggedIn: true,
-        _id: action.payload._id,
-        email: action.payload.email,
-        name: action.payload.name,
-        avatar: action.payload.avatar,
-        publicCardPacksCount: action.payload.publicCardPacksCount,
-      }
-    case 'AUTH/SET-LOGOUT':
-      return {...state, isLoggedIn: false}
-    case 'AUTH/SET-REGISTERED':
-      return {...state, isRegistered: action.payload.isRegistered}
-    case 'AUTH/UPD-USER-DATA':
-      return {...state, name: action.payload.name, avatar: action.payload.avatar}
+    switch (action.type) {
+        case 'AUTH/SET-LOGIN':
+            return {
+                ...state,
+                isLoggedIn: true,
+                _id: action.payload._id,
+                email: action.payload.email,
+                name: action.payload.name,
+                avatar: action.payload.avatar,
+                publicCardPacksCount: action.payload.publicCardPacksCount,
+            }
+        case 'AUTH/SET-LOGOUT':
+            return {...state, isLoggedIn: false}
+        case 'AUTH/SET-REGISTERED':
+            return {...state, isRegistered: action.payload.isRegistered}
+        case 'AUTH/UPD-USER-DATA':
+            return {...state, name: action.payload.name, avatar: action.payload.avatar}
 
-    default:
-      return state
-  }
+        default:
+            return state
+    }
 }
 
 export const setLoginAC = (
@@ -64,108 +64,121 @@ export const setLoginAC = (
     avatar: string = ava, // временно
     publicCardPacksCount: number
 ) => {
-  return {
-    type: 'AUTH/SET-LOGIN',
-    payload: {
-      _id,
-      email,
-      name,
-      avatar,
-      publicCardPacksCount,
-      isLoggedIn: true,
-    },
-  } as const
+    return {
+        type: 'AUTH/SET-LOGIN',
+        payload: {
+            _id,
+            email,
+            name,
+            avatar,
+            publicCardPacksCount,
+            isLoggedIn: true,
+        },
+    } as const
 }
 export const setLogoutAC = () => {
-  return {
-    type: 'AUTH/SET-LOGOUT',
-  } as const
+    return {
+        type: 'AUTH/SET-LOGOUT',
+    } as const
 }
 export const setRegisteredAC = (isRegistered: boolean) => {
-  return {
-    type: 'AUTH/SET-REGISTERED',
-    payload: {
-      isRegistered,
-    },
-  } as const
+    return {
+        type: 'AUTH/SET-REGISTERED',
+        payload: {
+            isRegistered,
+        },
+    } as const
 }
 export const updUserDataAC = (name: string, avatar: string) => {
-  return {
-    type: 'AUTH/UPD-USER-DATA',
-    payload: {
-      name,
-      avatar,
-    },
-  } as const
+    return {
+        type: 'AUTH/UPD-USER-DATA',
+        payload: {
+            name,
+            avatar,
+        },
+    } as const
 }
 
-export const initializeProfileTC = (): RootThunkType => dispatch => {
-  dispatch(setAppStatusAC('loading'))
-  authApi
-    .me()
-    .then(res => {
-      if (res.data.name) {
+export const initializeProfileTC = (): RootThunkType => async dispatch => {
+    dispatch(setAppStatusAC('loading'))
+    try {
+        const res = await authApi.me()
         const {name, email, _id, publicCardPacksCount, avatar} = res.data
         dispatch(setLoginAC(_id, email, name, avatar, publicCardPacksCount))
-      }
-      dispatch(setAppStatusAC('succeeded'))
-    })
-    .catch(reason => {
-      console.log(reason)
-      dispatch(setAppStatusAC('failed'))
-    })
-    .finally(() => {
-      dispatch(initializeAppAC())
-    })
-}
-
-export const loginTC =
-  (email: string, password: string, rememberMe: boolean): RootThunkType =>
-    (dispatch: Dispatch) => {
-      dispatch(setAppStatusAC('loading'))
-      authApi.logIn(email, password, rememberMe)
-        .then((res: AxiosResponse<UserResponseType, any>) => {
-          const {name, email, _id, publicCardPacksCount, avatar} = res.data
-          dispatch(setLoginAC(_id, email, name, avatar, publicCardPacksCount))
-          dispatch(setAppStatusAC('succeeded'))
-        }).catch((err: AxiosError<{ error: string }>) => {
-        errorUtils(err, dispatch);
-      })
+        dispatch(setAppStatusAC('succeeded'))
+        dispatch(initializeAppAC())
+    } catch (err) {
+        console.log(err)
+        dispatch(setAppStatusAC('failed'))
+        dispatch(initializeAppAC())
     }
-
-export const logoutTC = (): RootThunkType => (dispatch: Dispatch) => {
-  dispatch(setAppStatusAC('loading'))
-  authApi.logout().then(res => {
-    dispatch(setLogoutAC())
-    dispatch(setAppStatusAC('succeeded'))
-  }).catch((err: AxiosError<{ error: string }>) => {
-    errorUtils(err, dispatch);
-  })
 }
-export const registerTC =
-  (email: string, password: string): RootThunkType =>
-    (dispatch: Dispatch) => {
-      dispatch(setAppStatusAC('loading'))
-      authApi.register(email, password).then(res => {
-        /*alert(JSON.stringify(res.data.addedUser))*/
+
+export const loginTC = (email: string, password: string, rememberMe: boolean): RootThunkType => {
+    return async (dispatch: Dispatch) => {
+        dispatch(setAppStatusAC('loading'))
+        try {
+            const res = await authApi.logIn(email, password, rememberMe)
+            const {name, _id, publicCardPacksCount, avatar} = res.data
+            dispatch(setLoginAC(_id, email, name, avatar, publicCardPacksCount))
+            dispatch(setAppStatusAC('succeeded'))
+        } catch (err: unknown) {
+            if (err instanceof AxiosError) {
+                if (err.response) {
+                    errorUtils(err.response.data.error, dispatch)
+                }
+            }
+        }
+    }
+}
+
+export const logoutTC = (): RootThunkType => async (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('loading'))
+    try {
+        await authApi.logout()
+        dispatch(setLogoutAC())
+        dispatch(setAppStatusAC('succeeded'))
+    } catch (err: unknown) {
+        if (err instanceof AxiosError) {
+            if (err.response) {
+                errorUtils(err.response.data.error, dispatch)
+            }
+        }
+    }
+}
+export const registerTC = (email: string, password: string): RootThunkType => async (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('loading'))
+    try {
+        await authApi.register(email, password)
         dispatch(setRegisteredAC(true))
         dispatch(setAppStatusAC('succeeded'))
-      }).catch((err: AxiosError<{ error: string }>) => {
-        errorUtils(err, dispatch);
-      })
+    } catch (err: unknown) {
+        if (err instanceof AxiosError) {
+            if (err.response) {
+                errorUtils(err.response.data.error, dispatch)
+            }
+        }
     }
+}
 
-export const updUserDataTC =
-  (name: string, avatar?: string): RootThunkType =>
-    (dispatch: Dispatch) =>{
-      dispatch(setAppStatusAC('loading'))
-      authApi.updateMe(name, avatar).then(res => {
-        const {name, avatar} = res.data.updatedUser
-        dispatch(updUserDataAC(name, avatar ? avatar : ava))
-        dispatch(setAppStatusAC('succeeded'))
-      }).catch((err: AxiosError<{ error: string }>) => {
-        errorUtils(err, dispatch);
-      })
+export const updUserDataTC = (name: string, avatar?: string): RootThunkType => async (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('loading'))
+    try {
+       const res = await authApi.updateMe(name, avatar)
+        console.log(res)
+        if (res.data.updatedUser) {
+            const {name, avatar} = res.data.updatedUser
+            dispatch(updUserDataAC(name, avatar ? avatar : ava))
+            dispatch(setAppStatusAC('succeeded'))
+        }
+    } catch (err: unknown) {
+        console.log(err)
+        if (err instanceof AxiosError) {
+            if (err.response) {
+                errorUtils(err.response.data.error, dispatch)
+            }
+        }
+    }
 }
 
 type updUserDataACType = ReturnType<typeof updUserDataAC>
@@ -180,5 +193,7 @@ export type AuthActionsType =
 
 type setLogoutACType = ReturnType<typeof setLogoutAC>
 
-
+//.catch((err: AxiosError<{ error: string }>) => {
+//     errorUtils(err, dispatch);
+//   })
 
