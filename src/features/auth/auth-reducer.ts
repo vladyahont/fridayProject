@@ -99,43 +99,43 @@ export const updUserDataAC = (name: string, avatar: string) => {
   } as const
 }
 
-export const initializeProfileTC = (): RootThunkType => dispatch => {
-  dispatch(setAppStatusAC('loading'))
-  authApi
-    .me()
-    .then(res => {
-      if (res.data.name) {
-        const {name, email, _id, publicCardPacksCount, avatar} = res.data
-        dispatch(setLoginAC(_id, email, name, avatar, publicCardPacksCount))
-      }
-      dispatch(setAppStatusAC('succeeded'))
-    })
-    .catch(reason => {
-      console.log(reason)
-      dispatch(setAppStatusAC('failed'))
-    })
-    .finally(() => {
-      dispatch(initializeAppAC())
-    })
+export const initializeProfileTC = (): RootThunkType => async dispatch => {
+   dispatch(setAppStatusAC('loading'))
+  const res = await authApi.me()
+  if (res.data.name) {
+    const {name, email, _id, publicCardPacksCount, avatar} = res.data
+    dispatch(setLoginAC(_id, email, name, avatar, publicCardPacksCount))
+    dispatch(setAppStatusAC('succeeded'))
+    dispatch(initializeAppAC())
+  } else {
+    dispatch(setAppStatusAC('failed'))
+    dispatch(initializeAppAC())
+  }
 }
 
 export const loginTC =
   (email: string, password: string, rememberMe: boolean): RootThunkType =>
-    (dispatch: Dispatch) => {
+    async (dispatch: Dispatch) => {
       dispatch(setAppStatusAC('loading'))
-      authApi.logIn(email, password, rememberMe)
-        .then((res: AxiosResponse<UserResponseType, any>) => {
-          const {name, email, _id, publicCardPacksCount, avatar} = res.data
-          dispatch(setLoginAC(_id, email, name, avatar, publicCardPacksCount))
-          dispatch(setAppStatusAC('succeeded'))
+      const res: AxiosResponse<UserResponseType, any> = await authApi.logIn(email, password, rememberMe)
+          if (res.data.name) {
+            const {name, email, _id, publicCardPacksCount, avatar} = res.data
+            dispatch(setLoginAC(_id, email, name, avatar, publicCardPacksCount))
+            dispatch(setAppStatusAC('succeeded'))
+          } else {
+          }
+        .then((res) => {
+
         }).catch((err: AxiosError<{ error: string }>) => {
         errorUtils(err, dispatch);
       })
     }
 
-export const logoutTC = (): RootThunkType => (dispatch: Dispatch) => {
-  dispatch(setAppStatusAC('loading'))
-  authApi.logout().then(res => {
+export const logoutTC = (): RootThunkType => async (dispatch: Dispatch) => {
+   dispatch(setAppStatusAC('loading'))
+  const res = await authApi.logout()
+      if (res.data)
+      .then(res => {
     dispatch(setLogoutAC())
     dispatch(setAppStatusAC('succeeded'))
   }).catch((err: AxiosError<{ error: string }>) => {
