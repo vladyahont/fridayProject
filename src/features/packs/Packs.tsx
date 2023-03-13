@@ -11,7 +11,8 @@ export const Packs = () => {
     const dispatch = useAppDispatch()
     const [switcher, setSwitcher] = useState(true)
 
-    const packs = useAppSelector(packsSelector).map(p => createData(p.name, p.cardsCount, p.updated, p.user_name, 'learn'))
+    const packs:TableDataType[] = useAppSelector(packsSelector)
+        .map(p => createData(p.name, p.cardsCount, p.updated, p.user_name, 'learn'))
     const myID = useAppSelector(userIdSelector)
     const testID = '6409ee16363fe2261c921716'
 

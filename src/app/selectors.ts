@@ -28,6 +28,7 @@ import { AppStateType } from './store'
 /* --- App-reducer selectors --- */
 export const appStatusSelector = (state: AppStateType) => state.app.appStatus
 export const isInitializedSelector = (state: AppStateType) => state.app.isInitialized
+export const appErrorSelector = (state: AppStateType) => state.app.appError
 
 /* --- Auth-reducer selectors --- */
 export const isRegisteredSelector = (state: AppStateType) => state.auth.isRegistered

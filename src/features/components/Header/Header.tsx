@@ -22,7 +22,7 @@ export const Header = () => {
         }}>
           <img src={logo} alt="logo" />
           {
-            isLoggedIn || <NavLink to={PATH.LOGIN} className={({ isActive }) => (isActive ? s.loginBtn : " ")}>Sign in</NavLink>
+            isLoggedIn || <NavLink to={PATH.LOGIN} className={s.loginBtn}>Sign in</NavLink>
           }
           {
             isLoggedIn &&  <span className={s.profileBlock}>
