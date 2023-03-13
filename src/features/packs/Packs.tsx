@@ -2,7 +2,7 @@ import {useAppDispatch, useAppSelector} from "../../app/store";
 import {packsSelector, userIdSelector} from "../../app/selectors";
 import React, {useEffect, useState} from "react";
 import {getPacksTC} from "./packs-reducer";
-import EnhancedTable, {createData, TableDataType} from "./Table/Table";
+import EnhancedTable, {createData} from "./Table/Table";
 import Switch from '@mui/material/Switch';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -17,6 +17,7 @@ export const Packs = () => {
 
     useEffect(() => dispatch(getPacksTC()), [])
     useEffect(() => {
+        console.log(myID)
         !switcher ? dispatch(getPacksTC(myID)) : dispatch(getPacksTC())
     }, [switcher])
 

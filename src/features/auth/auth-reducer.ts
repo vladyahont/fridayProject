@@ -122,6 +122,7 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): R
             dispatch(setLoginAC(_id, email, name, avatar, publicCardPacksCount))
             dispatch(setAppStatusAC('succeeded'))
         } catch (err: unknown) {
+            dispatch(setAppStatusAC('failed'))
             if (err instanceof AxiosError) {
                 if (err.response) {
                     errorUtils(err.response.data.error, dispatch)
@@ -138,6 +139,7 @@ export const logoutTC = (): RootThunkType => async (dispatch: Dispatch) => {
         dispatch(setLogoutAC())
         dispatch(setAppStatusAC('succeeded'))
     } catch (err: unknown) {
+        dispatch(setAppStatusAC('failed'))
         if (err instanceof AxiosError) {
             if (err.response) {
                 errorUtils(err.response.data.error, dispatch)
@@ -152,6 +154,7 @@ export const registerTC = (email: string, password: string): RootThunkType => as
         dispatch(setRegisteredAC(true))
         dispatch(setAppStatusAC('succeeded'))
     } catch (err: unknown) {
+        dispatch(setAppStatusAC('failed'))
         if (err instanceof AxiosError) {
             if (err.response) {
                 errorUtils(err.response.data.error, dispatch)
@@ -170,6 +173,7 @@ export const updUserDataTC = (name: string, avatar?: string): RootThunkType => a
             dispatch(setAppStatusAC('succeeded'))
         }
     } catch (err: unknown) {
+        dispatch(setAppStatusAC('failed'))
         if (err instanceof AxiosError) {
             if (err.response) {
                 errorUtils(err.response.data.error, dispatch)
@@ -190,7 +194,4 @@ export type AuthActionsType =
 
 type setLogoutACType = ReturnType<typeof setLogoutAC>
 
-//.catch((err: AxiosError<{ error: string }>) => {
-//     errorUtils(err, dispatch);
-//   })
 
