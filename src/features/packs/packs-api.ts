@@ -1,10 +1,12 @@
 import {instance} from '../../app/instance'
 
 export const packsApi = {
-    getPacks(user_id?: string) {
-        return instance.get('cards/pack', {
+    getPacks(user_id?: string, page: number = 1, pageCount: number = 100) {
+        return instance.get<PacksResponseType>('cards/pack', {
                 params: {
-                    user_id
+                    user_id,
+                    page,
+                    pageCount
                 },}
         )},
 }

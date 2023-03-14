@@ -1,0 +1,49 @@
+.componentContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+
+    width: 80%;
+
+    margin: 40px auto;
+}
+
+.headContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.controlsContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.h1 {
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 32px;
+}
+
+.button {
+    width: 175px;
+    height: 36px;
+
+    color: white !important;
+    font-size: 16px !important;
+    text-transform: none !important;
+
+    background: #366EFF !important;
+    border-radius: 30px !important;
+    box-shadow: 0 4px 18px rgba(54, 110, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+}

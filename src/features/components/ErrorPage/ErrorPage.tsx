@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import error400 from '../../../assest/imgs/404.svg'
 import {PATH} from "../../../app/Path";
 import auth from "../../auth/auth.module.css";

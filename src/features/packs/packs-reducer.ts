@@ -1,4 +1,4 @@
-import {CardPackType, packsApi} from "./packs-api";
+import {CardPackType, packsApi, PacksResponseType} from "./packs-api";
 import {RootThunkType} from "../../app/store";
 import {Dispatch} from "redux";
 import {setAppStatusAC} from "../../app/app-reducer";
@@ -22,7 +22,7 @@ export const packsReducer = (
 ): InitialStateType => {
     switch (action.type) {
         case "PACKS/GET-PACKS":
-            return {...state, cardPacks: action.payload.cardPacks}
+            return {...action.payload.data, cardPacks: action.payload.data.cardPacks}
         default:
             return state
     }
@@ -31,11 +31,11 @@ export const packsReducer = (
 export type PacksActionsType = getPacksACType
 type getPacksACType = ReturnType<typeof getPacksAC>
 
-export const getPacksAC = (cardPacks: CardPackType[]) => {
+export const getPacksAC = (data: PacksResponseType) => {
     return {
         type: 'PACKS/GET-PACKS',
         payload: {
-            cardPacks
+            data
         }
     } as const
 }
@@ -44,14 +44,10 @@ export const getPacksTC = (user_id?: string): RootThunkType => async (dispatch: 
     dispatch(setAppStatusAC('loading'))
     try {
         const res = await packsApi.getPacks(user_id)
-        console.log(res.data)
-        const {cardPacks} = res.data
-        console.log(cardPacks)
-        dispatch(getPacksAC(cardPacks))
+        dispatch(getPacksAC(res.data))
         dispatch(setAppStatusAC('succeeded'))
     } catch (err: unknown) {
         dispatch(setAppStatusAC('failed'))
-        console.log(err)
         if (err instanceof AxiosError) {
             if (err.response) {
                 errorUtils(err.response.data.error, dispatch)

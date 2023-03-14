@@ -5,10 +5,16 @@ import s from "../Header/header.module.css"
 import {AppBar} from "@mui/material";
 
 export const DevFooter = () => {
+
+    const devFooterStyle = {
+        minHeight: '60px',
+        fontWeight: '600',
+        textDecoration: 'none',
+    }
+
     return (
         <AppBar position="static" color="transparent" style={{justifyContent: 'space-between'}}>
-            <div className={s.navBlock}
-                 style={{minHeight: '60px', alignItems: 'center', fontWeight: '600', textDecoration: 'none'}}>
+            <div className={s.navBlock} style={devFooterStyle}>
                 <NavLink to={PATH.PROFILE} className={({isActive}) => (isActive ? s.active : " ")}> Profile</NavLink>
                 <NavLink to={PATH.REGISTRATION}
                          className={({isActive}) => (isActive ? s.active : " ")}>Registration</NavLink>

@@ -119,13 +119,13 @@ const headCells: readonly HeadCell[] = [
     },
     {
         id: 'lastUpdated',
-        numeric: true,
+        numeric: false,
         disablePadding: false,
         label: 'Last Updated',
     },
     {
         id: 'createdBy',
-        numeric: true,
+        numeric: false,
         disablePadding: false,
         label: 'Created By',
     },
@@ -158,7 +158,8 @@ function EnhancedTableHead(props: EnhancedTableProps) {
                 {headCells.map((headCell) => (
                     <TableCell
                         key={headCell.id}
-                        align={headCell.numeric ? 'right' : 'left'}
+                        // align={headCell.numeric ? 'right' : 'left'}
+                        align={'left'}
                         padding={headCell.disablePadding ? 'none' : 'normal'}
                         sortDirection={orderBy === headCell.id ? order : false}
                     >
@@ -222,7 +223,7 @@ export default function EnhancedTable(props: {rows: TableDataType[] }) {
             <Paper sx={{width: '100%', mb: 2}}>
                 <TableContainer>
                     <Table
-                        sx={{minWidth: 750}}
+                        sx={{minWidth: 750, textAlign: 'center'}}
                         aria-labelledby="tableTitle"
                         size={dense ? 'small' : 'medium'}
                     >
@@ -242,7 +243,7 @@ export default function EnhancedTable(props: {rows: TableDataType[] }) {
                                         <TableRow
                                             hover
                                             //onClick={(event) => handleClick(event, row.name)}
-                                            role="checkbox"
+                                            // role="checkbox"
                                             tabIndex={-1}
                                             key={row.name}
                                         >
@@ -254,10 +255,10 @@ export default function EnhancedTable(props: {rows: TableDataType[] }) {
                                             >
                                                 {row.name}
                                             </TableCell>
-                                            <TableCell align="right">{row.cards}</TableCell>
-                                            <TableCell align="right">{row.lastUpdated}</TableCell>
-                                            <TableCell align="right">{row.createdBy}</TableCell>
-                                            <TableCell align="right">{row.action}</TableCell>
+                                            <TableCell align="left">{row.cards}</TableCell>
+                                            <TableCell align="left">{row.lastUpdated}</TableCell>
+                                            <TableCell align="left">{row.createdBy}</TableCell>
+                                            <TableCell align="left">{row.action}</TableCell>
                                         </TableRow>
                                         </>
                                     );
