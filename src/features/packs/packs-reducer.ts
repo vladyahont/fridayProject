@@ -23,13 +23,23 @@ export const packsReducer = (
     switch (action.type) {
         case "PACKS/GET-PACKS":
             return {...action.payload.data, cardPacks: action.payload.data.cardPacks}
+        case "PACKS/ADD-NEW-PACK":
+            return {...state, ...action.payload.data}
+        case "PACKS/DELETE-PACK":
+            return {...state, cardPacks: state.cardPacks.filter(p => p._id !== action.payload.id)}
+        case "PACKS/UPDATE-PACK":
+            return {...state, cardPacks: state.cardPacks.map(p => p._id === action.payload._id
+                ? {...p, name: action.payload.name} : p)}
         default:
             return state
     }
 }
 
-export type PacksActionsType = getPacksACType
-type getPacksACType = ReturnType<typeof getPacksAC>
+export type PacksActionsType = GetPacksACType | AddNewPackACType | DeletePackACType | UpdatePackACType
+type GetPacksACType = ReturnType<typeof getPacksAC>
+type AddNewPackACType = ReturnType<typeof addNewPackAC>
+type DeletePackACType = ReturnType<typeof deletePackAC>
+type UpdatePackACType = ReturnType<typeof updatePackAC>
 
 export const getPacksAC = (data: PacksResponseType) => {
     return {
@@ -39,6 +49,33 @@ export const getPacksAC = (data: PacksResponseType) => {
         }
     } as const
 }
+export const addNewPackAC = (data: PacksResponseType) => {
+    return {
+        type: 'PACKS/ADD-NEW-PACK',
+        payload: {
+            data
+        }
+    } as const
+}
+export const deletePackAC = (id: string) => {
+    return {
+        type: 'PACKS/DELETE-PACK',
+        payload: {
+            id
+        }
+    } as const
+}
+export const updatePackAC = (_id: string, name?: string) => {
+    return {
+        type: 'PACKS/UPDATE-PACK',
+        payload: {
+            _id,
+            name
+        }
+    } as const
+}
+
+
 
 export const getPacksTC = (user_id?: string, page?: number, pageCount?: number, packName?: string,
                            min?: number, max?: number,  sortPacks?: string): RootThunkType => async (dispatch: Dispatch) => {
@@ -56,10 +93,10 @@ export const getPacksTC = (user_id?: string, page?: number, pageCount?: number, 
         }
     }
 }
-export const addPackTC = (name: string): RootThunkType => async (dispatch: Dispatch) => {
+export const addPackTC = (name: string, deckCover?: string): RootThunkType => async (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
-        const res = await packsApi.addPack(name)
+        const res = await packsApi.addPack(name, deckCover)
         console.log(res)
         dispatch(getPacksAC(res.data))
         dispatch(setAppStatusAC('succeeded'))
@@ -88,10 +125,10 @@ export const deletePackTC = (id: AxiosRequestConfig<any>): RootThunkType => asyn
         }
     }
 }
-export const updatePackTC = (_id: string): RootThunkType => async (dispatch: Dispatch) => {
+export const updatePackTC = (_id: string, name?: string): RootThunkType => async (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
-        const res = await packsApi.updatePack(_id)
+        const res = await packsApi.updatePack(_id, name)
         dispatch(getPacksAC(res.data))
         dispatch(setAppStatusAC('succeeded'))
     } catch (err: unknown) {

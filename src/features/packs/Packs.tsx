@@ -18,7 +18,7 @@ export const Packs = () => {
     const myID = useAppSelector(userIdSelector)
     const testID = '6409ee16363fe2261c921716'
 
-    useEffect(() => dispatch(getPacksTC()), [])
+    //useEffect(() => dispatch(getPacksTC()), [])
     useEffect(() => {
         !switcher ? dispatch(getPacksTC(myID)) : dispatch(getPacksTC())
     }, [switcher])

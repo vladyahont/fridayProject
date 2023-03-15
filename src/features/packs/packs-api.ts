@@ -17,17 +17,26 @@ export const packsApi = {
             }
         )
     },
-    addPack(name: string) {
-        return instance.post<any>('cards/pack', {name})
+    addPack(name: string, deckCover?: string) {
+        return instance.post<any>('cards/pack', {
+            cardsPack: {
+                name,
+                deckCover
+            }
+        })
     },
     deletePack(id?: AxiosRequestConfig<any>) {
         return instance.delete<any>('cards/pack', id)
 
     },
     updatePack(_id: string, name?: string) {
-        return instance.put<any>('cards/pack', {_id})
+        return instance.put<any>('cards/pack', {
+            cardsPack: {
+                _id,
+                name
+            }
+        })
     },
-
 
 
     getCards(cardAnswer?: string, cardQuestion?: string, cardsPack_id?: string, min?: string, max?: string,
@@ -48,12 +57,14 @@ export const packsApi = {
     addCard(cardsPack_id: string, question?: string, answer?: string, grade?: number, shots?: number,
             answerImg?: string, questionImg?: string, questionVideo?: string, answerVideo?: string) {
         return instance.post<any>('cards/card', {
-            cardsPack_id,
-            question,
-            answer,
-            grade,
-            shots,
-            answerImg, questionImg, questionVideo, answerVideo
+            card: {
+                cardsPack_id,
+                question,
+                answer,
+                grade,
+                shots,
+                answerImg, questionImg, questionVideo, answerVideo
+            }
         })
     },
     deleteCard(id?: AxiosRequestConfig<any>) {
@@ -62,8 +73,10 @@ export const packsApi = {
     },
     updateCard(_id: string, question?: string) {
         return instance.put<any>('cards/card', {
-            _id,
-            question
+            card: {
+                _id,
+                question
+            }
         })
     },
 
@@ -97,3 +110,23 @@ export type PacksResponseType = {
     token: string;
     tokenDeathTime: number;
 }
+// data:
+//   newCardsPack:
+//     cardsCount:0
+//     created:"2023-03-15T18:33:58.275Z"
+//     grade:0
+//     more_id:"640a57dbb8230638104d84e5"
+//     name:"$newPack$"
+//     path:"/def"
+//     private:false
+//     rating:0
+//     shots:0
+//     type:"pack"
+//     updated:"2023-03-15T18:33:58.275Z"
+//     user_id:"640a57dbb8230638104d84e5"
+//     user_name:"vlad"
+//     __v:0
+//     _id:"64120f96f979e2103b2aa822"
+//
+// token: "f2cf6160-c35f-11ed-9e9f-b5a360890d21"
+// tokenDeathTime:1678916038134
