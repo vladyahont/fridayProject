@@ -46,8 +46,8 @@ export const SignUp = () => {
         validationSchema: Yup.object<FormikErrorsType>().shape({
             email: Yup.string().required('please enter email').email('invalid email address'),
             password: Yup.string().required('please enter password').min(8).max(16),
-            confirmPassword: Yup.string().required('please enter password')
-                .oneOf(['password'], 'passwords are not equal'),
+           /* confirmPassword: Yup.string().required('please enter password')
+                .oneOf(['password'], 'passwords are not equal'),*/
         }),
         onSubmit: values => {
             const {email, password} = values

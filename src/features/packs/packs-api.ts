@@ -2,6 +2,7 @@ import {instance} from '../../app/instance'
 import {AxiosRequestConfig} from "axios";
 
 export const packsApi = {
+
     getPacks(user_id?: string, page: number = 1, pageCount: number = 100, packName?: string,
              min?: number, max?: number, sortPacks?: string) {
         return instance.get<PacksResponseType>('cards/pack', {
@@ -15,6 +16,12 @@ export const packsApi = {
                     sortPacks
                 }
             }
+        )
+    },
+    getPackss(params:GetPackParamType) {
+        return instance.get<PacksResponseType>('cards/pack', {
+              params
+          }
         )
     },
     addPack(name: string, deckCover?: string) {
@@ -130,3 +137,13 @@ export type PacksResponseType = {
 //
 // token: "f2cf6160-c35f-11ed-9e9f-b5a360890d21"
 // tokenDeathTime:1678916038134
+export type GetPackParamType = {
+    packName?: string;
+    min?: number;
+    max?: number;
+    sortPacks?: string;
+    page?: number;
+    pageCount?: number;
+    user_id?: string;
+    block?: boolean;
+}

@@ -3,11 +3,9 @@ import {packsSelector, userIdSelector} from "../../app/selectors";
 import React, {useEffect, useState} from "react";
 import {addPackTC, getPacksTC} from "./packs-reducer";
 import EnhancedTable, {createData, TableDataType} from "./Table/Table";
-import Switch from '@mui/material/Switch';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
 import s from './Packs.module.css'
 import Button from "@mui/material/Button";
+import {SearchInput} from "./filterComponents/SearchInput/SearchInput";
 
 export const Packs = () => {
     const dispatch = useAppDispatch()
@@ -33,7 +31,12 @@ export const Packs = () => {
                 <h1 className={s.h1}>Packs List</h1>
                 <Button className={s.button} onClick={addNewPackHandler}>Add new pack</Button>
             </div>
-            <div className={s.controlsContainer}>
+          <div className={s.filterContainer}>
+            <SearchInput />
+          </div>
+
+
+           {/* <div className={s.controlsContainer}>
                 <Stack direction="row" spacing={1} alignItems="center" sx={{marginBottom: '20px'}}>
                     <Typography>My</Typography>
                     <Switch checked={switcher}
@@ -43,7 +46,7 @@ export const Packs = () => {
                     />
                     <Typography>All</Typography>
                 </Stack>
-            </div>
+            </div>*/}
             <EnhancedTable rows={packs}/>
         </div>
     )

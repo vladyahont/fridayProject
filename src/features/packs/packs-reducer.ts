@@ -1,4 +1,4 @@
-import {CardPackType, packsApi, PacksResponseType} from "./packs-api";
+import {CardPackType, GetPackParamType, packsApi, PacksResponseType} from "./packs-api";
 import {RootThunkType} from "../../app/store";
 import {Dispatch} from "redux";
 import {setAppStatusAC} from "../../app/app-reducer";
@@ -82,6 +82,21 @@ export const getPacksTC = (user_id?: string, page?: number, pageCount?: number, 
     dispatch(setAppStatusAC('loading'))
     try {
         const res = await packsApi.getPacks(user_id, page, pageCount, packName, min, max, sortPacks)
+        dispatch(getPacksAC(res.data))
+        dispatch(setAppStatusAC('succeeded'))
+    } catch (err: unknown) {
+        dispatch(setAppStatusAC('failed'))
+        if (err instanceof AxiosError) {
+            if (err.response) {
+                errorUtils(err.response.data.error, dispatch)
+            }
+        }
+    }
+}
+export const getPackssTC = (params:GetPackParamType): RootThunkType => async (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('loading'))
+    try {
+        const res = await packsApi.getPackss(params)
         dispatch(getPacksAC(res.data))
         dispatch(setAppStatusAC('succeeded'))
     } catch (err: unknown) {
