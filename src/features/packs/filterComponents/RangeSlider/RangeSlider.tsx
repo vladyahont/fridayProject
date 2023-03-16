@@ -1,8 +1,7 @@
 import {appStatusSelector, maxCardsCountSelector, minCardsCountSelector} from "../../../../app/selectors";
 import {useAppDispatch, useAppSelector} from "../../../../app/store";
 import {SyntheticEvent, useEffect, useState} from "react";
-import {useSearchParams} from "react-router-dom";
-import {getPackssTC} from "../../packs-reducer";
+import {setSearchParamsAC} from "../../packs-reducer";
 import {Slider} from "@mui/material";
 
 export const RangeSlider = () => {
@@ -12,21 +11,18 @@ export const RangeSlider = () => {
 
   const dispatch = useAppDispatch();
 
-  const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
+  /*const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
   const searchParamsObject = Object.fromEntries(searchParams);
-  const userID = searchParams.get("user_id");
+  const userID = searchParams.get("user_id");*/
+
+  const minDistance = 5;
+  const [values, setValues] = useState<[number,number]>([0, 0]);
 
   useEffect(() => {
     setValues([
-      /*searchParams.has("min")? Number(searchParams.get("min")) : minCardsCount,
-      searchParams.has("max")? Number(searchParams.get("max")) : maxCardsCount*/
       minCardsCount,maxCardsCount
     ]);
   }, [minCardsCount, maxCardsCount]);
-
-  const minDistance = 5;
-
-  const [values, setValues] = useState<number[]>([minCardsCount, maxCardsCount]);
 
   const changeSliderValues = (e: Event, value: number | number[], activeThumb: number) => {
     if (Array.isArray(value)) {
@@ -42,9 +38,7 @@ export const RangeSlider = () => {
     if (Array.isArray(value)) {
       let min = value[0];
       let max = value[1];
-      const params = userID ? { user_id: userID, min, max } : { min, max };
-      dispatch(getPackssTC({ ...searchParamsObject, ...params }));
-      setSearchParams({ ...searchParamsObject, ...params });
+      dispatch(setSearchParamsAC({min,max}))
     }
   };
 
@@ -54,12 +48,11 @@ export const RangeSlider = () => {
     <span>
       <span>{values[0]}</span>
       <Slider
-        min={0}
+        min={minCardsCount}
         max={maxCardsCount}
         value={values}
         onChange={changeSliderValues}
         onChangeCommitted={onChangeCommittedHandler}
-        disableSwap
         disabled={disabled}
       />
       <span>{values[1]}</span>

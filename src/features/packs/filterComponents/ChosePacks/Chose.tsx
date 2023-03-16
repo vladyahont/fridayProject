@@ -2,30 +2,31 @@ import React, {useEffect, useState} from 'react';
 import {Stack} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Switch from "@mui/material/Switch";
-import {getPackssTC} from "../../packs-reducer";
+
 import {useAppDispatch, useAppSelector} from "../../../../app/store";
-import {useSearchParams} from "react-router-dom";
-import {appStatusSelector, userIdSelector} from "../../../../app/selectors";
+import {appStatusSelector, userIdSearchSelector, userIdSelector} from "../../../../app/selectors";
+import {setSearchParamsAC} from "../../packs-reducer";
 
 export const ChosePack = () => {
-  const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
-  const params = Object.fromEntries(searchParams)
 
-  const [switcher, setSwitcher] = useState(!!searchParams.get("user_id"))
+  const userId= useAppSelector(userIdSelector)
+  const userIdSearch= useAppSelector(userIdSearchSelector)
+
+
+  const [switcher, setSwitcher] = useState(false)
+  useEffect(() => {
+    setSwitcher(!!userIdSearch)
+  }, [userIdSearch])
+
 
   const dispatch = useAppDispatch();
-
-  const userID = useAppSelector(userIdSelector);
   const appStatus = useAppSelector(appStatusSelector);
 
   useEffect(() => {
-    if (switcher) {
-      dispatch(getPackssTC( {...params, user_id: userID } ));
-      setSearchParams({ ...params, user_id: userID });
-    } else {
-      delete params.user_id
-      setSearchParams(params);
-      dispatch(getPackssTC(params))
+    if (switcher){
+      dispatch(setSearchParamsAC({user_id:userId}))
+    }else {
+      dispatch(setSearchParamsAC({user_id:null}))
     }
   }, [switcher])
 

@@ -1,5 +1,6 @@
 import {instance} from '../../app/instance'
 import {AxiosRequestConfig} from "axios";
+import {SearchParamsType} from "./packs-reducer";
 
 export const packsApi = {
 
@@ -18,7 +19,7 @@ export const packsApi = {
             }
         )
     },
-    getPackss(params:GetPackParamType) {
+    getPackss(params:SearchParamsType) {
         return instance.get<PacksResponseType>('cards/pack', {
               params
           }

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {alpha} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -9,17 +8,12 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import Checkbox from '@mui/material/Checkbox';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-import DeleteIcon from '@mui/icons-material/Delete';
-import FilterListIcon from '@mui/icons-material/FilterList';
 import {visuallyHidden} from '@mui/utils';
+import {useSearchParams} from "react-router-dom";
+import {useAppDispatch, useAppSelector} from "../../../app/store";
+import {getPackssTC, setSearchParamsAC} from "../packs-reducer";
+import {cardPacksTotalCountSelector} from "../../../app/selectors";
 
 export type TableDataType = {
     name: string
@@ -183,12 +177,15 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 }
 
 export default function EnhancedTable(props: {rows: TableDataType[] }) {
+    const cardPacksTotalCount = useAppSelector(cardPacksTotalCountSelector)
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof TableDataType>('name');
     //const [selected, setSelected] = React.useState<readonly string[]>([]);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const dispatch = useAppDispatch();
+
 
     const handleRequestSort = (
         event: React.MouseEvent<unknown>,
@@ -201,10 +198,18 @@ export default function EnhancedTable(props: {rows: TableDataType[] }) {
 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
+        /*dispatch(getPackssTC({ ...params,  page:newPage}));
+        setSearchParams({ ...params, page:newPage });*/
+        dispatch(setSearchParamsAC({page:newPage}))
     };
 
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
+
+        const pageCount = parseInt(event.target.value)
+        setRowsPerPage(pageCount);
+      /*  setSearchParams({ ...params,  pageCount:pageCount });
+        dispatch(getPackssTC({ ...params,  pageCount:pageCount}));*/
+        dispatch(setSearchParamsAC({pageCount:pageCount}))
         setPage(0);
     };
 
@@ -278,7 +283,7 @@ export default function EnhancedTable(props: {rows: TableDataType[] }) {
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 25]}
                     component="div"
-                    count={props.rows.length}
+                    count={cardPacksTotalCount}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}

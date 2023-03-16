@@ -42,5 +42,15 @@ export const isAdminSelector = (state: AppStateType) => state.auth.isAdmin
 
 /* --- Packs-reducer selector --- */
 export const packsSelector = (state: AppStateType) => state.packs.cardPacks
+
+export const paramsSearchSelector = (state: AppStateType) => state.packs.searchParams
+
+export const cardPacksTotalCountSelector = (state: AppStateType) => state.packs.cardPacksTotalCount
 export const minCardsCountSelector = (state: AppStateType) => state.packs.minCardsCount
-export const maxCardsCountSelector =(state: AppStateType) => state.packs.maxCardsCount
+export const maxCardsCountSelector = (state: AppStateType) => state.packs.maxCardsCount
+export const packNameSearchSelector =(state: AppStateType) => state.packs.searchParams.packName
+export const pageSearchSelector =(state: AppStateType) => state.packs.maxCardsCount
+export const pageCountSearchSelector =(state: AppStateType) => state.packs.maxCardsCount
+export const userIdSearchSelector =(state: AppStateType) => state.packs.searchParams.user_id
+export const mixCardsCountSearchSelector =(state: AppStateType) => state.packs.searchParams.min
+export const maxCardsCountSearchSelector =(state: AppStateType) => state.packs.searchParams.max

@@ -1,10 +1,9 @@
 import React, {DetailedHTMLProps, InputHTMLAttributes, useEffect, useState} from 'react';
-import {useSearchParams} from "react-router-dom";
-import {appStatusSelector} from "../../../../app/selectors";
+import {appStatusSelector, packNameSearchSelector} from "../../../../app/selectors";
 import {useAppDispatch, useAppSelector} from "../../../../app/store";
 import {useDebounce} from "../../../../hooks/useDebounce";
 import SuperInputText from "../../../../superComponents/c1-SuperInputText/SuperInputText";
-import {getPackssTC} from "../../packs-reducer";
+import {setSearchParamsAC} from "../../packs-reducer";
 
 type DefaultInputPropsType = DetailedHTMLProps<
   InputHTMLAttributes<HTMLInputElement>,
@@ -19,33 +18,26 @@ export const SearchInput:React.FC<SearchInputPropsType> = ({
                                                       ...restProps
                                                     }) => {
   const dispatch = useAppDispatch();
+
   const appStatus = useAppSelector(appStatusSelector);
+  const packNameSearch = useAppSelector(packNameSearchSelector)
 
-  const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
+  const [searchValue,setSearchValue] = useState<string>("")
+  useEffect(() => {
+    setSearchValue(packNameSearch? packNameSearch: '')
+  }, [packNameSearch])
 
-  const [searchValue,setSearchValue] = useState<string>(searchParams.get("packName") || '')
 
   const searchDebouncedValue = useDebounce<string>(searchValue, 800);
-
-  const params = Object.fromEntries(searchParams)
-
   useEffect(() => {
-    if (!!searchDebouncedValue) {
-      setSearchParams({...params, packName: searchValue});
-      dispatch(getPackssTC( {...params, packName: searchValue}))
-    } else {
-      /*console.log("empty")*/
-      delete params.packName
-      setSearchParams(params)
-      dispatch(getPackssTC(params))
-    }
+    dispatch(setSearchParamsAC({packName:searchDebouncedValue}))
   }, [searchDebouncedValue])
+
   const onChangeHandler = (value:string) =>{
     setSearchValue(value)
   }
 
   return (
-    <div>
       <SuperInputText
         disabled={appStatus === "loading"}
         value={searchValue}
@@ -53,7 +45,6 @@ export const SearchInput:React.FC<SearchInputPropsType> = ({
         placeholder={"Search"}
         {...restProps}
       />
-    </div>
   );
 };
 
