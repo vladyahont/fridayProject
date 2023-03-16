@@ -1,26 +1,18 @@
 import {useAppDispatch, useAppSelector} from "../../app/store";
-import {packsSelector, userIdSelector} from "../../app/selectors";
-import React, {useEffect, useState} from "react";
-import {addPackTC, getPacksTC} from "./packs-reducer";
+import {packsSelector} from "../../app/selectors";
+import React from "react";
+import {addPackTC} from "./packs-reducer";
 import EnhancedTable, {createData, TableDataType} from "./Table/Table";
 import s from './Packs.module.css'
 import Button from "@mui/material/Button";
 import {SearchInput} from "./filterComponents/SearchInput/SearchInput";
+import {ChosePack} from "./filterComponents/ChosePacks/Chose";
 
 export const Packs = () => {
     const dispatch = useAppDispatch()
-    const [switcher, setSwitcher] = useState(true)
 
     const packs: TableDataType[] = useAppSelector(packsSelector)
         .map(p => createData(p.name, p.cardsCount, p.updated, p.user_name, 'learn'))
-    const myID = useAppSelector(userIdSelector)
-    const testID = '6409ee16363fe2261c921716'
-
-    //useEffect(() => dispatch(getPacksTC()), [])
-    useEffect(() => {
-        !switcher ? dispatch(getPacksTC(myID)) : dispatch(getPacksTC())
-    }, [switcher])
-
     const addNewPackHandler = () => {
         dispatch(addPackTC('$newPack$'))
     }
@@ -33,20 +25,8 @@ export const Packs = () => {
             </div>
           <div className={s.filterContainer}>
             <SearchInput />
+            <ChosePack />
           </div>
-
-
-           {/* <div className={s.controlsContainer}>
-                <Stack direction="row" spacing={1} alignItems="center" sx={{marginBottom: '20px'}}>
-                    <Typography>My</Typography>
-                    <Switch checked={switcher}
-                            onChange={() => {
-                                setSwitcher(!switcher)
-                            }}
-                    />
-                    <Typography>All</Typography>
-                </Stack>
-            </div>*/}
             <EnhancedTable rows={packs}/>
         </div>
     )
