@@ -6,7 +6,7 @@ export const CheckEmail = () => {
   return (
     <div>
       <NavLink to={PATH.LOGIN}>
-        to login
+        To lоgin
       </NavLink>
     </div>
   );

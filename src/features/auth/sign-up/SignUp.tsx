@@ -5,7 +5,7 @@ import React, {useEffect} from "react";
 import {PATH} from "../../../app/Path";
 import {setRegisteredAC} from "../auth-reducer";
 import auth from "../auth.module.css";
-import {SignUpForm} from "./SingUpForm/SingUpForm";
+import {SignUpForm} from "./SingUpForm";
 import {Grid} from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 

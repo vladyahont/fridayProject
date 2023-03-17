@@ -1,12 +1,12 @@
 import React, {FC, useCallback, useState} from "react";
-import {useAppDispatch} from "../../../../app/store";
+import {useAppDispatch} from "../../../app/store";
 import {Form, Formik} from "formik";
-import {registerTC} from "../../auth-reducer";
-import {EmailField} from "../../Fields/EmailField";
-import {PasswordField} from "../../Fields/PasswordField";
+import {registerTC} from "../auth-reducer";
+import {EmailField} from "../Fields/EmailField";
+import {PasswordField} from "../Fields/PasswordField";
 import {Button, FormGroup} from "@material-ui/core";
-import auth from "../../auth.module.css";
-import * as Yup from "yup";
+import auth from "../auth.module.css";
+import {getValidationSchemaSingUp} from "../validate";
 
 export const SignUpForm: FC = () => {
   const dispatch = useAppDispatch()
@@ -16,7 +16,7 @@ export const SignUpForm: FC = () => {
   return (
     <Formik
       initialValues={initialValuesSingUp}
-      validationSchema={validationSchemaSingUp}
+      validationSchema={getValidationSchemaSingUp()}
       onSubmit={values => {
         const {email, password} = values
         dispatch(registerTC(email, password))
@@ -40,19 +40,7 @@ export const SignUpForm: FC = () => {
   );
 };
 
-type FormikErrorsType = {
-  email?: string
-  password?: string
-  confirmPassword?: string
-  rememberMe?: boolean
-}
 
-const validationSchemaSingUp = Yup.object<FormikErrorsType>().shape({
-  email: Yup.string().required('please enter email').email('invalid email address'),
-  password: Yup.string().required('please enter password').min(8).max(16),
-  confirmPassword: Yup.string().required('please enter password')
-    .oneOf([Yup.ref('password')], 'Passwords must match'),
-})
 
 const initialValuesSingUp = {
   email: '',

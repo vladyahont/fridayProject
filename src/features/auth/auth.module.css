@@ -28,6 +28,17 @@
     line-height: 24px;
 
 }
+.manualText{
+    font-family: 'Montserrat', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    /* or 171% */
+    color: #000000;
+
+    opacity: 0.5;
+}
 
 .haveAccText{
     /* identical to box height, or 171% */

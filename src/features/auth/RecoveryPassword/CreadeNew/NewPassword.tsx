@@ -1,46 +1,15 @@
-import React from 'react';
-import {useAppDispatch} from "../../../../app/store";
-
-import {NavLink, useParams} from "react-router-dom";
-import {FormikErrors, FormikTouched, useField, useFormik} from "formik";
-import {setNewPasswordTC} from "../../auth-reducer";
-import {PATH} from "../../../../app/Path";
-
-export const NewPassword = () => {
-   const dispatch = useAppDispatch()
-   const params = useParams<"token">();
-
-   let resetPasswordToken = ""
-
-   if(params.token) {
-     resetPasswordToken  = params.token
-   }
-
-   const formik = useFormik(
-     {
-       initialValues: {
-         password: '',
-       },
-       onSubmit: values => {
-         const {password} = values
-         console.log(resetPasswordToken)
-         dispatch(setNewPasswordTC(password,resetPasswordToken))
-       },
-     }
-   )
-
-   return (
-     <form onSubmit={formik.handleSubmit}>
-       <label htmlFor="password">New pass</label>
-       <input
-         id="password"
-         type="password"
-         {...formik.getFieldProps("password")}
-       />
-       <button type="submit">Submit</button>
-       <NavLink to={PATH.LOGIN}>nnb</NavLink>
-
-     </form>
-   );
- };
-
+import React, {FC} from 'react';
+import auth from "../../auth.module.css";
+import {Grid} from "@mui/material";
+import FormControl from "@mui/material/FormControl";
+import {NewPasswordForm} from "./NewPasswordForm";
+export const NewPassword:FC = () => {
+  return (
+    <Grid container className={auth.container}>
+      <FormControl variant="standard" className={auth.formControl}>
+        <h1 className={auth.h1}>Create new password</h1>
+        <NewPasswordForm/>
+      </FormControl>
+    </Grid>
+  );
+};

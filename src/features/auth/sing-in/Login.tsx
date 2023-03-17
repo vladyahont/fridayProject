@@ -5,7 +5,7 @@ import {useAppSelector} from '../../../app/store'
 import {isLoggedInSelector} from "../../../app/selectors";
 import {PATH} from "../../../app/Path";
 import auth from "../auth.module.css";
-import {LoginForm} from "./LoginForm/LoginForm";
+import {LoginForm} from "./LoginForm";
 import FormControl from "@mui/material/FormControl";
 
 
