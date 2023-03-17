@@ -181,9 +181,6 @@ export default function EnhancedTable(props: {rows: TableDataType[] }) {
     const params = Object.fromEntries(searchParams);
 
     const cardPacksTotalCount = useAppSelector(cardPacksTotalCountSelector)
-
-    console.log(params)
-
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof TableDataType>('name');
     //const [selected, setSelected] = React.useState<readonly string[]>([]);

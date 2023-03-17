@@ -18,7 +18,6 @@ export const ChosePack = () => {
       setSwitcher(searchParams.has("user_id"))
     }, [searchParams])
 
-
   const dispatch = useAppDispatch();
 
   const userID = useAppSelector(userIdSelector);
@@ -28,12 +27,12 @@ export const ChosePack = () => {
 
   useEffect(() => {
     if (switcher) {
-      dispatch(getPackssTC( {...params, user_id: userID } ));
+      /*dispatch(getPackssTC( {...params, user_id: userID } ));*/
       setSearchParams({ ...params, user_id: userID });
     } else {
       delete params.user_id
       setSearchParams(params);
-      dispatch(getPackssTC(params))
+/*      dispatch(getPackssTC(params))*/
     }
   }, [switcher])
 

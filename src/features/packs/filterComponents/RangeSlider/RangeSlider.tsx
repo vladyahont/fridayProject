@@ -10,8 +10,6 @@ export const RangeSlider = () => {
   const maxCardsCount = useAppSelector(maxCardsCountSelector);
   const appStatus = useAppSelector(appStatusSelector);
 
-  const dispatch = useAppDispatch();
-
   const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
   const searchParamsObject = Object.fromEntries(searchParams);
   const userID = searchParams.get("user_id");
@@ -24,8 +22,6 @@ export const RangeSlider = () => {
 
   useEffect(() => {
     setValues([
-      /*searchParams.has("min")? Number(searchParams.get("min")) : minCardsCount,
-      searchParams.has("max")? Number(searchParams.get("max")) : maxCardsCount*/
       minCardsCount,maxCardsCount
     ]);
   }, [minCardsCount, maxCardsCount]);
@@ -49,12 +45,11 @@ export const RangeSlider = () => {
       let min = value[0];
       let max = value[1];
       const params = userID ? { user_id: userID, min, max } : { min, max };
-      dispatch(getPackssTC({ ...searchParamsObject, ...params }));
       setSearchParams({ ...searchParamsObject, ...params });
     }
   };
 
-  const disabled = appStatus === "loading"
+  const disabled = appStatus === "loading" || values[0] === values[1]
 
   return (
     <span>

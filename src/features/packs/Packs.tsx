@@ -13,30 +13,26 @@ import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
 import {useSearchParams} from "react-router-dom";
 
 export const Packs = () => {
-    const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch()
 
   let packs = useAppSelector(packsSelector)
 
   let rows: TableDataType[]  = packs
     .map(p => createData(p.name, p.cardsCount, p.updated, p.user_name, 'learn'))
 
-
-
   const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
-
+  const params = Object.fromEntries(searchParams)
   const resetFilter = () => {
-    const params = Object.fromEntries(searchParams)
     delete params.packName
     delete params.min
     delete params.max
     delete params.user_id
     setSearchParams(params)
-    dispatch(getPackssTC(params));
   };
 
-
-
-
+  useEffect(() => {
+      dispatch(getPackssTC(params))
+    }, [searchParams])
     const addNewPackHandler = () => {
         dispatch(addPackTC('$newPack$'))
     }
