@@ -10,25 +10,30 @@ import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import Paper from '@mui/material/Paper';
 import {visuallyHidden} from '@mui/utils';
+import {Fragment} from "react";
+import {deletePackTC} from "../packs-reducer";
+import {useAppDispatch} from "../../../app/store";
 import {useSearchParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../app/store";
 import {getPacksTC} from "../packs-reducer";
 import {cardPacksTotalCountSelector} from "../../../app/selectors";
 
 export type TableDataType = {
-    name: string
+    name: string | undefined
     cards: number
     lastUpdated: string
     createdBy: string
     action: 'learn' | 'edit' | 'delete'
+    id?: string
 }
 
 export function createData(
-  name: string,
-  cards: number,
-  lastUpdated: string,
-  createdBy: string,
-  action: 'learn' | 'edit' | 'delete',
+    name: string | undefined,
+    cards: number,
+    lastUpdated: string,
+    createdBy: string,
+    action: 'learn' | 'edit' | 'delete',
+    id?: string
 ): TableDataType {
     return {
         name,
@@ -36,6 +41,7 @@ export function createData(
         lastUpdated,
         createdBy,
         action,
+        id
     };
 }
 

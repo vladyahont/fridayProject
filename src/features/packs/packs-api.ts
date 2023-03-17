@@ -2,12 +2,8 @@ import {instance} from '../../app/instance'
 import {AxiosRequestConfig} from "axios";
 
 export const packsApi = {
-
-
-    getPacks(params:GetPackParamType) {
-        return instance.get<PacksResponseType>('cards/pack', {
-              params
-          }
+    getPacks(params: GetPackParamsType) {
+        return instance.get<PacksResponseType>('cards/pack', {params}
         )
     },
     addPack(name: string, deckCover?: string) {
@@ -18,8 +14,12 @@ export const packsApi = {
             }
         })
     },
-    deletePack(id?: AxiosRequestConfig<any>) {
-        return instance.delete<any>('cards/pack', id)
+    deletePack(id: string) {
+        return instance.delete<any>(`cards/pack/`, {
+            params: {
+                id
+            }
+        })
 
     },
     updatePack(_id: string, name?: string) {
@@ -103,6 +103,17 @@ export type PacksResponseType = {
     token: string;
     tokenDeathTime: number;
 }
+
+export type GetPackParamsType = {
+    user_id?: string
+    page?: number
+    pageCount?: number
+    packName?: string,
+    min?: number
+    max?: number
+    sortPacks?: string
+    block?: boolean;
+}
 // data:
 //   newCardsPack:
 //     cardsCount:0
@@ -123,13 +134,3 @@ export type PacksResponseType = {
 //
 // token: "f2cf6160-c35f-11ed-9e9f-b5a360890d21"
 // tokenDeathTime:1678916038134
-export type GetPackParamType = {
-    packName?: string;
-    min?: number;
-    max?: number;
-    sortPacks?: string;
-    page?: number;
-    pageCount?: number;
-    user_id?: string;
-    block?: boolean;
-}
