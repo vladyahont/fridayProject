@@ -20,21 +20,26 @@ import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import {visuallyHidden} from '@mui/utils';
+import {Fragment} from "react";
+import {deletePackTC} from "../packs-reducer";
+import {useAppDispatch} from "../../../app/store";
 
 export type TableDataType = {
-    name: string
+    name: string | undefined
     cards: number
     lastUpdated: string
     createdBy: string
     action: 'learn' | 'edit' | 'delete'
+    id?: string
 }
 
 export function createData(
-    name: string,
+    name: string | undefined,
     cards: number,
     lastUpdated: string,
     createdBy: string,
     action: 'learn' | 'edit' | 'delete',
+    id?: string
 ): TableDataType {
     return {
         name,
@@ -42,6 +47,7 @@ export function createData(
         lastUpdated,
         createdBy,
         action,
+        id
     };
 }
 
@@ -188,7 +194,9 @@ export default function EnhancedTable(props: {rows: TableDataType[] }) {
     //const [selected, setSelected] = React.useState<readonly string[]>([]);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+    const dispatch = useAppDispatch()
 
     const handleRequestSort = (
         event: React.MouseEvent<unknown>,
@@ -218,6 +226,12 @@ export default function EnhancedTable(props: {rows: TableDataType[] }) {
     const emptyRows =
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - props.rows.length) : 0;
 
+    const deletePackHandler = (id: string | undefined) => {
+        if (id) {
+            dispatch(deletePackTC(id))
+        }
+    }
+
     return (
         <Box sx={{width: '100%'}}>
             <Paper sx={{width: '100%', mb: 2}}>
@@ -233,19 +247,20 @@ export default function EnhancedTable(props: {rows: TableDataType[] }) {
                                            orderBy={orderBy}
                         />
                         <TableBody>
-                            {stableSort(props.rows, getComparator(order, orderBy))
+                            {/*//@ts-ignore*/}
+                            {stableSort<TableDataType>(props.rows, getComparator(order, orderBy))
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, index) => {
                                     const labelId = `enhanced-table-checkbox-${index}`;
 
                                     return (
-                                        <>
+                                        <Fragment key={row.id}>
                                         <TableRow
                                             hover
                                             //onClick={(event) => handleClick(event, row.name)}
                                             // role="checkbox"
                                             tabIndex={-1}
-                                            key={row.name}
+                                            // key={row.name}
                                         >
                                             <TableCell
                                                 component="th"
@@ -260,7 +275,7 @@ export default function EnhancedTable(props: {rows: TableDataType[] }) {
                                             <TableCell align="left">{row.createdBy}</TableCell>
                                             <TableCell align="left">{row.action}</TableCell>
                                         </TableRow>
-                                        </>
+                                        </Fragment>
                                     );
                                 })}
                             {emptyRows > 0 && (

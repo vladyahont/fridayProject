@@ -2,19 +2,8 @@ import {instance} from '../../app/instance'
 import {AxiosRequestConfig} from "axios";
 
 export const packsApi = {
-    getPacks(user_id?: string, page: number = 1, pageCount: number = 100, packName?: string,
-             min?: number, max?: number, sortPacks?: string) {
-        return instance.get<PacksResponseType>('cards/pack', {
-                params: {
-                    user_id,
-                    page,
-                    pageCount,
-                    packName,
-                    min,
-                    max,
-                    sortPacks
-                }
-            }
+    getPacks(params: GetPackParamsType) {
+        return instance.get<PacksResponseType>('cards/pack', {params}
         )
     },
     addPack(name: string, deckCover?: string) {
@@ -25,8 +14,12 @@ export const packsApi = {
             }
         })
     },
-    deletePack(id?: AxiosRequestConfig<any>) {
-        return instance.delete<any>('cards/pack', id)
+    deletePack(id: string) {
+        return instance.delete<any>(`cards/pack/`, {
+            params: {
+                id
+            }
+        })
 
     },
     updatePack(_id: string, name?: string) {
@@ -110,3 +103,33 @@ export type PacksResponseType = {
     token: string;
     tokenDeathTime: number;
 }
+
+export type GetPackParamsType = {
+    user_id?: string
+    page?: number
+    pageCount?: number
+    packName?: string,
+    min?: number
+    max?: number
+    sortPacks?: string
+}
+// data:
+//   newCardsPack:
+//     cardsCount:0
+//     created:"2023-03-15T18:33:58.275Z"
+//     grade:0
+//     more_id:"640a57dbb8230638104d84e5"
+//     name:"$newPack$"
+//     path:"/def"
+//     private:false
+//     rating:0
+//     shots:0
+//     type:"pack"
+//     updated:"2023-03-15T18:33:58.275Z"
+//     user_id:"640a57dbb8230638104d84e5"
+//     user_name:"vlad"
+//     __v:0
+//     _id:"64120f96f979e2103b2aa822"
+//
+// token: "f2cf6160-c35f-11ed-9e9f-b5a360890d21"
+// tokenDeathTime:1678916038134

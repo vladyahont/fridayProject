@@ -14,9 +14,9 @@ export const Packs = () => {
     const [switcher, setSwitcher] = useState(true)
 
     const packs: TableDataType[] = useAppSelector(packsSelector)
-        .map(p => createData(p.name, p.cardsCount, p.updated, p.user_name, 'learn'))
+        .map(p => createData(p.name, p.cardsCount, p.updated, p.user_name, 'learn', p._id))
     const myID = useAppSelector(userIdSelector)
-    const testID = '6409ee16363fe2261c921716'
+    //const testID = '6409ee16363fe2261c921716'
 
     //useEffect(() => dispatch(getPacksTC()), [])
     useEffect(() => {
@@ -26,6 +26,15 @@ export const Packs = () => {
     const addNewPackHandler = () => {
         dispatch(addPackTC('$newPack$'))
     }
+    const switchHandler = () => {
+        setSwitcher(!switcher)
+    }
+
+    // const searchPackHandler = () => {
+    //     dispatch(searchPackAC(packName))      => поиск по названию
+    // }
+
+
 
     return (
         <div className={s.componentContainer}>
@@ -37,9 +46,7 @@ export const Packs = () => {
                 <Stack direction="row" spacing={1} alignItems="center" sx={{marginBottom: '20px'}}>
                     <Typography>My</Typography>
                     <Switch checked={switcher}
-                            onChange={() => {
-                                setSwitcher(!switcher)
-                            }}
+                            onChange={switchHandler}
                     />
                     <Typography>All</Typography>
                 </Stack>
