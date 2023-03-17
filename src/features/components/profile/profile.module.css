@@ -1,0 +1,103 @@
+.backBlock{
+    cursor: default;
+    position: relative;
+    left: 30px;
+    top: 20px;
+}
+
+.profileContainer {
+    width: 413px;
+    height: 408px;
+    margin: 60px auto;
+}
+
+.profileBlock{
+    background-color: #FFFFFF;
+    box-shadow: 1px 1px 2px rgb(0 0 0 / 10%), -1px -1px 2px rgb(0 0 0 / 10%);
+    border-radius: 2px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: stretch;
+    align-items: center;
+}
+
+.btnLogout {
+    margin-top: 17px;
+    background: #FCFCFC;
+    box-shadow: 0px 2px 10px rgb(109 109 109 / 25%), inset 0px 1px 0px rgb(255 255 255 / 30%);
+    border-radius: 30px;
+    border: none;
+    width: 127px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-content: stretch;
+    align-items: center;
+    font-size: 16px;
+    padding: 8px 20px;
+}
+.btnLogout:hover {
+    cursor: pointer;
+}
+s.btnIcon{
+    color: #000000;
+}
+s.btnText{
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #000000;
+    opacity: 0.8;
+}
+.avatarContainer {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: relative;
+    padding-top: 30px;
+}
+.avatarContainer img {
+    max-width: 100%;
+}
+.iconAvatar {
+    background-color: #808080;
+    color: #ffffff;
+    border: 2px solid #808080;
+    border-radius: 50%;
+    position: absolute;
+    top: 93px;
+    left: 70px;
+    width: 100px;
+    height: 100px;
+}
+.nameContainer{
+    padding-top: 20px;
+    width: 85%;
+}
+
+.title{
+    margin-top: -15px;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 27px;
+}
+.iconName{
+    color: #000000;
+}
+
+
+
+.emailText{
+    padding-top: 19px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    opacity: 0.5;
+}
