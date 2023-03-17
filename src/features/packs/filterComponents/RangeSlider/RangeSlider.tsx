@@ -3,6 +3,7 @@ import {useAppDispatch, useAppSelector} from "../../../../app/store";
 import {SyntheticEvent, useEffect, useState} from "react";
 import {setSearchParamsAC} from "../../packs-reducer";
 import {Slider} from "@mui/material";
+import s from"../RangeSlider/rangeSlider.module.css"
 
 export const RangeSlider = () => {
   const minCardsCount = useAppSelector(minCardsCountSelector);
@@ -17,6 +18,7 @@ export const RangeSlider = () => {
 
   const minDistance = 5;
   const [values, setValues] = useState<[number,number]>([0, 0]);
+
 
   useEffect(() => {
     setValues([
@@ -45,8 +47,8 @@ export const RangeSlider = () => {
   const disabled = appStatus === "loading"
 
   return (
-    <span>
-      <span>{values[0]}</span>
+    <div className = {s.container}>
+      <span className = {s.value}>{values[0]}</span>
       <Slider
         min={minCardsCount}
         max={maxCardsCount}
@@ -55,8 +57,8 @@ export const RangeSlider = () => {
         onChangeCommitted={onChangeCommittedHandler}
         disabled={disabled}
       />
-      <span>{values[1]}</span>
-    </span>
+      <span className = {s.value}>{values[1]}</span>
+    </div>
   );
 };
 

@@ -62,9 +62,7 @@ export const Packs = () => {
         <h1 className={s.h1}>Packs List</h1>
         <Button className={s.button} onClick={addNewPackHandler}>Add new pack</Button>
       </div>
-      <div className={s.filterContainer}>
-        <FilterPanel/>
-      </div>
+      <FilterPanel/>
       <EnhancedTable rows={packs}/>
     </div>
   )

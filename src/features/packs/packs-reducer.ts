@@ -18,7 +18,14 @@ export type SearchParamsType = {
 }
 const initialState = {
 
-  searchParams: {} as SearchParamsType,
+  searchParams: {
+    packName: '',
+    user_id: null,
+    min: 0,
+    max: 0,
+    page: 1,
+    pageCount: 5,
+  } as SearchParamsType,
   cardPacks: [] as CardPackType[],
   cardPacksTotalCount: 0,
   // количество колод
