@@ -3,22 +3,8 @@ import {AxiosRequestConfig} from "axios";
 
 export const packsApi = {
 
-    getPacks(user_id?: string, page: number = 1, pageCount: number = 100, packName?: string,
-             min?: number, max?: number, sortPacks?: string) {
-        return instance.get<PacksResponseType>('cards/pack', {
-                params: {
-                    user_id,
-                    page,
-                    pageCount,
-                    packName,
-                    min,
-                    max,
-                    sortPacks
-                }
-            }
-        )
-    },
-    getPackss(params:GetPackParamType) {
+
+    getPacks(params:GetPackParamType) {
         return instance.get<PacksResponseType>('cards/pack', {
               params
           }

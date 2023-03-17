@@ -77,26 +77,10 @@ export const updatePackAC = (_id: string, name?: string) => {
 
 
 
-export const getPacksTC = (user_id?: string, page?: number, pageCount?: number, packName?: string,
-                           min?: number, max?: number,  sortPacks?: string): RootThunkType => async (dispatch: Dispatch) => {
+export const getPacksTC = (params:GetPackParamType): RootThunkType => async (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
-        const res = await packsApi.getPacks(user_id, page, pageCount, packName, min, max, sortPacks)
-        dispatch(getPacksAC(res.data))
-        dispatch(setAppStatusAC('succeeded'))
-    } catch (err: unknown) {
-        dispatch(setAppStatusAC('failed'))
-        if (err instanceof AxiosError) {
-            if (err.response) {
-                errorUtils(err.response.data.error, dispatch)
-            }
-        }
-    }
-}
-export const getPackssTC = (params:GetPackParamType): RootThunkType => async (dispatch: Dispatch) => {
-    dispatch(setAppStatusAC('loading'))
-    try {
-        const res = await packsApi.getPackss(params)
+        const res = await packsApi.getPacks(params)
         dispatch(getPacksAC(res.data))
         dispatch(setAppStatusAC('succeeded'))
     } catch (err: unknown) {

@@ -12,7 +12,7 @@ import Paper from '@mui/material/Paper';
 import {visuallyHidden} from '@mui/utils';
 import {useSearchParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../app/store";
-import {getPackssTC} from "../packs-reducer";
+import {getPacksTC} from "../packs-reducer";
 import {cardPacksTotalCountSelector} from "../../../app/selectors";
 
 export type TableDataType = {
