@@ -187,9 +187,9 @@ export default function EnhancedTable(props: {rows: TableDataType[] }) {
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof TableDataType>('name');
     //const [selected, setSelected] = React.useState<readonly string[]>([]);
-    const [page, setPage] = React.useState(0);
+    const [page, setPage] = React.useState(Number(searchParams.get("page")) || 0);
     const [dense, setDense] = React.useState(false);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [rowsPerPage, setRowsPerPage] = React.useState(Number(searchParams.get("pageCount")) || 5);
     const dispatch = useAppDispatch();
 
 

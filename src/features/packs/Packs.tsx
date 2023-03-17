@@ -1,6 +1,6 @@
 import {useAppDispatch, useAppSelector} from "../../app/store";
 import {packsSelector} from "../../app/selectors";
-import React from "react";
+import React, {useEffect} from "react";
 import {addPackTC, getPackssTC} from "./packs-reducer";
 import EnhancedTable, {createData, TableDataType} from "./Table/Table";
 import s from './Packs.module.css'
@@ -15,8 +15,12 @@ import {useSearchParams} from "react-router-dom";
 export const Packs = () => {
     const dispatch = useAppDispatch()
 
-    const packs: TableDataType[] = useAppSelector(packsSelector)
-        .map(p => createData(p.name, p.cardsCount, p.updated, p.user_name, 'learn'))
+  let packs = useAppSelector(packsSelector)
+
+  let rows: TableDataType[]  = packs
+    .map(p => createData(p.name, p.cardsCount, p.updated, p.user_name, 'learn'))
+
+
 
   const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
 
@@ -51,7 +55,7 @@ export const Packs = () => {
               <FilterAltOffIcon />
             </SuperButton>
           </div>
-            <EnhancedTable rows={packs}/>
+            <EnhancedTable rows={rows}/>
         </div>
     )
 }
