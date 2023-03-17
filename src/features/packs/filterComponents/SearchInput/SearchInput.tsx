@@ -1,7 +1,7 @@
 import React, {DetailedHTMLProps, InputHTMLAttributes, useEffect, useState} from 'react';
 import {useSearchParams} from "react-router-dom";
 import {appStatusSelector} from "../../../../app/selectors";
-import {useAppDispatch, useAppSelector} from "../../../../app/store";
+import {useAppSelector} from "../../../../app/store";
 import {useDebounce} from "../../../../hooks/useDebounce";
 import SuperInputText from "../../../../superComponents/c1-SuperInputText/SuperInputText";
 
@@ -20,6 +20,7 @@ export const SearchInput:React.FC<SearchInputPropsType> = ({
 
   const appStatus = useAppSelector(appStatusSelector);
   const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
+
   const [searchValue,setSearchValue] = useState<string>(searchParams.get("packName") || '')
   const params = Object.fromEntries(searchParams)
 
@@ -29,7 +30,6 @@ export const SearchInput:React.FC<SearchInputPropsType> = ({
   , [searchParams])
 
   const searchDebouncedValue = useDebounce<string>(searchValue, 800);
-
   useEffect(() => {
     if (!!searchDebouncedValue) {
       setSearchParams({...params, packName: searchValue});

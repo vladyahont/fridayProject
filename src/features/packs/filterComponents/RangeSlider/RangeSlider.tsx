@@ -1,8 +1,7 @@
 import {appStatusSelector, maxCardsCountSelector, minCardsCountSelector} from "../../../../app/selectors";
-import {useAppDispatch, useAppSelector} from "../../../../app/store";
+import {useAppSelector} from "../../../../app/store";
 import {SyntheticEvent, useEffect, useState} from "react";
 import {useSearchParams} from "react-router-dom";
-import {getPackssTC} from "../../packs-reducer";
 import {Slider} from "@mui/material";
 
 export const RangeSlider = () => {
@@ -27,8 +26,7 @@ export const RangeSlider = () => {
   }, [minCardsCount, maxCardsCount]);
 
   const minDistance = 5;
-
-  const [values, setValues] = useState<number[]>([minCardsCount, maxCardsCount]);
+  const [values, setValues] = useState<[number,number]>([minCardsCount, maxCardsCount]);
 
   const changeSliderValues = (e: Event, value: number | number[], activeThumb: number) => {
     if (Array.isArray(value)) {
