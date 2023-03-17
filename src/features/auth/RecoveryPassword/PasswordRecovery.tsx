@@ -11,7 +11,7 @@ import {useNavigate} from "react-router-dom";
 
 export const PasswordRecovery = () => {
   const dispatch = useAppDispatch()
-  //подумать как перекидывать введенный email ( достать введеный из логина)
+
   const email = useAppSelector(userEmailSelector)
   const isSentInstruction = useAppSelector(isSentInstructionSelector)
   const navigate = useNavigate()
@@ -32,7 +32,6 @@ export const PasswordRecovery = () => {
   )
 
   useEffect(() => { isSentInstruction && navigate(`${PATH.CHECK_EMAIL}`) }, [isSentInstruction])
-
 
   return (
     <form onSubmit={formik.handleSubmit}>

@@ -3,10 +3,7 @@ import {Dispatch} from 'redux'
 import {AxiosError} from 'axios'
 import ava from '../../assest/imgs/ava.png'
 import {RootThunkType} from '../../app/store'
-import {
-  initializeAppAC,
-  setAppStatusAC,
-} from '../../app/app-reducer'
+import {initializeAppAC, setAppStatusAC,} from '../../app/app-reducer'
 import {errorUtils} from "../../utils/error-utils";
 
 const initialState: UserResponseType & { isLoggedIn: boolean; isRegistered: boolean, isSentInstruction: boolean } = {
@@ -116,7 +113,7 @@ export const initializeProfileTC = (): RootThunkType => dispatch => {
     })
 }
 
-export const loginTC = (email: string, password: string, rememberMe: boolean): RootThunkType => (dispatch: Dispatch) => {
+export const loginTC = (email: string, password: string, rememberMe: boolean): RootThunkType => dispatch => {
   dispatch(setAppStatusAC('loading'))
   authApi.login({email, password, rememberMe})
     .then((data) => {
@@ -139,19 +136,18 @@ export const logoutTC = (): RootThunkType => (dispatch: Dispatch) => {
 }
 export const registerTC =
   (email: string, password: string): RootThunkType =>
-    (dispatch: Dispatch) => {
+    dispatch => {
       dispatch(setAppStatusAC('loading'))
       authApi.register({email, password}).then(() => {
         dispatch(setRegisteredAC(true))
-        dispatch(setAppStatusAC('succeeded'))
       }).catch((err: AxiosError<{ error: string }>) => {
         errorUtils(err, dispatch);
-      })
+      }).finally(() => dispatch(setAppStatusAC('succeeded')))
     }
 
 export const updUserDataTC =
   (name: string, avatar?: string): RootThunkType =>
-    (dispatch: Dispatch) => {
+  dispatch => {
       dispatch(setAppStatusAC('loading'))
       authApi.updateMe({name, avatar}).then(data => {
         const {name, avatar} = data.updatedUser
@@ -164,7 +160,7 @@ export const updUserDataTC =
 
 export const forgotTC =
   (email: string): RootThunkType =>
-    (dispatch: Dispatch) => {
+    dispatch => {
       dispatch(setAppStatusAC('loading'))
       authApi.forgot(email).then(() => {
         dispatch(sentInstructionAC(true))
@@ -174,7 +170,7 @@ export const forgotTC =
       })
     }
 export const setNewPasswordTC = (password:string,resetPasswordToken:string) : RootThunkType =>
-  (dispatch: Dispatch) => {
+  dispatch => {
     dispatch(setAppStatusAC('loading'))
     authApi.setNewPassword({password,
       resetPasswordToken}).then(() => {
