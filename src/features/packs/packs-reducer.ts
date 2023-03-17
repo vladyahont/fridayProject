@@ -27,9 +27,9 @@ export const packsReducer = (
             return {...state, ...action.payload.data}
         case "PACKS/DELETE-PACK":
             return {...state, cardPacks: state.cardPacks.filter(p => p._id !== action.payload.id)}
-        case "PACKS/UPDATE-PACK":
+       /* case "PACKS/UPDATE-PACK":
             return {...state, cardPacks: state.cardPacks.map(p => p._id === action.payload._id
-                ? {...p, name: action.payload.name} : p)}
+                ? {...p, name: action.payload.name} : p)}*/
         default:
             return state
     }
