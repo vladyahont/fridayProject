@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
+
 import { Header } from '../features/components/Header/Header'
 import './App.css'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { Profile } from '../features/components/profile/Profile'
 import { Login } from '../features/auth/sing-in/Login'
-import { ErrorPage } from '../features/components/ErrorPage/ErrorPage'
+import { ErrorPage } from '../features/components/ErrorPage'
 import { PasswordRecovery } from '../features/components/PassworRecovery'
 import { NewPasswordPage } from '../features/components/NewPasswordPage'
 import { useAppDispatch, useAppSelector } from './store'
@@ -15,7 +16,6 @@ import {Loading} from "../features/components/Loading/Loading";
 import {Loader} from "../features/components/Loading/Loader";
 import {appStatusSelector, isInitializedSelector} from "./selectors";
 import {DevFooter} from "../features/components/DevFooter/DevFooter";
-import {Packs} from "../features/packs/Packs";
 
 function App() {
   const dispatch = useAppDispatch()
@@ -23,9 +23,7 @@ function App() {
   const status = useAppSelector(appStatusSelector)
 
   // просим me
-  useEffect(() => {
-      dispatch(initializeProfileTC())
-  }, [dispatch])
+  useEffect(() => dispatch(initializeProfileTC()), [])
 
   if (!isInitialized) {
     // ждем Me
@@ -49,6 +47,7 @@ function App() {
         <Route path={PATH.RECOVERY} element={<PasswordRecovery />} />
         <Route path={PATH.NEWPASSWORD} element={<NewPasswordPage />} />
         <Route path={PATH.PACKS} element={<Packs />} />
+        <Route path={PATH.CHECK_EMAIL} element={<CheckEmail />} />
         <Route path={'*'} element={<Navigate to={PATH['404']} />} />
       </Routes>
       <DevFooter/>

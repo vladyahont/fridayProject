@@ -33,19 +33,16 @@ export const appReducer = (
   }
 }
 
-export const setAppStatusAC = (newStatus: RequestStatusType) =>
-  ({
+export const setAppStatusAC = (newStatus: RequestStatusType) => ({
     type: 'APP/SET-APP-STATUS',
     payload: {
       appStatus: newStatus,
     },
   } as const)
-export const initializeAppAC = () =>
-  ({
+export const initializeAppAC = () => ({
     type: 'APP/SET-INITIALIZE',
   } as const)
-export const setAppErrorAC = (errorMessage: string | null) =>
-  ({
+export const setAppErrorAC = (errorMessage: string | null) => ({
     type: 'APP/SET_APP_ERROR',
     payload: {
       appError: errorMessage,

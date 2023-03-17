@@ -19,6 +19,26 @@
 .formControl{
     width: 85%!important;
 }
+.forgotAccText{
+    /* identical to box height, or 171% */
+    margin-top: 0;
+    margin-bottom: 0;
+    text-align: end;
+    font-size: 14px;
+    line-height: 24px;
+
+}
+.manualText{
+    font-family: 'Montserrat', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    /* or 171% */
+    color: #000000;
+
+    opacity: 0.5;
+}
 
 .haveAccText{
     /* identical to box height, or 171% */
@@ -56,7 +76,7 @@
 
 .button {
     width: 85%!important;
-    margin: 60px auto 0 auto!important;
+    margin: 20px auto 0 auto!important;
 
     font-size: 16px!important;
     text-transform: capitalize!important;
