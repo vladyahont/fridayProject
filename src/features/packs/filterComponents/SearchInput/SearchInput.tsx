@@ -25,9 +25,14 @@ export const SearchInput:React.FC<SearchInputPropsType> = ({
 
   const [searchValue,setSearchValue] = useState<string>(searchParams.get("packName") || '')
 
-  const searchDebouncedValue = useDebounce<string>(searchValue, 800);
-
   const params = Object.fromEntries(searchParams)
+
+  useEffect(() => {
+    setSearchValue(searchParams.get("packName") || '')
+    }
+  , [searchParams])
+
+  const searchDebouncedValue = useDebounce<string>(searchValue, 800);
 
   useEffect(() => {
     if (!!searchDebouncedValue) {

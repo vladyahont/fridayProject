@@ -17,6 +17,12 @@ export const RangeSlider = () => {
   const userID = searchParams.get("user_id");
 
   useEffect(() => {
+      setValues([Number(searchParams.get("min")) || minCardsCount,
+        Number(searchParams.get("max")) || maxCardsCount])
+    }
+    , [searchParams])
+
+  useEffect(() => {
     setValues([
       /*searchParams.has("min")? Number(searchParams.get("min")) : minCardsCount,
       searchParams.has("max")? Number(searchParams.get("max")) : maxCardsCount*/

@@ -11,12 +11,20 @@ export const ChosePack = () => {
   const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
   const params = Object.fromEntries(searchParams)
 
+  //const [switcher, setSwitcher] = useState(!!searchParams.get("user_id"))
   const [switcher, setSwitcher] = useState(!!searchParams.get("user_id"))
+
+  useEffect(() => {
+      setSwitcher(searchParams.has("user_id"))
+    }, [searchParams])
+
 
   const dispatch = useAppDispatch();
 
   const userID = useAppSelector(userIdSelector);
   const appStatus = useAppSelector(appStatusSelector);
+
+
 
   useEffect(() => {
     if (switcher) {
