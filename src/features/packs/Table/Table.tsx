@@ -200,9 +200,7 @@ export default function EnhancedTable(props: {rows: TableDataType[] }) {
     };
 
     const handleChangePage = (event: unknown, newPage: number) => {
-
         setPage(newPage);
-        dispatch(getPackssTC({ ...params,  page:newPage}));
         setSearchParams({ ...params, page:newPage });
     };
 
@@ -211,8 +209,6 @@ export default function EnhancedTable(props: {rows: TableDataType[] }) {
         const pageCount = parseInt(event.target.value)
         setRowsPerPage(pageCount);
         setSearchParams({ ...params,  pageCount:pageCount });
-        dispatch(getPackssTC({ ...params,  pageCount:pageCount}));
-
         setPage(0);
     };
 

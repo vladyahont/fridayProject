@@ -27,6 +27,8 @@ export const Packs = () => {
     delete params.min
     delete params.max
     delete params.user_id
+    delete params.pageCount
+    delete params.page
     setSearchParams(params)
   };
 
