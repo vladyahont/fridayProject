@@ -10,30 +10,25 @@ import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import Paper from '@mui/material/Paper';
 import {visuallyHidden} from '@mui/utils';
-import {Fragment} from "react";
-import {deletePackTC} from "../packs-reducer";
-import {useAppDispatch} from "../../../app/store";
 import {useSearchParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../app/store";
-import {getPacksTC} from "../packs-reducer";
+import {getPackssTC} from "../packs-reducer";
 import {cardPacksTotalCountSelector} from "../../../app/selectors";
 
 export type TableDataType = {
-    name: string | undefined
+    name: string
     cards: number
     lastUpdated: string
     createdBy: string
     action: 'learn' | 'edit' | 'delete'
-    id?: string
 }
 
 export function createData(
-    name: string | undefined,
-    cards: number,
-    lastUpdated: string,
-    createdBy: string,
-    action: 'learn' | 'edit' | 'delete',
-    id?: string
+  name: string,
+  cards: number,
+  lastUpdated: string,
+  createdBy: string,
+  action: 'learn' | 'edit' | 'delete',
 ): TableDataType {
     return {
         name,
@@ -41,7 +36,6 @@ export function createData(
         lastUpdated,
         createdBy,
         action,
-        id
     };
 }
 
@@ -187,12 +181,15 @@ export default function EnhancedTable(props: {rows: TableDataType[] }) {
     const params = Object.fromEntries(searchParams);
 
     const cardPacksTotalCount = useAppSelector(cardPacksTotalCountSelector)
+
+    console.log(params)
+
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof TableDataType>('name');
     //const [selected, setSelected] = React.useState<readonly string[]>([]);
-    const [page, setPage] = React.useState(Number(searchParams.get("page")) || 0);
+    const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
-    const [rowsPerPage, setRowsPerPage] = React.useState(Number(searchParams.get("pageCount")) || 5);
+    const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const dispatch = useAppDispatch();
 
 
@@ -206,7 +203,9 @@ export default function EnhancedTable(props: {rows: TableDataType[] }) {
     };
 
     const handleChangePage = (event: unknown, newPage: number) => {
+
         setPage(newPage);
+        dispatch(getPackssTC({ ...params,  page:newPage}));
         setSearchParams({ ...params, page:newPage });
     };
 
@@ -215,6 +214,8 @@ export default function EnhancedTable(props: {rows: TableDataType[] }) {
         const pageCount = parseInt(event.target.value)
         setRowsPerPage(pageCount);
         setSearchParams({ ...params,  pageCount:pageCount });
+        dispatch(getPackssTC({ ...params,  pageCount:pageCount}));
+
         setPage(0);
     };
 

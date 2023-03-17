@@ -1,4 +1,4 @@
-import {CardPackType, packsApi, PacksResponseType} from "./packs-api";
+import {CardPackType, GetPackParamsType, packsApi, PacksResponseType} from "./packs-api";
 import {RootThunkType} from "../../app/store";
 import {Dispatch} from "redux";
 import {setAppStatusAC} from "../../app/app-reducer";
@@ -6,10 +6,10 @@ import {AxiosError} from "axios";
 import {errorUtils} from "../../utils/error-utils";
 
 const initialState = {
-    page: 0, // выбранная страница
+    page: 0,
     pageCount: 0,
     cardPacks: [] as CardPackType[],
-    cardPacksTotalCount: 0, // количество колод
+    cardPacksTotalCount: 0,
     user_id: '',
     packName: '' as string | undefined,
     minCardsCount: 0,
@@ -33,11 +33,11 @@ export const packsReducer = (
             return {...state, ...action.payload.data}
         case "PACKS/DELETE-PACK":
             return {...state, cardPacks: state.cardPacks.filter(p => p._id !== action.payload.id)}
-        case "PACKS/UPDATE-PACK":
+        /*case "PACKS/UPDATE-PACK":
             return {
                 ...state, cardPacks: state.cardPacks.map(p => p._id === action.payload._id
                     ? {...p, name: action.payload.name} : p)
-            }
+            }*/
         case "PACKS/SEARCH-PACK":
             return state
         default:
@@ -101,6 +101,21 @@ export const getPacksTC = (myID?: string): RootThunkType => async (dispatch: Dis
         const params = getState().packs
         const res = await packsApi.getPacks({...params})
         console.log(res.data)
+        dispatch(getPacksAC(res.data))
+        dispatch(setAppStatusAC('succeeded'))
+    } catch (err: unknown) {
+        dispatch(setAppStatusAC('failed'))
+        if (err instanceof AxiosError) {
+            if (err.response) {
+                errorUtils(err.response.data.error, dispatch)
+            }
+        }
+    }
+}
+export const getPackssTC = (params:GetPackParamsType): RootThunkType => async (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('loading'))
+    try {
+        const res = await packsApi.getPackss(params)
         dispatch(getPacksAC(res.data))
         dispatch(setAppStatusAC('succeeded'))
     } catch (err: unknown) {

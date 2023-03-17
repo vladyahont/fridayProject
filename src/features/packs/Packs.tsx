@@ -1,7 +1,7 @@
 import {useAppDispatch, useAppSelector} from "../../app/store";
 import {packsSelector} from "../../app/selectors";
 import React, {useEffect} from "react";
-import {addPackTC, getPacksTC} from "./packs-reducer";
+import {addPackTC, getPackssTC} from "./packs-reducer";
 import EnhancedTable, {createData, TableDataType} from "./Table/Table";
 import s from './Packs.module.css'
 import Button from "@mui/material/Button";
@@ -33,7 +33,7 @@ export const Packs = () => {
   };
 
   useEffect(() => {
-      dispatch(getPacksTC(params))
+      dispatch(getPackssTC(params))
     }, [searchParams])
     const addNewPackHandler = () => {
         dispatch(addPackTC('$newPack$'))

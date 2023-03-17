@@ -10,6 +10,8 @@ const initialState: UserResponseType & { isLoggedIn: boolean; isRegistered: bool
   isSentInstruction: false,
   isRegistered: false,
   isLoggedIn: false,
+
+  _id:"",
   email: 'j&johnson@gmail.com',
   name: 'ivan',
   avatar: ava,
@@ -27,6 +29,7 @@ export const authReducer = (
       return {
         ...state,
         isLoggedIn: true,
+        _id:action.payload._id,
         email: action.payload.email,
         name: action.payload.name,
         avatar: action.payload.avatar,
@@ -45,7 +48,7 @@ export const authReducer = (
   }
 }
 
-export const setLoginAC = (
+export const setLoginAC = (  _id:string,
   email: string,
   name: string,
   avatar: string = ava, // временно
@@ -54,6 +57,7 @@ export const setLoginAC = (
   return {
     type: 'AUTH/SET-LOGIN',
     payload: {
+      _id,
       email,
       name,
       avatar,
@@ -99,8 +103,8 @@ export const initializeProfileTC = (): RootThunkType => dispatch => {
     .me()
     .then(data => {
       if (data.name) {
-        const {name, email, publicCardPacksCount, avatar} = data
-        dispatch(setLoginAC(email, name, avatar, publicCardPacksCount))
+        const {_id,name, email, publicCardPacksCount, avatar} = data
+        dispatch(setLoginAC(_id,email, name, avatar, publicCardPacksCount))
       }
       dispatch(setAppStatusAC('succeeded'))
     })
@@ -117,8 +121,8 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): R
   dispatch(setAppStatusAC('loading'))
   authApi.login({email, password, rememberMe})
     .then((data) => {
-      const {name, email, publicCardPacksCount, avatar} = data
-      dispatch(setLoginAC(email, name, avatar, publicCardPacksCount))
+      const {_id,name, email, publicCardPacksCount, avatar} = data
+      dispatch(setLoginAC(_id,email, name, avatar, publicCardPacksCount))
       dispatch(setAppStatusAC('succeeded'))
     }).catch((err: AxiosError<{ error: string }>) => {
     errorUtils(err, dispatch);

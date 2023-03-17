@@ -6,6 +6,12 @@ export const packsApi = {
         return instance.get<PacksResponseType>('cards/pack', {params}
         )
     },
+    getPackss(params:GetPackParamsType) {
+        return instance.get<PacksResponseType>('cards/pack', {
+              params
+          }
+        )
+    },
     addPack(name: string, deckCover?: string) {
         return instance.post<any>('cards/pack', {
             cardsPack: {

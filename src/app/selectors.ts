@@ -12,6 +12,7 @@ export const isLoggedInSelector = (state: AppStateType) => state.auth.isLoggedIn
 export const userNameSelector = (state: AppStateType) => state.auth.name
 export const userAvatarSelector = (state: AppStateType) => state.auth.avatar
 export const userEmailSelector = (state: AppStateType) => state.auth.email
+export const userIdSelector = (state: AppStateType) => state.auth._id
 
 /* --- Packs-reducer selector --- */
 export const packsSelector = (state: AppStateType) => state.packs.cardPacks

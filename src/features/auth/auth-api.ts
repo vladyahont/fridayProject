@@ -67,6 +67,7 @@ type InfoResponseType = {
   error: string
 }
 export type UserResponseType = {
+  _id:string,
   email: string
   name: string
   avatar?: string

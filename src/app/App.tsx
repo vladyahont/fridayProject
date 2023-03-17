@@ -5,9 +5,6 @@ import './App.css'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { Profile } from '../features/components/profile/Profile'
 import { Login } from '../features/auth/sing-in/Login'
-import { ErrorPage } from '../features/components/ErrorPage'
-import { PasswordRecovery } from '../features/components/PassworRecovery'
-import { NewPasswordPage } from '../features/components/NewPasswordPage'
 import { useAppDispatch, useAppSelector } from './store'
 import { initializeProfileTC } from '../features/auth/auth-reducer'
 import {SignUp} from "../features/auth/sign-up/SignUp";
@@ -16,6 +13,11 @@ import {Loading} from "../features/components/Loading/Loading";
 import {Loader} from "../features/components/Loading/Loader";
 import {appStatusSelector, isInitializedSelector} from "./selectors";
 import {DevFooter} from "../features/components/DevFooter/DevFooter";
+import {Packs} from "../features/packs/Packs";
+import {CheckEmail} from "../features/auth/RecoveryPassword/CheckEmail/CheckEmail";
+import {ErrorPage} from "../features/components/ErrorPage/ErrorPage";
+import {PasswordRecovery} from "../features/auth/RecoveryPassword/PasswordRecovery";
+import {NewPassword} from "../features/auth/RecoveryPassword/CreadeNew/NewPassword";
 
 function App() {
   const dispatch = useAppDispatch()
@@ -45,7 +47,7 @@ function App() {
         <Route path={PATH.REGISTRATION} element={<SignUp />} />
         <Route path={PATH['404']} element={<ErrorPage />} />
         <Route path={PATH.RECOVERY} element={<PasswordRecovery />} />
-        <Route path={PATH.NEWPASSWORD} element={<NewPasswordPage />} />
+        <Route path={PATH.NEWPASSWORD} element={<NewPassword />} />
         <Route path={PATH.PACKS} element={<Packs />} />
         <Route path={PATH.CHECK_EMAIL} element={<CheckEmail />} />
         <Route path={'*'} element={<Navigate to={PATH['404']} />} />
