@@ -1,4 +1,4 @@
-import {CardPackType, GetPackParamsType, packsApi, PacksResponseType} from "./packs-api";
+import {CardPackType, PacksParamsType, packsApi, PacksResponseType} from "./packs-api";
 import {RootThunkType} from "../../app/store";
 import {Dispatch} from "redux";
 import {setAppStatusAC} from "../../app/app-reducer";
@@ -112,7 +112,7 @@ export const getPacksTC = (myID?: string): RootThunkType => async (dispatch: Dis
         }
     }
 }
-export const getPackssTC = (params:GetPackParamsType): RootThunkType => async (dispatch: Dispatch) => {
+export const getPackssTC = (params:PacksParamsType): RootThunkType => async (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
         const res = await packsApi.getPackss(params)

@@ -2,11 +2,11 @@ import {instance} from '../../app/instance'
 import {AxiosRequestConfig} from "axios";
 
 export const packsApi = {
-    getPacks(params: GetPackParamsType) {
+    getPacks(params: PacksParamsType) {
         return instance.get<PacksResponseType>('cards/pack', {params}
         )
     },
-    getPackss(params:GetPackParamsType) {
+    getPackss(params:PacksParamsType) {
         return instance.get<PacksResponseType>('cards/pack', {
               params
           }
@@ -110,7 +110,7 @@ export type PacksResponseType = {
     tokenDeathTime: number;
 }
 
-export type GetPackParamsType = {
+export type PacksParamsType = {
     user_id?: string
     page?: number
     pageCount?: number
@@ -120,23 +120,3 @@ export type GetPackParamsType = {
     sortPacks?: string
     block?: boolean;
 }
-// data:
-//   newCardsPack:
-//     cardsCount:0
-//     created:"2023-03-15T18:33:58.275Z"
-//     grade:0
-//     more_id:"640a57dbb8230638104d84e5"
-//     name:"$newPack$"
-//     path:"/def"
-//     private:false
-//     rating:0
-//     shots:0
-//     type:"pack"
-//     updated:"2023-03-15T18:33:58.275Z"
-//     user_id:"640a57dbb8230638104d84e5"
-//     user_name:"vlad"
-//     __v:0
-//     _id:"64120f96f979e2103b2aa822"
-//
-// token: "f2cf6160-c35f-11ed-9e9f-b5a360890d21"
-// tokenDeathTime:1678916038134
