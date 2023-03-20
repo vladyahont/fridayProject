@@ -1,4 +1,4 @@
-import {CardPackType, PacksParamsType, packsApi, PacksResponseType} from "./packs-api";
+import {CardPackType, PacksParamsType, packsApi, PacksResponseType, NewPackType, UpdatePackType} from "./packs-api";
 import {RootThunkType} from "../../app/store";
 import {Dispatch} from "redux";
 import {setAppStatusAC} from "../../app/app-reducer";
@@ -6,17 +6,22 @@ import {AxiosError} from "axios";
 import {errorUtils} from "../../utils/error-utils";
 
 const initialState = {
-    page: 0,
-    pageCount: 0,
     cardPacks: [] as CardPackType[],
+    params: {
+        packName: '',
+        user_id: '',
+        min: 0,
+        max: 0,
+        sortPacks: '',
+        page: 1,
+        pageCount: 10,
+        block: false
+    } as PacksParamsType,
     cardPacksTotalCount: 0,
-    user_id: '',
-    packName: '' as string | undefined,
     minCardsCount: 0,
     maxCardsCount: 10,
-    sortPacks: '',
-    token: "17068f10-c435-11ed-a069-451961f5e465",
-    tokenDeathTime: 1679007581697
+    // token: "17068f10-c435-11ed-a069-451961f5e465",
+    // tokenDeathTime: 1679007581697
 
 }
 type InitialStateType = typeof initialState
@@ -97,10 +102,9 @@ export const searchPackAC = (packName: string) => {
 
 export const getPacksTC = (myID?: string): RootThunkType => async (dispatch: Dispatch, getState) => {
     dispatch(setAppStatusAC('loading'))
+    const params = getState().packs.params
     try {
-        const params = getState().packs
         const res = await packsApi.getPacks({...params})
-        console.log(res.data)
         dispatch(getPacksAC(res.data))
         dispatch(setAppStatusAC('succeeded'))
     } catch (err: unknown) {
@@ -115,7 +119,7 @@ export const getPacksTC = (myID?: string): RootThunkType => async (dispatch: Dis
 export const getPackssTC = (params:PacksParamsType): RootThunkType => async (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
-        const res = await packsApi.getPackss(params)
+        const res = await packsApi.getPacks(params)
         dispatch(getPacksAC(res.data))
         dispatch(setAppStatusAC('succeeded'))
     } catch (err: unknown) {
@@ -127,16 +131,14 @@ export const getPackssTC = (params:PacksParamsType): RootThunkType => async (dis
         }
     }
 }
-export const addPackTC = (name: string, deckCover?: string): RootThunkType => async (dispatch: Dispatch) => {
+export const addPackTC = (cardsPack: NewPackType): RootThunkType => async (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
-        const res = await packsApi.addPack(name, deckCover)
-        console.log(res)
+        await packsApi.addPack(cardsPack)
         // @ts-ignore
         dispatch(getPacksTC())
         dispatch(setAppStatusAC('succeeded'))
     } catch (err: unknown) {
-        console.log(err)
         dispatch(setAppStatusAC('failed'))
         if (err instanceof AxiosError) {
             if (err.response) {
@@ -161,10 +163,10 @@ export const deletePackTC = (id: string): RootThunkType => async (dispatch: Disp
         }
     }
 }
-export const updatePackTC = (_id: string, name?: string): RootThunkType => async (dispatch: Dispatch) => {
+export const updatePackTC = (cardsPack: UpdatePackType): RootThunkType => async (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
-        await packsApi.updatePack(_id, name)
+        await packsApi.updatePack(cardsPack)
         // @ts-ignore
         dispatch(getPacksTC())
         dispatch(setAppStatusAC('succeeded'))

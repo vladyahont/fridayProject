@@ -6,35 +6,15 @@ export const packsApi = {
         return instance.get<PacksResponseType>('cards/pack', {params}
         )
     },
-    getPackss(params:PacksParamsType) {
-        return instance.get<PacksResponseType>('cards/pack', {
-              params
-          }
-        )
-    },
-    addPack(name: string, deckCover?: string) {
-        return instance.post<any>('cards/pack', {
-            cardsPack: {
-                name,
-                deckCover
-            }
-        })
+    addPack(cardsPack: NewPackType) {
+        return instance.post<NewPackResponseType>('cards/pack', {cardsPack})
     },
     deletePack(id: string) {
-        return instance.delete<any>(`cards/pack/`, {
-            params: {
-                id
-            }
-        })
+        return instance.delete(`cards/pack/${id}`)
 
     },
-    updatePack(_id: string, name?: string) {
-        return instance.put<any>('cards/pack', {
-            cardsPack: {
-                _id,
-                name
-            }
-        })
+    updatePack(cardsPack: UpdatePackType) {
+        return instance.put<any>('cards/pack', {cardsPack})
     },
 
 
@@ -85,19 +65,19 @@ export type CardPackType = {
     _id: string
     user_id: string
     user_name: string
-    private?: boolean
+    private: boolean
     name: string
-    path?: string
-    grade?: number
-    shots?: number
-    deckCover?: string
+    path: string
+    grade: number
+    shots: number
+    deckCover: string
     cardsCount: number
-    type?: string
-    rating?: number
+    type: string
+    rating: number
     created: string
     updated: string
-    more_id?: string
-    __v?: number
+    more_id: string
+    __v: number
 }
 export type PacksResponseType = {
     cardPacks: CardPackType[];
@@ -109,14 +89,27 @@ export type PacksResponseType = {
     token: string;
     tokenDeathTime: number;
 }
-
 export type PacksParamsType = {
-    user_id?: string
-    page?: number
-    pageCount?: number
-    packName?: string,
-    min?: number
-    max?: number
-    sortPacks?: string
-    block?: boolean;
+    packName: string
+    user_id: string
+    min: number
+    max: number
+    sortPacks: string
+    page: number
+    pageCount: number
+    block: boolean;
+}
+export type NewPackType = {
+    name: string
+    private: boolean
+    deckCover?: string
+}
+export type NewPackResponseType = {
+    newCardsPack: NewPackType
+    token: string
+    tokenDeathTime?: number
+}
+export type UpdatePackType = {
+    _id: string
+    name: string
 }
