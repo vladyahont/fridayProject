@@ -66,7 +66,7 @@ export type CardPackType = {
     user_id: string
     user_name: string
     private: boolean
-    name: string
+    name: string | undefined
     path: string
     grade: number
     shots: number
@@ -90,8 +90,8 @@ export type PacksResponseType = {
     tokenDeathTime: number;
 }
 export type PacksParamsType = {
-    packName: string
-    user_id: string
+    packName?: string
+    user_id?: string
     min: number
     max: number
     sortPacks: string

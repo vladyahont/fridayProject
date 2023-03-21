@@ -12,11 +12,11 @@ import Paper from '@mui/material/Paper';
 import {visuallyHidden} from '@mui/utils';
 import {useSearchParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../app/store";
-import {getPackssTC} from "../packs-reducer";
+import {deletePackTC, searchPackAC} from "../packs-reducer";
 import {cardPacksTotalCountSelector} from "../../../app/selectors";
 
 export type TableDataType = {
-    name: string
+    name: string | undefined
     cards: number
     lastUpdated: string
     createdBy: string
@@ -24,7 +24,7 @@ export type TableDataType = {
 }
 
 export function createData(
-  name: string,
+  name: string | undefined,
   cards: number,
   lastUpdated: string,
   createdBy: string,
@@ -67,8 +67,8 @@ function getComparator<Key extends keyof any>(
   order: Order,
   orderBy: Key,
 ): (
-  a: { [key in Key]: number | string },
-  b: { [key in Key]: number | string },
+  a: { [key in Key]: number | string | undefined },
+  b: { [key in Key]: number | string | undefined},
 ) => number {
     return order === 'desc'
       ? (a, b) => descendingComparator(a, b, orderBy)
@@ -205,7 +205,8 @@ export default function EnhancedTable(props: {rows: TableDataType[] }) {
     const handleChangePage = (event: unknown, newPage: number) => {
 
         setPage(newPage);
-        dispatch(getPackssTC({ ...params,  page:newPage}));
+        //dispatch(getPackssTC({ ...params,  page:newPage}));
+        dispatch(searchPackAC({page: newPage}))
         setSearchParams({ ...params, page:newPage });
     };
 
@@ -214,7 +215,8 @@ export default function EnhancedTable(props: {rows: TableDataType[] }) {
         const pageCount = parseInt(event.target.value)
         setRowsPerPage(pageCount);
         setSearchParams({ ...params,  pageCount:pageCount });
-        dispatch(getPackssTC({ ...params,  pageCount:pageCount}));
+        //dispatch(getPackssTC({ ...params,  pageCount:pageCount}));
+        dispatch(searchPackAC({pageCount: pageCount}))
 
         setPage(0);
     };
@@ -222,6 +224,7 @@ export default function EnhancedTable(props: {rows: TableDataType[] }) {
     const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
         setDense(event.target.checked);
     };
+
 
     //const isSelected = (name: string) => selected.indexOf(name) !== -1;
 

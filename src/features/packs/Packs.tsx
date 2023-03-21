@@ -1,7 +1,7 @@
 import {useAppDispatch, useAppSelector} from "../../app/store";
-import {packsSelector} from "../../app/selectors";
+import {getParams, packsSelector} from "../../app/selectors";
 import React, {useEffect} from "react";
-import {addPackTC, getPackssTC, getPacksTC} from "./packs-reducer";
+import {addPackTC, getPacksTC} from "./packs-reducer";
 import EnhancedTable, {createData, TableDataType} from "./Table/Table";
 import s from './Packs.module.css'
 import Button from "@mui/material/Button";
@@ -16,6 +16,7 @@ export const Packs = () => {
   const dispatch = useAppDispatch()
 
   let packs = useAppSelector(packsSelector)
+    const par = useAppSelector(getParams)
 
   let rows: TableDataType[]  = packs
     .map(p => createData(p.name, p.cardsCount, p.updated, p.user_name, 'learn'))
@@ -33,8 +34,10 @@ export const Packs = () => {
   };
 
   useEffect(() => {
+
+
       dispatch(getPacksTC())
-    }, [searchParams])
+    }, [par])
     const addNewPackHandler = () => {
         dispatch(addPackTC({
             name: '#newPack#',

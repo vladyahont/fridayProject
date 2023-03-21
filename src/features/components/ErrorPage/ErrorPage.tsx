@@ -17,7 +17,7 @@ export const ErrorPage = () => {
 
     return (
         <div className={s.container}>
-            <h1>Error 404!</h1>
+            <h1>Error 400!</h1>
             <p>Page not found :(</p>
             <img src={error400}/>
             <div style={{margin: '0 auto'}}>
