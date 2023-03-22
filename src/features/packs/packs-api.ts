@@ -1,64 +1,18 @@
 import {instance} from '../../app/instance'
-import {AxiosRequestConfig} from "axios";
 
 export const packsApi = {
     getPacks(params: PacksParamsType) {
-        return instance.get<PacksResponseType>('cards/pack', {params}
-        )
+        return instance.get<PacksResponseType>('cards/pack', {params})
     },
     addPack(cardsPack: NewPackType) {
         return instance.post<NewPackResponseType>('cards/pack', {cardsPack})
     },
     deletePack(id: string) {
         return instance.delete(`cards/pack/${id}`)
-
     },
     updatePack(cardsPack: UpdatePackType) {
         return instance.put<any>('cards/pack', {cardsPack})
-    },
-
-
-    getCards(cardAnswer?: string, cardQuestion?: string, cardsPack_id?: string, min?: string, max?: string,
-             sortCards?: string, page?: number, pageCount?: number) {
-        return instance.get('cards/card', {
-            params: {
-                cardAnswer,
-                cardQuestion,
-                cardsPack_id,
-                min,
-                max,
-                sortCards,
-                page,
-                pageCount
-            }
-        })
-    },
-    addCard(cardsPack_id: string, question?: string, answer?: string, grade?: number, shots?: number,
-            answerImg?: string, questionImg?: string, questionVideo?: string, answerVideo?: string) {
-        return instance.post<any>('cards/card', {
-            card: {
-                cardsPack_id,
-                question,
-                answer,
-                grade,
-                shots,
-                answerImg, questionImg, questionVideo, answerVideo
-            }
-        })
-    },
-    deleteCard(id?: AxiosRequestConfig<any>) {
-        return instance.delete<any>('cards/card', id)
-
-    },
-    updateCard(_id: string, question?: string) {
-        return instance.put<any>('cards/card', {
-            card: {
-                _id,
-                question
-            }
-        })
-    },
-
+    }
 }
 
 export type CardPackType = {

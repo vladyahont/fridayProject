@@ -3,17 +3,30 @@ import { Dispatch } from "redux";
 import { setAppStatusAC } from "../../../app/app-reducer";
 import { RootThunkType } from "../../../app/store";
 import { errorUtils } from "../../../utils/error-utils";
-import {CardPackType, packsApi, PacksResponseType} from "../packs-api";
+import {packsApi} from "../packs-api";
+import {CardParamsType, CardRequestType, cardsApi, CardsResponseType, CardsType, UpdateCardType} from "./cards-api";
 
 
 const initialState = {
-    cardPacks: [] as CardPackType[],
-    cardPacksTotalCount: 0,
-    // количество колод
-    maxCardsCount: 0,
-    minCardsCount: 0,
-    page: 0, // выбранная страница
-    pageCount: 0,
+    cards: [] as CardsType[],
+    params: {
+        cardAnswer: '',
+        cardQuestion: '',
+        cardsPack_id: '',
+        min: 0,
+        max: 100,
+        sortCards: '',
+        page: 1,
+        pageCount: 10,
+    } as CardParamsType,
+    cardsTotalCount: 3,
+    maxGrade: 5,
+    minGrade: 0,
+    page: 1,
+    pageCount: 4,
+    packUserId: '',
+    question: '',
+    answer: '',
 }
 type InitialStateType = typeof initialState
 
@@ -22,12 +35,8 @@ export const cardsReducer = (
     action: CardsActionsType
 ): InitialStateType => {
     switch (action.type) {
-        case "PACKS/GET-PACKS":
-            return state
-        case "PACKS/ADD-NEW-PACK":
-            return state
-        case "PACKS/DELETE-PACK":
-            return state
+        case 'CARDS/GET-CARDS':
+            return {...state, ...action.payload.data}
         case "PACKS/UPDATE-PACK":
             return state
         default:
@@ -35,53 +44,20 @@ export const cardsReducer = (
     }
 }
 
-export type CardsActionsType = GetCardsACType | AddNewCardACType | DeleteCardACType | UpdateCardACType
+export type CardsActionsType = GetCardsACType | UpdateCardACType
 type GetCardsACType = ReturnType<typeof getCardsAC>
-type AddNewCardACType = ReturnType<typeof addNewCardAC>
-type DeleteCardACType = ReturnType<typeof deleteCardAC>
 type UpdateCardACType = ReturnType<typeof updateCardAC>
 
-export const getCardsAC = (data: PacksResponseType) => {
-    return {
-        type: 'PACKS/GET-PACKS',
-        payload: {
-            data
-        }
-    } as const
-}
-export const addNewCardAC = (data: PacksResponseType) => {
-    return {
-        type: 'PACKS/ADD-NEW-PACK',
-        payload: {
-            data
-        }
-    } as const
-}
-export const deleteCardAC = (id: string) => {
-    return {
-        type: 'PACKS/DELETE-PACK',
-        payload: {
-            id
-        }
-    } as const
-}
-export const updateCardAC = (_id: string, question?: string) => {
-    return {
-        type: 'PACKS/UPDATE-PACK',
-        payload: {
-            _id,
-            question
-        }
-    } as const
-}
+export const getCardsAC = (data: CardsResponseType) => ({type: 'CARDS/GET-CARDS', payload: {data}} as const)
+export const updateCardAC = () => ({type: 'CARDS/UPDATE-CARD', payload: {}as const})
 
 
-export const getCardsTC = (cardAnswer?: string, cardQuestion?: string, cardsPack_id?: string, min?: string, max?: string,
-                           sortCards?: string, page?: number, pageCount?: number): RootThunkType => async (dispatch: Dispatch) => {
+export const getCardsTC = (): RootThunkType => async (dispatch, getState) => {
     dispatch(setAppStatusAC('loading'))
     try {
-        const res = await packsApi.getCards(cardAnswer, cardQuestion, cardsPack_id, min, max, sortCards, page, pageCount)
-        dispatch(getCardsAC(res.data))
+        const params = getState().cards.params
+        const res = await cardsApi.getCards(params)
+        dispatch(getCardsAC(res.data.))
         dispatch(setAppStatusAC('succeeded'))
     } catch (err: unknown) {
         dispatch(setAppStatusAC('failed'))
@@ -93,13 +69,11 @@ export const getCardsTC = (cardAnswer?: string, cardQuestion?: string, cardsPack
     }
 }
 
-export const addCardTC = (cardsPack_id: string, question?: string, answer?: string, grade?: number, shots?: number, answerImg?: string,
-                          questionImg?: string, questionVideo?: string, answerVideo?: string): RootThunkType => async (dispatch: Dispatch) => {
+export const addCardTC = (card: CardRequestType): RootThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
-        const res = await packsApi.addCard(cardsPack_id, question, answer, grade, shots, answerImg, questionImg, questionVideo, answerVideo)
-        console.log(res)
-        dispatch(getCardsAC(res.data))
+        await cardsApi.addCard(card)
+        dispatch(getCardsTC())
         dispatch(setAppStatusAC('succeeded'))
     } catch (err: unknown) {
         console.log(err)
@@ -111,11 +85,11 @@ export const addCardTC = (cardsPack_id: string, question?: string, answer?: stri
         }
     }
 }
-export const deleteCardTC = (id: AxiosRequestConfig<any>): RootThunkType => async (dispatch: Dispatch) => {
+export const deleteCardTC = (id: string): RootThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
-        const res = await packsApi.deleteCard(id)
-        dispatch(getCardsAC(res.data))
+        await cardsApi.deleteCard(id)
+        dispatch(getCardsTC())
         dispatch(setAppStatusAC('succeeded'))
     } catch (err: unknown) {
         dispatch(setAppStatusAC('failed'))
@@ -126,11 +100,11 @@ export const deleteCardTC = (id: AxiosRequestConfig<any>): RootThunkType => asyn
         }
     }
 }
-export const updateCardTC = (_id: string, question?: string): RootThunkType => async (dispatch: Dispatch) => {
+export const updateCardTC = (card: UpdateCardType): RootThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
-        const res = await packsApi.updateCard(_id, question)
-        dispatch(getCardsAC(res.data))
+        await cardsApi.updateCard(card)
+        dispatch(getCardsTC())
         dispatch(setAppStatusAC('succeeded'))
     } catch (err: unknown) {
         dispatch(setAppStatusAC('failed'))
