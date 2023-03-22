@@ -3,7 +3,7 @@ export const PATH = {
   PROFILE: '/profile',
   REGISTRATION: '/registration',
   LOGIN: '/login',
-  404: '/404',
+  400: '/400',
   RECOVERY: '/forgot',
   PACKS: '/packs',
   CHECK_EMAIL: "/checkMail",

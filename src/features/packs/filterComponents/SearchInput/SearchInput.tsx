@@ -1,9 +1,10 @@
 import React, {DetailedHTMLProps, InputHTMLAttributes, useEffect, useState} from 'react';
 import {useSearchParams} from "react-router-dom";
 import {appStatusSelector} from "../../../../app/selectors";
-import {useAppSelector} from "../../../../app/store";
+import {useAppDispatch, useAppSelector} from "../../../../app/store";
 import {useDebounce} from "../../../../hooks/useDebounce";
 import SuperInputText from "../../../../superComponents/c1-SuperInputText/SuperInputText";
+import {searchPackAC} from "../../packs-reducer";
 
 
 type DefaultInputPropsType = DetailedHTMLProps<
@@ -24,6 +25,8 @@ export const SearchInput:React.FC<SearchInputPropsType> = ({
   const [searchValue,setSearchValue] = useState<string>(searchParams.get("packName") || '')
   const params = Object.fromEntries(searchParams)
 
+  const dispatch = useAppDispatch()
+
   useEffect(() => {
     setSearchValue(searchParams.get("packName") || '')
     }
@@ -33,11 +36,13 @@ export const SearchInput:React.FC<SearchInputPropsType> = ({
   useEffect(() => {
     if (!!searchDebouncedValue) {
       setSearchParams({...params, packName: searchValue});
+      dispatch(searchPackAC({packName: searchValue}))
     } else {
       delete params.packName
       setSearchParams(params)
     }
   }, [searchDebouncedValue])
+
   const onChangeHandler = (value:string) =>{
     setSearchValue(value)
   }
@@ -49,6 +54,7 @@ export const SearchInput:React.FC<SearchInputPropsType> = ({
         onChangeText={onChangeHandler}
         placeholder={"Search"}
         {...restProps}
+        autoFocus
       />
     </div>
   );

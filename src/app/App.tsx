@@ -45,12 +45,12 @@ function App() {
         <Route path={PATH.PROFILE} element={<Profile />} />
         <Route path={PATH.LOGIN} element={<Login />} />
         <Route path={PATH.REGISTRATION} element={<SignUp />} />
-        <Route path={PATH['404']} element={<ErrorPage />} />
+        <Route path={PATH['400']} element={<ErrorPage />} />
         <Route path={PATH.RECOVERY} element={<PasswordRecovery />} />
         <Route path={PATH.NEWPASSWORD} element={<NewPassword />} />
         <Route path={PATH.PACKS} element={<Packs />} />
         <Route path={PATH.CHECK_EMAIL} element={<CheckEmail />} />
-        <Route path={'*'} element={<Navigate to={PATH['404']} />} />
+        <Route path={'*'} element={<Navigate to={PATH['400']} />} />
       </Routes>
       <DevFooter/>
     </div>

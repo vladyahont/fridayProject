@@ -19,7 +19,7 @@ export const DevFooter = () => {
                 <NavLink to={PATH.REGISTRATION}
                          className={({isActive}) => (isActive ? s.active : " ")}>Registration</NavLink>
                 <NavLink to={PATH.LOGIN} className={({isActive}) => (isActive ? s.active : " ")}>Login</NavLink>
-                <NavLink to={PATH["404"]} className={({isActive}) => (isActive ? s.active : " ")}>ErrorPage</NavLink>
+                <NavLink to={PATH["400"]} className={({isActive}) => (isActive ? s.active : " ")}>ErrorPage</NavLink>
                 <NavLink to={PATH.RECOVERY}
                          className={({isActive}) => (isActive ? s.active : " ")}>PasswordRecovery</NavLink>
                 <NavLink to={PATH.NEWPASSWORD}
