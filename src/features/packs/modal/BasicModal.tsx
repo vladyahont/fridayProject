@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import {FC, ReactNode, useState} from "react";
 
@@ -16,6 +15,10 @@ const style = {
     boxShadow: 24,
     p: 4,
 };
+const btnStyle = {
+    background: '#1976d2',
+    color: 'white'
+}
 
 type PropsType = {
     childrenTitle: ReactNode
@@ -29,7 +32,7 @@ export const BasicModal: FC<PropsType> = ({childrenTitle, children}) => {
 
     return (
         <div>
-            <Button onClick={handleOpen}>Open modal</Button>
+            <Button onClick={handleOpen} sx={btnStyle}>Add pack</Button>
             <Modal
                 open={open}
                 onClose={handleClose}

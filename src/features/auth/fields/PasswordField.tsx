@@ -5,7 +5,7 @@ import {Input, InputLabel} from "@material-ui/core";
 import {IconButton, InputAdornment} from "@mui/material";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
-import {FieldInputProps} from "./type";
+import {FieldInputProps} from "features/auth/fields/type";
 
 type MyPasswordInputType =
   { name: string, label: string, onClickShow: () => void, isShowed: boolean }

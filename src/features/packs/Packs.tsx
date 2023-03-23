@@ -4,7 +4,6 @@ import React, {useEffect} from "react";
 import {getPacksTC} from "./packs-reducer";
 import EnhancedTable, {createData, TableDataType} from "./table/Table";
 import s from './Packs.module.css'
-import Button from "@mui/material/Button";
 import {SearchInput} from "./filterComponents/searchInput/SearchInput";
 import {ChosePack} from "./filterComponents/chosePacks/Chose";
 import {RangeSlider} from "./filterComponents/rangeSlider/RangeSlider";
@@ -37,15 +36,14 @@ export const Packs = () => {
     useEffect(() => {
         dispatch(getPacksTC())
     }, [par])
-    const addNewPackHandler = () => {
-        <AddModal/>
-    }
+
 
     return (
         <div className={s.componentContainer}>
             <div className={s.headContainer}>
                 <h1 className={s.h1}>Packs List</h1>
-                <Button className={s.button} onClick={addNewPackHandler}>Add new pack</Button>
+                {/*<Button className={s.button}>Add new pack</Button>*/}
+                <AddModal/>
             </div>
             <div className={s.filterContainer}>
                 <SearchInput/>

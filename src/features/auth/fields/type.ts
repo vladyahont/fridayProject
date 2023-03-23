@@ -1,6 +1,3 @@
-import {string} from "yup";
-
-
 export type  FieldInputProps = {
   name?: string ,
   checked?: boolean,

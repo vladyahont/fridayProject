@@ -1,6 +1,6 @@
 import {getValidationSchemaEmail} from "../validate";
 import {forgotTC} from "../auth-reducer";
-import {useAppDispatch} from "../../../app/store";
+import {useAppDispatch} from "app/store";
 import React from "react";
 import {Form, Formik} from "formik";
 import {FormGroup} from "@material-ui/core";
