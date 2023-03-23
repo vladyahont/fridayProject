@@ -1,7 +1,7 @@
 import React from 'react'
 import {NavLink} from 'react-router-dom'
 import {PATH} from "../../../app/Path";
-import s from "../Header/header.module.css"
+import s from "../header/header.module.css"
 import {AppBar} from "@mui/material";
 
 export const DevFooter = () => {

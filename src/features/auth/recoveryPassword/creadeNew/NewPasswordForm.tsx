@@ -6,7 +6,7 @@ import {Form, Formik} from "formik";
 import {setNewPasswordTC} from "../../auth-reducer";
 import {getValidationSchemaPassword} from "../../validate";
 import {Button, FormGroup} from "@material-ui/core";
-import {PasswordField} from "../../Fields/PasswordField";
+import {PasswordField} from "../../fields/PasswordField";
 import auth from "../../auth.module.css";
 
 export const NewPasswordForm: FC = () => {

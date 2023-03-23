@@ -1,4 +1,4 @@
-import {instance} from '../../app/instance'
+import {instance} from 'app/instance'
 
 export const packsApi = {
     getPacks(params: PacksParamsType) {
@@ -14,6 +14,9 @@ export const packsApi = {
         return instance.put<any>('cards/pack', {cardsPack})
     }
 }
+
+
+
 
 export type CardPackType = {
     _id: string

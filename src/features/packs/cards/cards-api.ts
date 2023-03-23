@@ -1,4 +1,4 @@
-import {instance} from "../../../app/instance";
+import {instance} from "app/instance";
 
 export const cardsApi = {
     getCards(params: CardParamsType) {
@@ -14,6 +14,9 @@ export const cardsApi = {
         return instance.put<any>('cards/card', {card})
     }
 }
+
+
+
 
 export type CardParamsType = {
     cardAnswer: string

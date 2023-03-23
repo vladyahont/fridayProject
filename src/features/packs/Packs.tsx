@@ -1,16 +1,17 @@
-import {useAppDispatch, useAppSelector} from "../../app/store";
-import {getParams, packsSelector} from "../../app/selectors";
+import {useAppDispatch, useAppSelector} from "app/store";
+import {getParams, packsSelector} from "app/selectors";
 import React, {useEffect} from "react";
-import {addPackTC, getPacksTC} from "./packs-reducer";
-import EnhancedTable, {createData, TableDataType} from "./Table/Table";
+import {getPacksTC} from "./packs-reducer";
+import EnhancedTable, {createData, TableDataType} from "./table/Table";
 import s from './Packs.module.css'
 import Button from "@mui/material/Button";
-import {SearchInput} from "./filterComponents/SearchInput/SearchInput";
-import {ChosePack} from "./filterComponents/ChosePacks/Chose";
-import {RangeSlider} from "./filterComponents/RangeSlider/RangeSlider";
+import {SearchInput} from "./filterComponents/searchInput/SearchInput";
+import {ChosePack} from "./filterComponents/chosePacks/Chose";
+import {RangeSlider} from "./filterComponents/rangeSlider/RangeSlider";
 import SuperButton from "../../superComponents/c2-SuperButton/SuperButton";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
 import {useSearchParams} from "react-router-dom";
+import {AddModal} from "features/packs/modal/AddModal";
 
 export const Packs = () => {
     const dispatch = useAppDispatch()
@@ -34,16 +35,10 @@ export const Packs = () => {
     };
 
     useEffect(() => {
-
-
         dispatch(getPacksTC())
     }, [par])
     const addNewPackHandler = () => {
-        dispatch(addPackTC({
-            name: '#newPack#',
-            private: false,
-            deckCover: '111'
-        }))
+        <AddModal/>
     }
 
     return (

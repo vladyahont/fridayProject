@@ -4,7 +4,7 @@ import {useAppDispatch} from "../../../app/store";
 import React from "react";
 import {Form, Formik} from "formik";
 import {FormGroup} from "@material-ui/core";
-import {EmailField} from "../Fields/EmailField";
+import {EmailField} from "../fields/EmailField";
 import {Button} from "@mui/material";
 import auth from "../auth.module.css";
 

@@ -3,16 +3,14 @@ import {useAppDispatch} from "../../../app/store";
 import {Form, Formik} from "formik";
 import {loginTC} from "../auth-reducer";
 import {FormGroup} from "@material-ui/core";
-import {EmailField} from "../Fields/EmailField";
-import {PasswordField} from "../Fields/PasswordField";
+import {EmailField} from "../fields/EmailField";
+import {PasswordField} from "../fields/PasswordField";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import log from "./Login.module.css";
 import Checkbox from "@mui/material/Checkbox";
 import {NavLink} from "react-router-dom";
 import {PATH} from "../../../app/Path";
 import auth from "../auth.module.css";
 import Button from "@mui/material/Button";
-import * as Yup from "yup";
 import {getValidationSchemaSingIn} from "../validate";
 
 export const LoginForm: React.FC = () => {
@@ -34,7 +32,7 @@ export const LoginForm: React.FC = () => {
             <EmailField/>
             <PasswordField onClickShow={onClickShow} name="password" isShowed={showPassword}
                            label="Password"/>
-            <FormControlLabel name="rememberMe" className={log.remMe} label={'Remember me'}
+            <FormControlLabel name="rememberMe" className={auth.remMe} label={'Remember me'}
                            control={<Checkbox/>}/>
             <NavLink to={`${PATH.RECOVERY}`}>
               <p className={auth.forgotAccText}> Forgot Password?</p>

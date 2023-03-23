@@ -6,7 +6,7 @@ import {isLoggedInSelector, userAvatarSelector, userNameSelector} from "../../..
 import {AppBar, Toolbar} from "@mui/material";
 import logo from "../../../assest/logo.png";
 import {PATH} from "../../../app/Path";
-import s from "../Header/header.module.css"
+import s from ".//header.module.css"
 import ava from "../../../assest/imgs/ava.png";
 export const Header = () => {
   const isLoggedIn = useAppSelector(isLoggedInSelector)
