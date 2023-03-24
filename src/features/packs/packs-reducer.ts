@@ -1,8 +1,9 @@
-import {CardPackType, PacksParamsType, packsApi, PacksResponseType, NewPackType, UpdatePackType} from "./packs-api";
-import {RootThunkType} from "../../app/store";
-import {setAppStatusAC} from "../../app/app-reducer";
+import {packsApi} from "./packs-api";
+import {RootThunkType} from "app/store";
+import {setAppStatusAC} from "app/app-reducer";
 import {AxiosError} from "axios";
-import {errorUtils} from "../../utils/error-utils";
+import {errorUtils} from "utils/error-utils";
+import {CardPackType, NewPackType, PacksParamsType, PacksResponseType, UpdatePackType} from "features/packs/packTypes";
 
 const initialState = {
     cardPacks: [] as CardPackType[],
@@ -10,10 +11,10 @@ const initialState = {
         packName: '',
         user_id: '' ,
         min: 0,
-        max: 0,
+        max: 10,
         sortPacks: '',
         page: 1,
-        pageCount: 10,
+        pageCount: 0,
         block: false
     } as PacksParamsType,
     cardPacksTotalCount: 0,
@@ -61,6 +62,7 @@ export const resetPackFilterAC = () => ({type: 'PACKS/RESET-PACK-FILTER'} as con
 export const getPacksTC = (): RootThunkType => async (dispatch, getState) => {
     dispatch(setAppStatusAC('loading'))
     const params = getState().packs.params
+
     try {
         const res = await packsApi.getPacks(params)
         dispatch(getPacksAC(res.data))
@@ -78,6 +80,7 @@ export const getPacksTC = (): RootThunkType => async (dispatch, getState) => {
 export const addPackTC = (cardsPack: NewPackType): RootThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
+        console.log(cardsPack)
         await packsApi.addPack(cardsPack)
         dispatch(getPacksTC())
         dispatch(setAppStatusAC('succeeded'))

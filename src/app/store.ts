@@ -6,7 +6,7 @@ import { AuthActionsType, authReducer } from '../features/auth/auth-reducer'
 import { AppActionsType, appReducer } from './app-reducer'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import {PacksActionsType, packsReducer} from "../features/packs/packs-reducer";
-import {cardsReducer} from "../features/packs/cards/cards-reducer";
+import {CardsActionsType, cardsReducer} from "../features/packs/cards/cards-reducer";
 
 const rootReducer = combineReducers({
   app: appReducer,
@@ -17,7 +17,7 @@ const rootReducer = combineReducers({
 
 export type AppStateType = ReturnType<typeof rootReducer>
 
-export type RootActionType = AppActionsType | AuthActionsType | PacksActionsType
+export type RootActionType = AppActionsType | AuthActionsType | PacksActionsType | CardsActionsType
 
 export type RootThunkType<ReturnType = void> = ThunkAction<
   ReturnType,

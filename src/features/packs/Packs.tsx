@@ -10,17 +10,25 @@ import {RangeSlider} from "./filterComponents/rangeSlider/RangeSlider";
 import SuperButton from "../../superComponents/c2-SuperButton/SuperButton";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
 import {useSearchParams} from "react-router-dom";
-import {AddModal} from "features/packs/modal/AddModal";
+import {AddModallll} from "features/packs/modal/AddModallllll";
 
 export const Packs = () => {
     const dispatch = useAppDispatch()
 
     let packs = useAppSelector(packsSelector)
-    const par = useAppSelector(getParams)
+
+    // const min = useAppSelector(s => s.packs.params.min)
+    // const max = useAppSelector(s => s.packs.params.max)
+    // const page = useAppSelector(s => s.packs.params.page)
+    // const pageCount = useAppSelector(s => s.packs.params.pageCount)
+    // const packName = useAppSelector(s => s.packs.params.packName)
+    // const sortPacks = useAppSelector(s => s.packs.params.sortPacks)
+const par = useAppSelector(getParams)
 
     let rows: TableDataType[] = packs
         .map(p => createData(p.name, p.cardsCount, p.updated, p.user_name, 'learn'))
 
+    console.log(packs)
     const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
     const params = Object.fromEntries(searchParams)
     const resetFilter = () => {
@@ -35,7 +43,9 @@ export const Packs = () => {
 
     useEffect(() => {
         dispatch(getPacksTC())
-    }, [par])
+    }, [par.min, par.max, par.page, par.packName])
+
+
 
 
     return (
@@ -43,7 +53,7 @@ export const Packs = () => {
             <div className={s.headContainer}>
                 <h1 className={s.h1}>Packs List</h1>
                 {/*<Button className={s.button}>Add new pack</Button>*/}
-                <AddModal/>
+                <AddModallll/>
             </div>
             <div className={s.filterContainer}>
                 <SearchInput/>

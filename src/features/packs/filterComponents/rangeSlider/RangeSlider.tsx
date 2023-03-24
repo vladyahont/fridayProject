@@ -1,10 +1,9 @@
-import {appStatusSelector, getParams, maxCardsCountSelector, minCardsCountSelector} from "../../../../app/selectors";
-import {useAppDispatch, useAppSelector} from "../../../../app/store";
+import {appStatusSelector, getParams, maxCardsCountSelector, minCardsCountSelector} from "app/selectors";
+import {useAppDispatch, useAppSelector} from "app/store";
 import {SyntheticEvent, useEffect, useState} from "react";
 import {useSearchParams} from "react-router-dom";
 import {Slider} from "@mui/material";
 import {changeMinMaxCountAC} from "../../packs-reducer";
-import {useDebounce} from "../../../../hooks/useDebounce";
 
 export const RangeSlider = () => {
   const minCardsCount = useAppSelector(minCardsCountSelector);

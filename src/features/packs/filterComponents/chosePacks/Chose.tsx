@@ -2,10 +2,10 @@ import React, {useEffect, useState} from 'react';
 import {Stack} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Switch from "@mui/material/Switch";
-import {useAppDispatch, useAppSelector} from "../../../../app/store";
+import {useAppDispatch, useAppSelector} from "app/store";
 import {useSearchParams} from "react-router-dom";
-import {appStatusSelector, userIdSelector} from "../../../../app/selectors";
-import {searchPackAC} from "../../packs-reducer";
+import {appStatusSelector, userIdSelector} from "app/selectors";
+import {getPacksTC, searchPackAC} from "../../packs-reducer";
 
 export const ChosePack = () => {
   const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
@@ -14,6 +14,7 @@ export const ChosePack = () => {
 
   const [switcher, setSwitcher] = useState(!!searchParams.get("user_id"))
 
+  console.log(!!searchParams.get("user_id"))
   useEffect(() => {
       setSwitcher(searchParams.has("user_id"))
     }, [searchParams])
@@ -27,9 +28,10 @@ export const ChosePack = () => {
       dispatch(searchPackAC({user_id: userID}))
     } else {
       delete params.user_id
-      dispatch(searchPackAC({user_id: undefined}))
+      dispatch(searchPackAC({user_id: ''}))
       setSearchParams(params);
     }
+    dispatch(getPacksTC())
   }, [switcher])
 
   const onChangeHandler = () => {

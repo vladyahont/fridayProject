@@ -2,7 +2,8 @@ import {AxiosError} from "axios";
 import { setAppStatusAC } from "app/app-reducer";
 import { RootThunkType } from "app/store";
 import { errorUtils } from "utils/error-utils";
-import {CardParamsType, CardRequestType, cardsApi, CardsResponseType, CardsType, UpdateCardType} from "./cards-api";
+import {cardsApi} from "./cards-api";
+import {CardParamsType, CardRequestType, CardsResponseType, CardsType, UpdateCardType} from "features/packs/packTypes";
 
 
 const initialState = {
@@ -34,8 +35,8 @@ export const cardsReducer = (
 ): InitialStateType => {
     switch (action.type) {
         case 'CARDS/GET-CARDS':
-            //return {...state, ...action.payload.data}
-        case "PACKS/UPDATE-PACK":
+            return {...state, ...action.payload}
+        case "CARDS/UPDATE-CARD":
             return state
         default:
             return state
@@ -46,8 +47,8 @@ export type CardsActionsType = GetCardsACType | UpdateCardACType
 type GetCardsACType = ReturnType<typeof getCardsAC>
 type UpdateCardACType = ReturnType<typeof updateCardAC>
 
-export const getCardsAC = (data: CardsResponseType | {}) => ({type: 'CARDS/GET-CARDS', payload: {data}} as const)
-export const updateCardAC = () => ({type: 'CARDS/UPDATE-CARD', payload: {}as const})
+export const getCardsAC = (data: CardsResponseType ) => ({type: 'CARDS/GET-CARDS', payload: data} as const)
+export const updateCardAC = () => ({type: 'CARDS/UPDATE-CARD', payload: {}}as const)
 
 
 export const getCardsTC = (): RootThunkType => async (dispatch, getState) => {
@@ -55,7 +56,6 @@ export const getCardsTC = (): RootThunkType => async (dispatch, getState) => {
     try {
         const params = getState().cards.params
         const res = await cardsApi.getCards(params)
-        // @ts-ignore
         dispatch(getCardsAC(res.data))
         dispatch(setAppStatusAC('succeeded'))
     } catch (err: unknown) {

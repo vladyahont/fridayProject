@@ -15,13 +15,10 @@ const style = {
     boxShadow: 24,
     p: 4,
 };
-const btnStyle = {
-    background: '#1976d2',
-    color: 'white'
-}
 
 type PropsType = {
     childrenTitle: ReactNode
+    //children: (cb: () => void) => ReactNode | ReactNode
     children: ReactNode
 }
 
@@ -32,7 +29,7 @@ export const BasicModal: FC<PropsType> = ({childrenTitle, children}) => {
 
     return (
         <div>
-            <Button onClick={handleOpen} sx={btnStyle}>Add pack</Button>
+            <Button onClick={handleOpen} variant={'contained'} color={'primary'}>Add pack</Button>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -41,7 +38,8 @@ export const BasicModal: FC<PropsType> = ({childrenTitle, children}) => {
             >
                 <Box sx={style}>
                     {childrenTitle}
-                    {children}
+                    {children(handleClose)}
+                    <Button variant={'text'} onClick={handleClose}>Cancel</Button>
                 </Box>
             </Modal>
         </div>

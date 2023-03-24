@@ -2,9 +2,9 @@ import {authApi, UserResponseType} from './auth-api'
 import {Dispatch} from 'redux'
 import {AxiosError} from 'axios'
 import ava from '../../assest/imgs/ava.png'
-import {RootThunkType} from '../../app/store'
-import {initializeAppAC, setAppStatusAC,} from '../../app/app-reducer'
-import {errorUtils} from "../../utils/error-utils";
+import {RootThunkType} from 'app/store'
+import {initializeAppAC, setAppStatusAC,} from 'app/app-reducer'
+import {errorUtils} from "utils/error-utils";
 
 const initialState: UserResponseType & { isLoggedIn: boolean; isRegistered: boolean, isSentInstruction: boolean } = {
   isSentInstruction: false,
@@ -109,7 +109,6 @@ export const initializeProfileTC = (): RootThunkType => dispatch => {
       dispatch(setAppStatusAC('succeeded'))
     })
     .catch(reason => {
-      console.log(reason)
       dispatch(setAppStatusAC('failed'))
     })
     .finally(() => {

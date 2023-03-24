@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from "react";
-import {useAppDispatch} from "../../../app/store";
+import {useAppDispatch} from "app/store";
 import {Form, Formik} from "formik";
 import {loginTC} from "../auth-reducer";
 import {FormGroup} from "@material-ui/core";
@@ -8,7 +8,7 @@ import {PasswordField} from "../fields/PasswordField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import {NavLink} from "react-router-dom";
-import {PATH} from "../../../app/Path";
+import {PATH} from "app/Path";
 import auth from "../auth.module.css";
 import Button from "@mui/material/Button";
 import {getValidationSchemaSingIn} from "../validate";
