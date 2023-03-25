@@ -16,27 +16,28 @@ export const AddModal = () => {
     const dispatch = useAppDispatch()
 
     return (
-        <BasicModal childrenTitle={<h4>Add new pack</h4>}>
-            {(cb) => (
-                <Formik
-                    initialValues={initialValuesAddPack}
-                    onSubmit={values => {
-                        dispatch(addPackTC(values))
-                        cb()
-                    }}>
-                    {(formik) => (
-                        <Form onSubmit={formik.handleSubmit}>
-                            <FormGroup style={{marginTop: '0'}}>
-                                <InputLabel>Name pack</InputLabel>
-                                <Input className={auth.input} name="name"/>
-                                <FormControlLabel className={auth.remMe} label={'Private pack'} name="private"
-                                                  control={<Checkbox/>}/>
-                                <Button type={'submit'} variant={'contained'} color={'primary'}>Save</Button>
-                            </FormGroup>
-                        </Form>
-                    )}
-                </Formik>)}
-        </BasicModal>
+        <div>111</div>
+        // <BasicModal childrenTitle={<h4>Add new pack</h4>}>
+        //     {(cb) => (
+        //         <Formik
+        //             initialValues={initialValuesAddPack}
+        //             onSubmit={values => {
+        //                 dispatch(addPackTC(values))
+        //                 cb()
+        //             }}>
+        //             {(formik) => (
+        //                 <Form onSubmit={formik.handleSubmit}>
+        //                     <FormGroup style={{marginTop: '0'}}>
+        //                         <InputLabel>Name pack</InputLabel>
+        //                         <Input className={auth.input} name="name"/>
+        //                         <FormControlLabel className={auth.remMe} label={'Private pack'} name="private"
+        //                                           control={<Checkbox/>}/>
+        //                         <Button type={'submit'} variant={'contained'} color={'primary'}>Save</Button>
+        //                     </FormGroup>
+        //                 </Form>
+        //             )}
+        //         </Formik>)}
+        // </BasicModal>
 
     );
 }

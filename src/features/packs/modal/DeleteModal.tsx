@@ -18,17 +18,18 @@ export const DeleteModal = (props: PropsType) => {
     }
 
     return (
-        <BasicModal childrenTitle={<h4>Delete pack</h4>}>
-            {(cb) => (
-                <div>
-                    <div>Do you really want ro remove <span style={{fontWeight: '600'}}>{packName}</span>?
-                        All cards will be deleted
-                    </div>
-                    <Button variant={'contained'} color={'error'} onClick={() => deletePackHandler(props.id)}>Delete</Button>
-                </div>
-
-            )}
-        </BasicModal>
+        <div>111</div>
+        // <BasicModal childrenTitle={<h4>Delete pack</h4>}>
+        //     {(cb) => (
+        //         <div>
+        //             <div>Do you really want ro remove <span style={{fontWeight: '600'}}>{packName}</span>?
+        //                 All cards will be deleted
+        //             </div>
+        //             <Button variant={'contained'} color={'error'} onClick={() => deletePackHandler(props.id)}>Delete</Button>
+        //         </div>
+        //
+        //     )}
+        // </BasicModal>
 
     );
 }

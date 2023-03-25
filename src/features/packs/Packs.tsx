@@ -11,6 +11,7 @@ import SuperButton from "../../superComponents/c2-SuperButton/SuperButton";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
 import {useSearchParams} from "react-router-dom";
 import {AddModallll} from "features/packs/modal/AddModallllll";
+import {EditModal} from "features/packs/modal/EditModal";
 
 export const Packs = () => {
     const dispatch = useAppDispatch()
@@ -52,8 +53,8 @@ const par = useAppSelector(getParams)
         <div className={s.componentContainer}>
             <div className={s.headContainer}>
                 <h1 className={s.h1}>Packs List</h1>
-                {/*<Button className={s.button}>Add new pack</Button>*/}
                 <AddModallll/>
+                <EditModal id={'12'} name={'sad'}/>
             </div>
             <div className={s.filterContainer}>
                 <SearchInput/>

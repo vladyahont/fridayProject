@@ -93,6 +93,10 @@
     font-size: 14px;
 }
 
+.input {
+    margin-bottom: 20px;
+}
+
 .remMe {
     display: inline-flex;
     justify-content: flex-start;

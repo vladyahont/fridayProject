@@ -39,7 +39,7 @@ export type PacksParamsType = {
 }
 export type NewPackType = {
     name: string
-    private: boolean
+    private?: boolean
     deckCover?: string
 }
 export type NewPackResponseType = {

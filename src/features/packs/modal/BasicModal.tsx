@@ -38,7 +38,7 @@ export const BasicModal: FC<PropsType> = ({childrenTitle, children}) => {
             >
                 <Box sx={style}>
                     {childrenTitle}
-                    {children(handleClose)}
+                    {children}
                     <Button variant={'text'} onClick={handleClose}>Cancel</Button>
                 </Box>
             </Modal>
