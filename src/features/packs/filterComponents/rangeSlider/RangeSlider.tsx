@@ -1,4 +1,9 @@
-import {appStatusSelector, getParams, maxCardsCountSelector, minCardsCountSelector} from "app/selectors";
+import {
+  appStatusSelector, getMaxParamsSelector,
+  getMinParamsSelector,
+  maxCardsCountSelector,
+  minCardsCountSelector
+} from "app/selectors";
 import {useAppDispatch, useAppSelector} from "app/store";
 import {SyntheticEvent, useEffect, useState} from "react";
 import {useSearchParams} from "react-router-dom";
@@ -10,7 +15,9 @@ export const RangeSlider = () => {
   const maxCardsCount = useAppSelector(maxCardsCountSelector);
   const appStatus = useAppSelector(appStatusSelector);
 
-  const {max, min} = useAppSelector(getParams);
+  const min = useAppSelector(getMinParamsSelector)
+  const max = useAppSelector(getMaxParamsSelector)
+
 
   const dispatch = useAppDispatch()
 
@@ -19,9 +26,7 @@ export const RangeSlider = () => {
   const userID = searchParams.get("user_id");
 
   useEffect(() => {
-
     if(searchParams.get('max')) {
-
       setValues([Number(searchParams.get("min")) || min,
         Number(searchParams.get("max")) || max])
       dispatch(changeMinMaxCountAC(Number(searchParams.get("min")),Number(searchParams.get("max"))))
@@ -31,7 +36,7 @@ export const RangeSlider = () => {
       ]);
       dispatch(changeMinMaxCountAC(minCardsCount, maxCardsCount))
     }
-  }, [minCardsCount, maxCardsCount]);
+  }, [min, max,minCardsCount,maxCardsCount]);
 
 
   const minDistance = 5;

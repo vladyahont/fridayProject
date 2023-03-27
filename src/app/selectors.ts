@@ -19,4 +19,9 @@ export const packsSelector = (state: AppStateType) => state.packs.cardPacks
 export const minCardsCountSelector = (state: AppStateType) => state.packs.minCardsCount
 export const maxCardsCountSelector =(state: AppStateType) => state.packs.maxCardsCount
 export const cardPacksTotalCountSelector =(state: AppStateType) => state.packs.cardPacksTotalCount
-export const getParams =(state: AppStateType) => state.packs.params;
+
+export const getParamsSelector =(state: AppStateType) => state.packs.params;
+export const getMinParamsSelector =(state: AppStateType) => state.packs.params.min;
+export const getMaxParamsSelector =(state: AppStateType) => state.packs.params.max;
+export const getPackNameParamsSelector =(state: AppStateType) => state.packs.params.packName;
+export const getPageParamsSelector =(state: AppStateType) => state.packs.params.page;

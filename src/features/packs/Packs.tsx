@@ -1,7 +1,14 @@
 import {useAppDispatch, useAppSelector} from "app/store";
-import {getParams, packsSelector} from "app/selectors";
+import {
+    getMaxParamsSelector,
+    getMinParamsSelector,
+    getPackNameParamsSelector,
+    getPageParamsSelector,
+    maxCardsCountSelector,
+    packsSelector
+} from "app/selectors";
 import React, {useEffect} from "react";
-import {getPacksTC} from "./packs-reducer";
+import {changeMinMaxCountAC, getPacksTC} from "./packs-reducer";
 import EnhancedTable, {createData, TableDataType} from "./table/Table";
 import s from './Packs.module.css'
 import {SearchInput} from "./filterComponents/searchInput/SearchInput";
@@ -18,18 +25,18 @@ export const Packs = () => {
 
     let packs = useAppSelector(packsSelector)
 
-    // const min = useAppSelector(s => s.packs.params.min)
-    // const max = useAppSelector(s => s.packs.params.max)
-    // const page = useAppSelector(s => s.packs.params.page)
-    // const pageCount = useAppSelector(s => s.packs.params.pageCount)
-    // const packName = useAppSelector(s => s.packs.params.packName)
-    // const sortPacks = useAppSelector(s => s.packs.params.sortPacks)
-const par = useAppSelector(getParams)
+    const min = useAppSelector(getMinParamsSelector)
+    const max = useAppSelector(getMaxParamsSelector)
+    const packName = useAppSelector(getPackNameParamsSelector)
+    const page = useAppSelector(getPageParamsSelector)
+
+    const maxCardsCount = useAppSelector(maxCardsCountSelector)
+
 
     let rows: TableDataType[] = packs
         .map(p => createData(p.name, p.cardsCount, p.updated, p.user_name, 'learn'))
 
-    console.log(packs)
+
     const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
     const params = Object.fromEntries(searchParams)
     const resetFilter = () => {
@@ -39,15 +46,15 @@ const par = useAppSelector(getParams)
         delete params.user_id
         delete params.pageCount
         delete params.page
+
+        dispatch(changeMinMaxCountAC(0,maxCardsCount))
+
         setSearchParams(params)
     };
 
     useEffect(() => {
         dispatch(getPacksTC())
-    }, [par.min, par.max, par.page, par.packName])
-
-
-
+    }, [min, max, page, packName])
 
     return (
         <div className={s.componentContainer}>
