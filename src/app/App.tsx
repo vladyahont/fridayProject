@@ -4,10 +4,10 @@ import { Header } from '../features/components/header/Header'
 import './App.css'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { Profile } from '../features/components/profile/Profile'
-import { Login } from '../features/auth/sing-in/Login'
+import { Login } from '../features/auth/singIn/Login'
 import { useAppDispatch, useAppSelector } from './store'
 import { initializeProfileTC } from '../features/auth/auth-reducer'
-import {SignUp} from "../features/auth/sign-up/SignUp";
+import {SignUp} from "../features/auth/signUp/SignUp";
 import {PATH} from "./Path";
 import {Loading} from "../features/components/loading/Loading";
 import {Loader} from "../features/components/loading/Loader";
