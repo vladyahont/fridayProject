@@ -5,11 +5,9 @@ import {
     getPackNameParamsSelector,
     getPageParamsSelector,
     maxCardsCountSelector,
-    packsSelector
 } from "app/selectors";
 import React, {useEffect} from "react";
 import {changeMinMaxCountAC, getPacksTC} from "./packs-reducer";
-import EnhancedTable, {createData, TableDataType} from "./table/Table";
 import s from './Packs.module.css'
 import {SearchInput} from "./filterComponents/searchInput/SearchInput";
 import {ChosePack} from "./filterComponents/chosePacks/Chose";
@@ -19,11 +17,13 @@ import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
 import {useSearchParams} from "react-router-dom";
 import {AddModallll} from "features/packs/modal/AddModallllll";
 import {EditModal} from "features/packs/modal/EditModal";
+import {PackTable} from "./tablePacks/PackTable";
+
 
 export const Packs = () => {
     const dispatch = useAppDispatch()
 
-    let packs = useAppSelector(packsSelector)
+
 
     const min = useAppSelector(getMinParamsSelector)
     const max = useAppSelector(getMaxParamsSelector)
@@ -31,11 +31,6 @@ export const Packs = () => {
     const page = useAppSelector(getPageParamsSelector)
 
     const maxCardsCount = useAppSelector(maxCardsCountSelector)
-
-
-    let rows: TableDataType[] = packs
-        .map(p => createData(p.name, p.cardsCount, p.updated, p.user_name, 'learn'))
-
 
     const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
     const params = Object.fromEntries(searchParams)
@@ -71,7 +66,8 @@ export const Packs = () => {
                     <FilterAltOffIcon/>
                 </SuperButton>
             </div>
-            <EnhancedTable rows={rows}/>
+            <PackTable />
+
         </div>
     )
 }

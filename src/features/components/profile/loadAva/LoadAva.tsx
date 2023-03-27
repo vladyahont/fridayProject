@@ -6,6 +6,9 @@ import avatar from '../../../../assest/imgs/ava.png'
 import s from '../profile.module.css'
 
 export const LoadAva = () => {
+
+
+
   return (
     <div className={s.avatarContainer}>
       <img src={avatar} alt="avatar" className={s.imgAvatar} />
