@@ -13,8 +13,9 @@ export const PackTable = () => {
     <div>
       <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
+
             <TableBody>
-              {packs?.map (pack => (
+              { packs.length? packs.map (pack => (
                 <TableRow key={pack._id} >
                   <TableCell>
                     {pack.name}
@@ -32,7 +33,11 @@ export const PackTable = () => {
                     action
                   </TableCell>
                 </TableRow>
-              ))}
+              )):
+                <div>
+                  <span>Oppss</span>
+                </div>
+              }
             </TableBody>
           </Table>
       </TableContainer>
