@@ -1,7 +1,5 @@
 import React from 'react';
-import {BasicModal} from "./BasicModal";
 import {useAppDispatch, useAppSelector} from "app/store";
-import Button from "@mui/material/Button/Button";
 import {deletePackTC} from "features/packs/packs-reducer";
 
 type PropsType = {

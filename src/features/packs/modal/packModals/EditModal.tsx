@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useState} from 'react';
-import {BasicModal} from "./BasicModal";
+import {BasicModal} from "features/packs/modal/BasicModal";
 import {useAppDispatch} from "app/store";
 import {Input, InputLabel} from "@material-ui/core";
 import FormControlLabel from '@mui/material/FormControlLabel/FormControlLabel';
@@ -13,6 +13,7 @@ import {updatePackTC} from "features/packs/packs-reducer";
 type PropsType = {
     id: string
     name: string
+    onClose: boolean
 }
 
 export const EditModal = (props: PropsType) => {
@@ -34,13 +35,16 @@ export const EditModal = (props: PropsType) => {
     }
 
     return (
-        <BasicModal childrenTitle={<h4>Edit pack</h4>}>
-                                <InputLabel>Name pack</InputLabel>
-                                <Input className={auth.input}
-                                       value={name} onChange={editPackHandler}/>
-                                <FormControlLabel className={auth.remMe} label={'Private pack'}
-                                                  control={<Checkbox/>}/>
-                                <Button variant={'contained'} color={'primary'} onClick={sendNewPackName}>Save</Button>
+        <BasicModal open={false} onClose={() => props.onClose}>
+            <InputLabel>Name pack</InputLabel>
+            <Input className={auth.input}
+                   value={name} onChange={editPackHandler}/>
+            <FormControlLabel className={auth.remMe} label={'Private pack'}
+                              control={<Checkbox/>}/>
+            {name && name !== props.name
+                ? <Button variant={'contained'} color={'primary'} onClick={sendNewPackName}>Save</Button>
+                : <Button disabled={true}>Save</Button>}
+
         </BasicModal>
 
     );

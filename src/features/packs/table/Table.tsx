@@ -18,7 +18,7 @@ import SchoolIcon from '@mui/icons-material/School';
 import EditIcon from '@mui/icons-material/Edit';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import IconButton from '@mui/material/IconButton/IconButton';
-import {EditModal} from "features/packs/modal/EditModal";
+import {EditModal} from "features/packs/modal/packModals/EditModal";
 
 export type TableDataType = {
     name: string | undefined
