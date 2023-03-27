@@ -37,6 +37,7 @@ export const AddModallll = () => {
 
     return (
         <BasicModal childrenTitle={<h4>Add new pack</h4>}>
+            <Button variant={'contained'} color={'primary'}>Add pack</Button>
             <InputLabel>Name pack</InputLabel>
             <Input className={auth.input} value={name} onChange={enterNameHandler}/>
             <IconButton component="label">
