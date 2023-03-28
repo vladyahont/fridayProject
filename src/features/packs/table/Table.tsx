@@ -18,7 +18,6 @@ import SchoolIcon from '@mui/icons-material/School';
 import EditIcon from '@mui/icons-material/Edit';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import IconButton from '@mui/material/IconButton/IconButton';
-import {EditModal} from "features/packs/modal/EditModal";
 
 export type TableDataType = {
     name: string | undefined
@@ -43,18 +42,6 @@ export function createData(
         action,
     };
 }
-
-const rowsExample = [
-    createData('Pack Name', 305, '28 feb', 'Me', 'learn',),
-    createData('Pack Name', 308, '28 feb', 'Me', 'learn',),
-    createData('Pack Name', 305, '28 feb', 'Me', 'learn',),
-    createData('Pack Name', 0, '28 feb', 'Me', 'learn',),
-    createData('Pack Name', 305, '28 feb', 'Me', 'learn',),
-    createData('Pack Name', 305, '28 feb', 'Me', 'learn',),
-    createData('Pack Name', 8800, '28 feb', 'Me', 'learn',),
-    createData('Pack Name', 305, '28 feb', 'Me', 'learn',),
-    createData('Pack Name', 305, '28 feb', 'Me', 'learn',),
-];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
     if (b[orderBy] < a[orderBy]) {
@@ -181,7 +168,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     );
 }
 
-export default function EnhancedTable(props: { rows: TableDataType[] }) {
+export function EnhancedTable(props: { rows: TableDataType[] }) {
     const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
     const params = Object.fromEntries(searchParams);
     const userName = useAppSelector(packsSelector)
@@ -226,9 +213,6 @@ export default function EnhancedTable(props: { rows: TableDataType[] }) {
         setPage(0);
     };
 
-    const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setDense(event.target.checked);
-    };
 
 
     //const isSelected = (name: string) => selected.indexOf(name) !== -1;

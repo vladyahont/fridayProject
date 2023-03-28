@@ -27,14 +27,10 @@ export const RangeSlider = () => {
 
   useEffect(() => {
     if(searchParams.get('max')) {
-      setValues([Number(searchParams.get("min")) || min,
-        Number(searchParams.get("max")) || max])
+      setValues([Number(searchParams.get("min")) || min, Number(searchParams.get("max")) || max])
       dispatch(changeMinMaxCountAC(Number(searchParams.get("min")),Number(searchParams.get("max"))))
     }else {
-      setValues([
-        minCardsCount,maxCardsCount
-      ]);
-      dispatch(changeMinMaxCountAC(minCardsCount, maxCardsCount))
+      setValues([minCardsCount,maxCardsCount]);
     }
   }, [min, max,minCardsCount,maxCardsCount]);
 

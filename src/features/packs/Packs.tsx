@@ -9,7 +9,7 @@ import {
 } from "app/selectors";
 import React, {useEffect} from "react";
 import {changeMinMaxCountAC, getPacksTC} from "./packs-reducer";
-import EnhancedTable, {createData, TableDataType} from "./table/Table";
+import {EnhancedTable, createData, TableDataType} from "./table/Table";
 import s from './Packs.module.css'
 import {SearchInput} from "./filterComponents/searchInput/SearchInput";
 import {ChosePack} from "./filterComponents/chosePacks/Chose";
@@ -54,7 +54,7 @@ export const Packs = () => {
 
     useEffect(() => {
         dispatch(getPacksTC())
-    }, [min, max, page, packName])
+    }, [min, max, page, packName,params.user_id])
 
     return (
         <div className={s.componentContainer}>

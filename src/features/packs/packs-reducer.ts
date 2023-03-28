@@ -62,7 +62,6 @@ export const resetPackFilterAC = () => ({type: 'PACKS/RESET-PACK-FILTER'} as con
 export const getPacksTC = (): RootThunkType => async (dispatch, getState) => {
     dispatch(setAppStatusAC('loading'))
     const params = getState().packs.params
-
     try {
         const res = await packsApi.getPacks(params)
         dispatch(getPacksAC(res.data))
