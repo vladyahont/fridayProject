@@ -2,14 +2,14 @@ import {useAppDispatch, useAppSelector} from "app/store";
 import {
     getMaxParamsSelector,
     getMinParamsSelector,
-    getPackNameParamsSelector, getPageCountParamsSelector,
+    getPackNameParamsSelector,
+    getPageCountParamsSelector,
     getPageParamsSelector,
-    maxCardsCountSelector,
-    packsSelector
+    maxCardsCountSelector
 } from "app/selectors";
 import React, {useEffect} from "react";
-import {changeMinMaxCountAC, getPacksTC, searchPackAC} from "./packs-reducer";
-import {EnhancedTable, createData, TableDataType} from "./table/Table";
+import {getPacksTC, searchPackAC} from "./packs-reducer";
+import {EnhancedTable} from "./table/packsTable/PacksTable";
 import s from './Packs.module.css'
 import {SearchInput} from "./filterComponents/searchInput/SearchInput";
 import {ChosePack} from "./filterComponents/chosePacks/Chose";
@@ -23,36 +23,26 @@ import {EditModal} from "features/packs/modal/EditModal";
 export const Packs = () => {
     const dispatch = useAppDispatch()
 
-
-
     const min = useAppSelector(getMinParamsSelector)
     const max = useAppSelector(getMaxParamsSelector)
     const packName = useAppSelector(getPackNameParamsSelector)
     const page = useAppSelector(getPageParamsSelector)
     const pageCount = useAppSelector(getPageCountParamsSelector)
-
     const maxCardsCount = useAppSelector(maxCardsCountSelector)
-
-
-
-
 
     const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
     const params = Object.fromEntries(searchParams)
     const resetFilter = () => {
         delete params.packName
         delete params.user_id
-
         params.page = "1"
         params.min =  "0"
         params.max = maxCardsCount + ''
-
         dispatch(searchPackAC(params))
         setSearchParams({...params})
     };
 
     useEffect(() => {
-        console.log("re")
         dispatch(getPacksTC())
     }, [min, max, page, packName,params.user_id,pageCount,page])
 

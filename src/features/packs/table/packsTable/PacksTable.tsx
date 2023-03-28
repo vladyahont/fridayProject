@@ -12,12 +12,15 @@ import Paper from '@mui/material/Paper';
 import {visuallyHidden} from '@mui/utils';
 import {useSearchParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "app/store";
-import {searchPackAC} from "../packs-reducer";
+import {searchPackAC} from "../../packs-reducer";
 import {cardPacksTotalCountSelector, maxCardsCountSelector, packsSelector} from "app/selectors";
 import SchoolIcon from '@mui/icons-material/School';
 import EditIcon from '@mui/icons-material/Edit';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import IconButton from '@mui/material/IconButton/IconButton';
+import {createData, getComparator, stableSort} from "../tableUtils";
+import {PaginationPacks} from "./PaginationPacks";
+import {Order} from "../typesTable";
 
 
 export type TableDataType = {
@@ -28,61 +31,7 @@ export type TableDataType = {
   action: 'learn' | 'edit' | 'delete'
 }
 
-export function createData(
-  name: string | undefined,
-  cards: number,
-  lastUpdated: string,
-  createdBy: string,
-  action: 'learn' | 'edit' | 'delete',
-): TableDataType {
-  return {
-    name,
-    cards,
-    lastUpdated,
-    createdBy,
-    action,
-  };
-}
 
-function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
-
-type Order = 'asc' | 'desc';
-
-function getComparator<Key extends keyof any>(
-  order: Order,
-  orderBy: Key,
-): (
-  a: { [key in Key]: number | string | undefined },
-  b: { [key in Key]: number | string | undefined },
-) => number {
-  return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
-// Since 2020 all major browsers ensure sort stability with Array.prototype.sort().
-// stableSort() brings sort stability to non-modern browsers (notably IE11). If you
-// only support modern browsers you can replace stableSort(exampleArray, exampleComparator)
-// with exampleArray.slice().sort(exampleComparator)
-function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => number) {
-  const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) {
-      return order;
-    }
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map((el) => el[0]);
-}
 
 interface HeadCell {
   disablePadding: boolean;
@@ -145,7 +94,6 @@ function EnhancedTableHead(props: EnhancedTableProps) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            // align={headCell.numeric ? 'right' : 'left'}
             align={'left'}
             padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
@@ -170,6 +118,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 }
 
 export function EnhancedTable() {
+  const dispatch = useAppDispatch();
   const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
   const params = Object.fromEntries(searchParams);
   const userName = useAppSelector(packsSelector)
@@ -181,10 +130,11 @@ export function EnhancedTable() {
   const [order, setOrder] = React.useState<Order>('asc');
   const [orderBy, setOrderBy] = React.useState<keyof TableDataType>('name');
 
-  console.log(order,orderBy)
+  console.log(order+orderBy)
   const [dense, setDense] = React.useState(false);
+  const [emptyRows, setEmptyRows] = React.useState(0);
 
-  const dispatch = useAppDispatch();
+
 
 
   const handleRequestSort = (
@@ -196,26 +146,7 @@ export function EnhancedTable() {
     setOrderBy(property);
   };
 
-  const cardPacksTotalCount = useAppSelector(cardPacksTotalCountSelector)
 
-  const page = Number(searchParams.get('page') || 1)
-  const rowsPerPage = Number(searchParams.get('pageCount') || 5)
-
-  const handleChangePage = (event: unknown, newPage: number) => {
-    dispatch(searchPackAC({page: newPage + 1}))
-    setSearchParams({...params, page: newPage + 1});
-  };
-
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const pageCount = parseInt(event.target.value)
-    dispatch(searchPackAC({pageCount: pageCount, page: 1}))
-    setSearchParams({...params, pageCount: pageCount});
-
-  };
-
-  const emptyRows =
-    page === Math.floor(cardPacksTotalCount / rowsPerPage) + 1 ? rowsPerPage - (cardPacksTotalCount % rowsPerPage) : 0;
-  console.log(emptyRows)
   return (
     <Box sx={{width: '100%'}}>
       <Paper sx={{width: '100%', mb: 2}}>
@@ -234,7 +165,6 @@ export function EnhancedTable() {
               {stableSort(rows, getComparator(order, orderBy))
                 .map((row, index) => {
                   const labelId = `enhanced-table-checkbox-${index}`;
-
                   return (
                     <>
                       <TableRow
@@ -289,19 +219,7 @@ export function EnhancedTable() {
             </TableBody>
           </Table>
         </TableContainer>
-
-        <TablePagination
-          component="div"
-          count={cardPacksTotalCount}
-          page={page - 1}
-          onPageChange={handleChangePage}
-          rowsPerPageOptions={[5, 10, 15]}
-          rowsPerPage={rowsPerPage}
-          labelRowsPerPage={"test"}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-          showFirstButton
-          showLastButton
-        />
+        <PaginationPacks setEmptyRow={setEmptyRows}/>
       </Paper>
     </Box>
   );
