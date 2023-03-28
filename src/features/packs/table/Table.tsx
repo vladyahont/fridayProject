@@ -169,10 +169,14 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   );
 }
 
-export function EnhancedTable(props: { rows: TableDataType[] }) {
+export function EnhancedTable() {
   const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
   const params = Object.fromEntries(searchParams);
   const userName = useAppSelector(packsSelector)
+
+  const packs = useAppSelector(packsSelector)
+  const rows: TableDataType[] = packs
+    .map(p => createData(p.name, p.cardsCount, p.updated, p.user_name, 'learn'))
 
   const [order, setOrder] = React.useState<Order>('asc');
   const [orderBy, setOrderBy] = React.useState<keyof TableDataType>('name');
@@ -204,8 +208,9 @@ export function EnhancedTable(props: { rows: TableDataType[] }) {
 
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     const pageCount = parseInt(event.target.value)
-    setSearchParams({...params, pageCount: pageCount});
     dispatch(searchPackAC({pageCount: pageCount, page: 1}))
+    setSearchParams({...params, pageCount: pageCount});
+
   };
 
   const emptyRows =
@@ -220,13 +225,13 @@ export function EnhancedTable(props: { rows: TableDataType[] }) {
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}
           >
-            <EnhancedTableHead rowCount={props.rows.length + 1}
+            <EnhancedTableHead rowCount={rows.length + 1}
                                onRequestSort={handleRequestSort}
                                order={order}
                                orderBy={orderBy}
             />
             <TableBody>
-              {stableSort(props.rows, getComparator(order, orderBy))
+              {stableSort(rows, getComparator(order, orderBy))
                 .map((row, index) => {
                   const labelId = `enhanced-table-checkbox-${index}`;
 

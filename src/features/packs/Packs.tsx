@@ -23,7 +23,7 @@ import {EditModal} from "features/packs/modal/EditModal";
 export const Packs = () => {
     const dispatch = useAppDispatch()
 
-    let packs = useAppSelector(packsSelector)
+
 
     const min = useAppSelector(getMinParamsSelector)
     const max = useAppSelector(getMaxParamsSelector)
@@ -34,8 +34,7 @@ export const Packs = () => {
     const maxCardsCount = useAppSelector(maxCardsCountSelector)
 
 
-    let rows: TableDataType[] = packs
-        .map(p => createData(p.name, p.cardsCount, p.updated, p.user_name, 'learn'))
+
 
 
     const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
@@ -53,6 +52,7 @@ export const Packs = () => {
     };
 
     useEffect(() => {
+        console.log("re")
         dispatch(getPacksTC())
     }, [min, max, page, packName,params.user_id,pageCount,page])
 
@@ -71,7 +71,7 @@ export const Packs = () => {
                     <FilterAltOffIcon/>
                 </SuperButton>
             </div>
-            <EnhancedTable rows={rows}/>
+            <EnhancedTable/>
         </div>
     )
 }
