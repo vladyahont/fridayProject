@@ -10,27 +10,18 @@ import {RangeSlider} from "./filterComponents/rangeSlider/RangeSlider";
 import SuperButton from "../../superComponents/c2-SuperButton/SuperButton";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
 import {useSearchParams} from "react-router-dom";
-import {EditModal} from "features/packs/modal/packModals/EditModal";
-import { AddModal } from "features/packs/modal/packModals/AddModal";
-import {AddPackModal} from "features/packs/modal/AddPackModal";
+import {AddPackModal} from "features/packs/modal/packModals/AddPackModal";
 
 export const Packs = () => {
     const dispatch = useAppDispatch()
 
-    let packs = useAppSelector(packsSelector)
+    const packs = useAppSelector(packsSelector)
 
-    // const min = useAppSelector(s => s.packs.params.min)
-    // const max = useAppSelector(s => s.packs.params.max)
-    // const page = useAppSelector(s => s.packs.params.page)
-    // const pageCount = useAppSelector(s => s.packs.params.pageCount)
-    // const packName = useAppSelector(s => s.packs.params.packName)
-    // const sortPacks = useAppSelector(s => s.packs.params.sortPacks)
-const par = useAppSelector(getParams)
+    const par = useAppSelector(getParams)
 
     let rows: TableDataType[] = packs
-        .map(p => createData(p.name, p.cardsCount, p.updated, p.user_name, 'learn'))
+        .map(p => createData(p.name, p._id, p.cardsCount, p.updated, p.user_name, 'learn'))
 
-    console.log(packs)
     const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
     const params = Object.fromEntries(searchParams)
     const resetFilter = () => {
@@ -46,8 +37,6 @@ const par = useAppSelector(getParams)
     useEffect(() => {
         dispatch(getPacksTC())
     }, [par.min, par.max, par.page, par.packName])
-
-
 
 
     return (
@@ -69,4 +58,4 @@ const par = useAppSelector(getParams)
             <EnhancedTable rows={rows}/>
         </div>
     )
-}
+};

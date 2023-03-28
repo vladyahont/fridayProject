@@ -1,39 +1,44 @@
-import React from 'react';
-import {useAppDispatch, useAppSelector} from "app/store";
+import React, {useState} from 'react';
+import {useAppDispatch} from "app/store";
 import {deletePackTC} from "features/packs/packs-reducer";
+import Button from "@mui/material/Button/Button";
+import {BasicModal} from "features/packs/modal/BasicModal";
+import IconButton from "@mui/material/IconButton/IconButton";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 type PropsType = {
     id: string
+    packName?: string
 }
 
 export const DeleteModal = (props: PropsType) => {
 
     const dispatch = useAppDispatch()
-    const packName = useAppSelector(state => state.packs.params.packName?.length)
 
-    const deletePackHandler = (id: string) => {
-        dispatch(deletePackTC('нужно прокинуть id'))
+    const [open, setOpen] = useState(false)
+
+    const onClose = () => setOpen(false)
+    const onOpen = () => setOpen(true)
+
+    const deletePackHandler = () => {
+        console.log(props.id)
+        dispatch(deletePackTC(props.id))
+        onClose()
     }
 
     return (
-        <div>111</div>
-        // <BasicModal childrenTitle={<h4>Delete pack</h4>}>
-        //     {(cb) => (
-        //         <div>
-        //             <div>Do you really want ro remove <span style={{fontWeight: '600'}}>{packName}</span>?
-        //                 All cards will be deleted
-        //             </div>
-        //             <Button variant={'contained'} color={'error'} onClick={() => deletePackHandler(props.id)}>Delete</Button>
-        //         </div>
-        //
-        //     )}
-        // </BasicModal>
-
-    );
+        <div>
+            <IconButton onClick={onOpen}>
+                <HighlightOffIcon/>
+            </IconButton>
+            <BasicModal open={open} onClose={onClose}>
+                <h4>Delete pack</h4>
+                <div>Do you really want ro remove <span style={{fontWeight: '600'}}>{props.packName}</span>?
+                    All cards will be deleted
+                </div>
+                <Button variant={'contained'} color={'error'}
+                        onClick={deletePackHandler}>Delete</Button>
+            </BasicModal>
+        </div>
+    )
 }
-
-const initialValuesAddPack = {
-    name: '',
-    private: false
-}
-

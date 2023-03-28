@@ -15,13 +15,13 @@ import {useAppDispatch, useAppSelector} from "app/store";
 import {searchPackAC} from "../packs-reducer";
 import {cardPacksTotalCountSelector, packsSelector} from "app/selectors";
 import SchoolIcon from '@mui/icons-material/School';
-import EditIcon from '@mui/icons-material/Edit';
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import IconButton from '@mui/material/IconButton/IconButton';
 import {EditModal} from "features/packs/modal/packModals/EditModal";
+import {DeleteModal} from "features/packs/modal/packModals/DeleteModal";
 
 export type TableDataType = {
     name: string | undefined
+    _id: string
     cards: number
     lastUpdated: string
     createdBy: string
@@ -30,6 +30,7 @@ export type TableDataType = {
 
 export function createData(
     name: string | undefined,
+    _id: string,
     cards: number,
     lastUpdated: string,
     createdBy: string,
@@ -37,6 +38,7 @@ export function createData(
 ): TableDataType {
     return {
         name,
+        _id,
         cards,
         lastUpdated,
         createdBy,
@@ -45,15 +47,15 @@ export function createData(
 }
 
 const rowsExample = [
-    createData('Pack Name', 305, '28 feb', 'Me', 'learn',),
-    createData('Pack Name', 308, '28 feb', 'Me', 'learn',),
-    createData('Pack Name', 305, '28 feb', 'Me', 'learn',),
-    createData('Pack Name', 0, '28 feb', 'Me', 'learn',),
-    createData('Pack Name', 305, '28 feb', 'Me', 'learn',),
-    createData('Pack Name', 305, '28 feb', 'Me', 'learn',),
-    createData('Pack Name', 8800, '28 feb', 'Me', 'learn',),
-    createData('Pack Name', 305, '28 feb', 'Me', 'learn',),
-    createData('Pack Name', 305, '28 feb', 'Me', 'learn',),
+    createData('Pack Name', '640a57dbb8230638104d84e5', 305, '28 feb', 'Me', 'learn',),
+    createData('Pack Name', '640a57dbb8230638104d84e5', 308, '28 feb', 'Me', 'learn',),
+    createData('Pack Name', '640a57dbb8230638104d84e5', 305, '28 feb', 'Me', 'learn',),
+    createData('Pack Name', '640a57dbb8230638104d84e5', 0, '28 feb', 'Me', 'learn',),
+    createData('Pack Name', '640a57dbb8230638104d84e5', 305, '28 feb', 'Me', 'learn',),
+    createData('Pack Name', '640a57dbb8230638104d84e5', 305, '28 feb', 'Me', 'learn',),
+    createData('Pack Name', '640a57dbb8230638104d84e5', 8800, '28 feb', 'Me', 'learn',),
+    createData('Pack Name', '640a57dbb8230638104d84e5', 305, '28 feb', 'Me', 'learn',),
+    createData('Pack Name', '640a57dbb8230638104d84e5', 305, '28 feb', 'Me', 'learn',),
 ];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -184,7 +186,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 export default function EnhancedTable(props: { rows: TableDataType[] }) {
     const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
     const params = Object.fromEntries(searchParams);
-    const userName = useAppSelector(packsSelector)
+    const userInfo = useAppSelector(packsSelector)
 
 
     const cardPacksTotalCount = useAppSelector(cardPacksTotalCountSelector)
@@ -277,17 +279,13 @@ export default function EnhancedTable(props: { rows: TableDataType[] }) {
                                                 <TableCell align="left">{row.cards}</TableCell>
                                                 <TableCell align="left">{row.lastUpdated}</TableCell>
                                                 <TableCell align="left">{row.createdBy}</TableCell>
-                                                {row.createdBy === userName[0].user_name
+                                                {row.createdBy === userInfo[0].user_name
                                                     ? <TableCell align="left">
-                                                        <IconButton onClick={()=>{console.log('alalala')}}>
+                                                        <IconButton>
                                                             <SchoolIcon/>
                                                         </IconButton>
-                                                        <IconButton>
-                                                            <EditIcon/>
-                                                        </IconButton>
-                                                        <IconButton>
-                                                            <HighlightOffIcon/>
-                                                        </IconButton>
+                                                        <EditModal name={row.name} id={row._id}/>
+                                                        <DeleteModal id={row._id} packName={row.name}/>
                                                     </TableCell>
                                                     : <TableCell align="left">
                                                         <IconButton>
