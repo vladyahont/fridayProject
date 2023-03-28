@@ -14,7 +14,7 @@ const initialState = {
         max: 10,
         sortPacks: '',
         page: 1,
-        pageCount: 0,
+        pageCount: 5,
         block: false
     } as PacksParamsType,
     cardPacksTotalCount: 0,

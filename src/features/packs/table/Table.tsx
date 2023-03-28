@@ -13,11 +13,12 @@ import {visuallyHidden} from '@mui/utils';
 import {useSearchParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "app/store";
 import {searchPackAC} from "../packs-reducer";
-import {cardPacksTotalCountSelector, packsSelector} from "app/selectors";
+import {cardPacksTotalCountSelector, maxCardsCountSelector, packsSelector} from "app/selectors";
 import SchoolIcon from '@mui/icons-material/School';
 import EditIcon from '@mui/icons-material/Edit';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import IconButton from '@mui/material/IconButton/IconButton';
+import {SuperPagination} from "./Pagination";
 
 export type TableDataType = {
     name: string | undefined
@@ -173,17 +174,12 @@ export function EnhancedTable(props: { rows: TableDataType[] }) {
     const params = Object.fromEntries(searchParams);
     const userName = useAppSelector(packsSelector)
 
-
-    const cardPacksTotalCount = useAppSelector(cardPacksTotalCountSelector)
-
-    console.log(params)
-
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof TableDataType>('name');
-    //const [selected, setSelected] = React.useState<readonly string[]>([]);
-    const [page, setPage] = React.useState(0);
+
+
     const [dense, setDense] = React.useState(false);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
     const dispatch = useAppDispatch();
 
 
@@ -196,30 +192,26 @@ export function EnhancedTable(props: { rows: TableDataType[] }) {
         setOrderBy(property);
     };
 
-    const handleChangePage = (event: unknown, newPage: number) => {
+    const cardPacksTotalCount = useAppSelector(cardPacksTotalCountSelector)
 
-        setPage(newPage);
+    const page = Number(searchParams.get('page'))
+    const rowsPerPage = Number(searchParams.get('pageCount'))
+
+
+    const handleChangePage = (event: unknown, newPage: number) => {
         dispatch(searchPackAC({page: newPage}))
         setSearchParams({...params, page: newPage});
     };
 
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-
         const pageCount = parseInt(event.target.value)
-        setRowsPerPage(pageCount);
         setSearchParams({...params, pageCount: pageCount});
-        dispatch(searchPackAC({pageCount: pageCount}))
+        dispatch(searchPackAC({pageCount: pageCount,page: 0}))
 
-        setPage(0);
     };
 
-
-
-    //const isSelected = (name: string) => selected.indexOf(name) !== -1;
-
-    // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows =
-        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - props.rows.length) : 0;
+      page === Math.floor(cardPacksTotalCount/rowsPerPage) ?  rowsPerPage-(cardPacksTotalCount % rowsPerPage) : 0;
 
     return (
         <Box sx={{width: '100%'}}>
@@ -237,7 +229,7 @@ export function EnhancedTable(props: { rows: TableDataType[] }) {
                         />
                         <TableBody>
                             {stableSort(props.rows, getComparator(order, orderBy))
-                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                /*.slice(1 * rowsPerPage, 1 * rowsPerPage + rowsPerPage)*/
                                 .map((row, index) => {
                                     const labelId = `enhanced-table-checkbox-${index}`;
 
@@ -279,32 +271,34 @@ export function EnhancedTable(props: { rows: TableDataType[] }) {
                                                         </IconButton>
                                                     </TableCell>
                                                 }
-
                                             </TableRow>
                                         </>
-                                    )
-                                        ;
+                                    );
                                 })}
                             {emptyRows > 0 && (
-                                <TableRow
-                                    style={{
-                                        height: (dense ? 33 : 53) * emptyRows,
-                                    }}
-                                >
-                                    <TableCell colSpan={6}/>
-                                </TableRow>
+                              <TableRow
+                                style={{
+                                    height: (53) * emptyRows,
+                                }}
+                              >
+                                  <TableCell colSpan={6}/>
+                              </TableRow>
                             )}
                         </TableBody>
                     </Table>
                 </TableContainer>
+
                 <TablePagination
-                    rowsPerPageOptions={[5, 10, 25]}
-                    component="div"
-                    count={cardPacksTotalCount}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
+                  component="div"
+                  count={cardPacksTotalCount}
+                  page={page}
+                  onPageChange={handleChangePage}
+                  rowsPerPageOptions={[5, 10, 15]}
+                  rowsPerPage={rowsPerPage}
+                  labelRowsPerPage={"test"}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                  showFirstButton
+                  showLastButton
                 />
             </Paper>
         </Box>

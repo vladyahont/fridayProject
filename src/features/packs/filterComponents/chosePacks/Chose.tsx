@@ -24,12 +24,12 @@ export const ChosePack = () => {
 
   useEffect(() => {
     if (switcher) {
-      setSearchParams({ ...params, user_id: userID });
+      setSearchParams({ ...params, user_id: userID,page:"0" });
       dispatch(searchPackAC({user_id: userID}))
     } else {
       delete params.user_id
       dispatch(searchPackAC({user_id: ''}))
-      setSearchParams(params);
+      setSearchParams({...params,page:"0"});
     }
   }, [switcher])
 

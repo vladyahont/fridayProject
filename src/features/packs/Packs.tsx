@@ -44,17 +44,17 @@ export const Packs = () => {
         delete params.min
         delete params.max
         delete params.user_id
-        delete params.pageCount
-        delete params.page
+        /*delete params.pageCount*/
+        params.page = "0"
 
         dispatch(changeMinMaxCountAC(0,maxCardsCount))
 
         setSearchParams(params)
     };
-
+    console.log(params)
     useEffect(() => {
         dispatch(getPacksTC())
-    }, [min, max, page, packName,params.user_id])
+    }, [min, max, page, packName,params.user_id,params.pageCount,params.page])
 
     return (
         <div className={s.componentContainer}>
