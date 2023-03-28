@@ -2,13 +2,13 @@ import {useAppDispatch, useAppSelector} from "app/store";
 import {
     getMaxParamsSelector,
     getMinParamsSelector,
-    getPackNameParamsSelector,
+    getPackNameParamsSelector, getPageCountParamsSelector,
     getPageParamsSelector,
     maxCardsCountSelector,
     packsSelector
 } from "app/selectors";
 import React, {useEffect} from "react";
-import {changeMinMaxCountAC, getPacksTC} from "./packs-reducer";
+import {changeMinMaxCountAC, getPacksTC, searchPackAC} from "./packs-reducer";
 import {EnhancedTable, createData, TableDataType} from "./table/Table";
 import s from './Packs.module.css'
 import {SearchInput} from "./filterComponents/searchInput/SearchInput";
@@ -29,6 +29,7 @@ export const Packs = () => {
     const max = useAppSelector(getMaxParamsSelector)
     const packName = useAppSelector(getPackNameParamsSelector)
     const page = useAppSelector(getPageParamsSelector)
+    const pageCount = useAppSelector(getPageCountParamsSelector)
 
     const maxCardsCount = useAppSelector(maxCardsCountSelector)
 
@@ -47,15 +48,13 @@ export const Packs = () => {
         params.min =  "0"
         params.max = maxCardsCount + ''
 
-        dispatch(changeMinMaxCountAC(0,maxCardsCount))
-
-        dispatch(setSearchParams(params))
-        setSearchParams(params)
+        dispatch(searchPackAC(params))
+        setSearchParams({...params})
     };
 
     useEffect(() => {
         dispatch(getPacksTC())
-    }, [min, max, page, packName,params.user_id,params.pageCount,params.page])
+    }, [min, max, page, packName,params.user_id,pageCount,page])
 
     return (
         <div className={s.componentContainer}>

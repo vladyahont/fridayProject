@@ -12,9 +12,7 @@ type PaginationPropsType = {
 }
 
 export const PaginationPacks = ({setEmptyRow}:PaginationPropsType) => {
-
   const dispatch = useAppDispatch();
-
   const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
   const params = Object.fromEntries(searchParams);
 
@@ -30,17 +28,13 @@ export const PaginationPacks = ({setEmptyRow}:PaginationPropsType) => {
 
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     const pageCount = parseInt(event.target.value)
-
     setSearchParams({...params, pageCount: pageCount});
-
     dispatch(searchPackAC({pageCount: pageCount,page: 1}))
-
     const emptyRows =
       page === Math.floor(cardPacksTotalCount/rowsPerPage) ?  rowsPerPage - (cardPacksTotalCount % rowsPerPage) : 0;
     setEmptyRow(emptyRows)
   };
 
-  console.log(page)
   return (
     <TablePagination
       component="div"

@@ -177,7 +177,7 @@ export function EnhancedTable(props: { rows: TableDataType[] }) {
   const [order, setOrder] = React.useState<Order>('asc');
   const [orderBy, setOrderBy] = React.useState<keyof TableDataType>('name');
 
-
+  console.log(order,orderBy)
   const [dense, setDense] = React.useState(false);
 
   const dispatch = useAppDispatch();
@@ -227,7 +227,6 @@ export function EnhancedTable(props: { rows: TableDataType[] }) {
             />
             <TableBody>
               {stableSort(props.rows, getComparator(order, orderBy))
-                /*.slice(1 * rowsPerPage, 1 * rowsPerPage + rowsPerPage)*/
                 .map((row, index) => {
                   const labelId = `enhanced-table-checkbox-${index}`;
 
@@ -235,8 +234,6 @@ export function EnhancedTable(props: { rows: TableDataType[] }) {
                     <>
                       <TableRow
                         hover
-                        //onClick={(event) => handleClick(event, row.name)}
-                        // role="checkbox"
                         tabIndex={-1}
                         key={row.name}
                       >

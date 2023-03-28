@@ -23,5 +23,8 @@ export const cardPacksTotalCountSelector =(state: AppStateType) => state.packs.c
 export const getParamsSelector =(state: AppStateType) => state.packs.params;
 export const getMinParamsSelector =(state: AppStateType) => state.packs.params.min;
 export const getMaxParamsSelector =(state: AppStateType) => state.packs.params.max;
+export const getPageCountParamsSelector =(state: AppStateType) => state.packs.params.pageCount;
+
+
 export const getPackNameParamsSelector =(state: AppStateType) => state.packs.params.packName;
 export const getPageParamsSelector =(state: AppStateType) => state.packs.params.page;
