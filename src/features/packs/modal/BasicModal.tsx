@@ -17,30 +17,21 @@ const style = {
 };
 
 type PropsType = {
-    childrenTitle: ReactNode
-    //children: (cb: () => void) => ReactNode | ReactNode
+    open: boolean
+    onClose: () => void
     children: ReactNode
 }
 
-export const BasicModal: FC<PropsType> = ({childrenTitle, children}) => {
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+export const BasicModal: FC<PropsType> = ({open, onClose, children}) => {
+
 
     return (
         <div>
-            <Button onClick={handleOpen} variant={'contained'} color={'primary'}>Add pack</Button>
             <Modal
                 open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
+                onClose={onClose}
             >
-                <Box sx={style}>
-                    {childrenTitle}
-                    {children}
-                    <Button variant={'text'} onClick={handleClose}>Cancel</Button>
-                </Box>
+                <Box sx={style}>{children}</Box>
             </Modal>
         </div>
     );

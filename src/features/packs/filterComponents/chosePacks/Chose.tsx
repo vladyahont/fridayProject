@@ -14,7 +14,6 @@ export const ChosePack = () => {
 
   const [switcher, setSwitcher] = useState(!!searchParams.get("user_id"))
 
-  console.log(!!searchParams.get("user_id"))
   useEffect(() => {
       setSwitcher(searchParams.has("user_id"))
     }, [searchParams])

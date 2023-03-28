@@ -17,13 +17,12 @@ import {RangeSlider} from "./filterComponents/rangeSlider/RangeSlider";
 import SuperButton from "../../superComponents/c2-SuperButton/SuperButton";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
 import {useSearchParams} from "react-router-dom";
-import {AddModallll} from "features/packs/modal/AddModallllll";
-import {EditModal} from "features/packs/modal/EditModal";
+import {AddPackModal} from "features/packs/modal/packModals/AddPackModal";
 
 export const Packs = () => {
     const dispatch = useAppDispatch()
 
-    let packs = useAppSelector(packsSelector)
+    const packs = useAppSelector(packsSelector)
 
     const min = useAppSelector(getMinParamsSelector)
     const max = useAppSelector(getMaxParamsSelector)
@@ -34,8 +33,7 @@ export const Packs = () => {
 
 
     let rows: TableDataType[] = packs
-        .map(p => createData(p.name, p.cardsCount, p.updated, p.user_name, 'learn'))
-
+        .map(p => createData(p.name, p._id, p.cardsCount, p.updated, p.user_name, 'learn'))
 
     const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
     const params = Object.fromEntries(searchParams)
@@ -60,8 +58,7 @@ export const Packs = () => {
         <div className={s.componentContainer}>
             <div className={s.headContainer}>
                 <h1 className={s.h1}>Packs List</h1>
-                <AddModallll/>
-                <EditModal id={'12'} name={'sad'}/>
+                <AddPackModal/>
             </div>
             <div className={s.filterContainer}>
                 <SearchInput/>
@@ -74,4 +71,4 @@ export const Packs = () => {
             <EnhancedTable rows={rows}/>
         </div>
     )
-}
+};

@@ -15,12 +15,12 @@ import {useAppDispatch, useAppSelector} from "app/store";
 import {searchPackAC} from "../packs-reducer";
 import {cardPacksTotalCountSelector, packsSelector} from "app/selectors";
 import SchoolIcon from '@mui/icons-material/School';
-import EditIcon from '@mui/icons-material/Edit';
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import IconButton from '@mui/material/IconButton/IconButton';
+
 
 export type TableDataType = {
     name: string | undefined
+    _id: string
     cards: number
     lastUpdated: string
     createdBy: string
@@ -29,6 +29,7 @@ export type TableDataType = {
 
 export function createData(
     name: string | undefined,
+    _id: string,
     cards: number,
     lastUpdated: string,
     createdBy: string,
@@ -36,6 +37,7 @@ export function createData(
 ): TableDataType {
     return {
         name,
+        _id,
         cards,
         lastUpdated,
         createdBy,
@@ -171,7 +173,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 export function EnhancedTable(props: { rows: TableDataType[] }) {
     const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
     const params = Object.fromEntries(searchParams);
-    const userName = useAppSelector(packsSelector)
+    const userInfo = useAppSelector(packsSelector)
 
 
     const cardPacksTotalCount = useAppSelector(cardPacksTotalCountSelector)
@@ -240,15 +242,14 @@ export function EnhancedTable(props: { rows: TableDataType[] }) {
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, index) => {
                                     const labelId = `enhanced-table-checkbox-${index}`;
-
+                                    const rand = (Math.random() + 1).toString(36).substring(7)
                                     return (
-                                        <>
                                             <TableRow
                                                 hover
                                                 //onClick={(event) => handleClick(event, row.name)}
                                                 // role="checkbox"
                                                 tabIndex={-1}
-                                                key={row.name}
+                                                key={rand}
                                             >
                                                 <TableCell
                                                     component="th"
@@ -261,18 +262,18 @@ export function EnhancedTable(props: { rows: TableDataType[] }) {
                                                 <TableCell align="left">{row.cards}</TableCell>
                                                 <TableCell align="left">{row.lastUpdated}</TableCell>
                                                 <TableCell align="left">{row.createdBy}</TableCell>
-                                                {row.createdBy === userName[0].user_name
-                                                    ? <TableCell align="left">
-                                                        <IconButton onClick={()=>{console.log('alalala')}}>
-                                                            <SchoolIcon/>
-                                                        </IconButton>
-                                                        <IconButton>
-                                                            <EditIcon/>
-                                                        </IconButton>
-                                                        <IconButton>
-                                                            <HighlightOffIcon/>
-                                                        </IconButton>
-                                                    </TableCell>
+                                                {row.createdBy === userInfo[0].user_name
+                                                    ?
+                                                        <TableCell align="left">
+                                                            <div style={{display:'flex'}}>
+                                                            <IconButton>
+                                                                <SchoolIcon/>
+                                                            </IconButton>
+                                                            <EditModal name={row.name} id={row._id}/>
+                                                            <DeleteModal id={row._id} packName={row.name}/>
+                                                            </div>
+
+                                                        </TableCell>
                                                     : <TableCell align="left">
                                                         <IconButton>
                                                             <SchoolIcon/>
@@ -281,7 +282,6 @@ export function EnhancedTable(props: { rows: TableDataType[] }) {
                                                 }
 
                                             </TableRow>
-                                        </>
                                     )
                                         ;
                                 })}
@@ -309,4 +309,4 @@ export function EnhancedTable(props: { rows: TableDataType[] }) {
             </Paper>
         </Box>
     );
-}
+};
