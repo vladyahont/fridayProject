@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
-import {useAppDispatch} from "app/store";
+import {useAppDispatch, useAppSelector} from "app/store";
 import {deletePackTC} from "features/packs/packs-reducer";
 import Button from "@mui/material/Button/Button";
 import {BasicModal} from "features/packs/modal/BasicModal";
 import IconButton from "@mui/material/IconButton/IconButton";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import {appStatusSelector} from "app/selectors";
 
 type PropsType = {
     id: string
@@ -12,6 +13,8 @@ type PropsType = {
 }
 
 export const DeleteModal = (props: PropsType) => {
+
+    const appStatus = useAppSelector(appStatusSelector)
 
     const dispatch = useAppDispatch()
 
@@ -28,7 +31,7 @@ export const DeleteModal = (props: PropsType) => {
 
     return (
         <div>
-            <IconButton onClick={onOpen}>
+            <IconButton onClick={onOpen} disabled={appStatus === 'loading'}>
                 <HighlightOffIcon/>
             </IconButton>
             <BasicModal open={open} onClose={onClose}>

@@ -1,15 +1,14 @@
 import React, {ChangeEvent, useState} from 'react';
 import {BasicModal} from "features/packs/modal/BasicModal";
-import {useAppDispatch} from "app/store";
+import {useAppDispatch, useAppSelector} from "app/store";
 import {Input, InputLabel} from "@material-ui/core";
-import FormControlLabel from '@mui/material/FormControlLabel/FormControlLabel';
 import auth from "features/auth/auth.module.css";
 import Button from "@mui/material/Button";
-import Checkbox from "@mui/material/Checkbox";
 import {UpdatePackType} from "features/packs/packTypes";
 import {updatePackTC} from "features/packs/packs-reducer";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton/IconButton";
+import {appStatusSelector} from "app/selectors";
 
 
 type PropsType = {
@@ -18,6 +17,8 @@ type PropsType = {
 }
 
 export const EditModal = (props: PropsType) => {
+
+    const appStatus = useAppSelector(appStatusSelector)
 
     const dispatch = useAppDispatch()
 
@@ -44,7 +45,7 @@ export const EditModal = (props: PropsType) => {
 
     return (
         <>
-            <IconButton onClick={onOpen}>
+            <IconButton onClick={onOpen} disabled={appStatus === 'loading'}>
                 <EditIcon/>
             </IconButton>
             <BasicModal open={open} onClose={onClose}>
@@ -52,8 +53,6 @@ export const EditModal = (props: PropsType) => {
                 <InputLabel>Name pack</InputLabel>
                 <Input className={auth.input}
                        value={name} onChange={editPackHandler}/>
-                <FormControlLabel className={auth.remMe} label={'Private pack'}
-                                  control={<Checkbox/>}/>
                 {name && name !== props.name
                     ? <Button variant={'contained'} color={'primary'} onClick={sendNewPackName}>Save</Button>
                     : <Button disabled={true}>Save</Button>}

@@ -12,16 +12,16 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import {BasicModal} from "features/packs/modal/BasicModal";
 import {appStatusSelector} from "app/selectors";
 
-export const AddPackModal = memo(() => {
+export const AddCardModal = memo(() => {
+
+    //TODO
 
     const appStatus = useAppSelector(appStatusSelector)
 
     const dispatch = useAppDispatch()
 
-
     const [open, setOpen] = useState(false)
     const [name, setPackName] = useState('')
-    const [privateValue, setPrivateValue] = useState(false)
 
     const onClose = () => setOpen(false)
     const onOpen = () => setOpen(true)
@@ -33,7 +33,7 @@ export const AddPackModal = memo(() => {
         }
     }
     const addPackHandler = () => {
-        const cardsPack: NewPackType = {name, private: privateValue}
+        const cardsPack: NewPackType = {name}
         dispatch(addPackTC(cardsPack))
         setPackName('')
         onClose()
@@ -65,9 +65,6 @@ export const AddPackModal = memo(() => {
                            style={{display: 'none'}}
                     />
                 </IconButton>
-                <FormControlLabel className={auth.remMe} label={'Private pack'}
-                                  control={<Checkbox value={privateValue}
-                                                     onClick={() => setPrivateValue(!privateValue)}/>}/>
                 {name ? <Button variant={'contained'} color={'primary'} onClick={addPackHandler}>Save</Button>
                     : <Button disabled={true}>Save</Button>}
                 <Button variant={'outlined'} color={'primary'} onClick={onClose}>Cancel</Button>

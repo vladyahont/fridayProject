@@ -5,7 +5,7 @@ export const PATH = {
   LOGIN: '/login',
   400: '/400',
   RECOVERY: '/forgot',
-  PACKS: '/packs',
+  PACKS: 'cards/pack/',
   CHECK_EMAIL: "/checkMail",
   NEWPASSWORD: "/set-new-password/:token?",
 } as const

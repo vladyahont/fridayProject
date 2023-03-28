@@ -20,18 +20,20 @@ export const Header = () => {
         <Toolbar sx={{
           justifyContent: "space-between"
         }}>
-          <img src={logo} alt="logo" />
-          {
-            isLoggedIn || <NavLink to={PATH.LOGIN} className={s.loginBtn}>Sign in</NavLink>
-          }
-          {
-            isLoggedIn &&  <span className={s.profileBlock}>
+          <>
+            <img src={logo} alt="logo" />
+            {
+                isLoggedIn || <NavLink to={PATH.LOGIN} className={s.loginBtn}>Sign in</NavLink>
+            }
+            {
+                isLoggedIn &&  <span className={s.profileBlock}>
               <NavLink to={PATH.PROFILE} className={({ isActive }) => (isActive ? s.active : "")}>
                 {name}
               </NavLink>
               <img src={avatar? avatar: ava } alt="avatar" className={s.profileImg} />
               </span>
-          }
+            }
+          </>
         </Toolbar>
       </AppBar>
     </Box>

@@ -5,7 +5,7 @@ import Switch from "@mui/material/Switch";
 import {useAppDispatch, useAppSelector} from "app/store";
 import {useSearchParams} from "react-router-dom";
 import {appStatusSelector, userIdSelector} from "app/selectors";
-import {getPacksTC, searchPackAC} from "../../packs-reducer";
+import {searchPackAC} from "../../packs-reducer";
 
 export const ChosePack = () => {
   const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
@@ -30,8 +30,7 @@ export const ChosePack = () => {
       dispatch(searchPackAC({user_id: ''}))
       setSearchParams(params);
     }
-    dispatch(getPacksTC())
-  }, [switcher])
+    }, [switcher])
 
   const onChangeHandler = () => {
     setSwitcher(!switcher)

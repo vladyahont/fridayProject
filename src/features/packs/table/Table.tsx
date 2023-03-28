@@ -258,15 +258,14 @@ export default function EnhancedTable(props: { rows: TableDataType[] }) {
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, index) => {
                                     const labelId = `enhanced-table-checkbox-${index}`;
-
+                                    const rand = (Math.random() + 1).toString(36).substring(7)
                                     return (
-                                        <>
                                             <TableRow
                                                 hover
                                                 //onClick={(event) => handleClick(event, row.name)}
                                                 // role="checkbox"
                                                 tabIndex={-1}
-                                                key={row.name}
+                                                key={rand}
                                             >
                                                 <TableCell
                                                     component="th"
@@ -280,13 +279,17 @@ export default function EnhancedTable(props: { rows: TableDataType[] }) {
                                                 <TableCell align="left">{row.lastUpdated}</TableCell>
                                                 <TableCell align="left">{row.createdBy}</TableCell>
                                                 {row.createdBy === userInfo[0].user_name
-                                                    ? <TableCell align="left">
-                                                        <IconButton>
-                                                            <SchoolIcon/>
-                                                        </IconButton>
-                                                        <EditModal name={row.name} id={row._id}/>
-                                                        <DeleteModal id={row._id} packName={row.name}/>
-                                                    </TableCell>
+                                                    ?
+                                                        <TableCell align="left">
+                                                            <div style={{display:'flex'}}>
+                                                            <IconButton>
+                                                                <SchoolIcon/>
+                                                            </IconButton>
+                                                            <EditModal name={row.name} id={row._id}/>
+                                                            <DeleteModal id={row._id} packName={row.name}/>
+                                                            </div>
+
+                                                        </TableCell>
                                                     : <TableCell align="left">
                                                         <IconButton>
                                                             <SchoolIcon/>
@@ -295,7 +298,6 @@ export default function EnhancedTable(props: { rows: TableDataType[] }) {
                                                 }
 
                                             </TableRow>
-                                        </>
                                     )
                                         ;
                                 })}
@@ -323,4 +325,4 @@ export default function EnhancedTable(props: { rows: TableDataType[] }) {
             </Paper>
         </Box>
     );
-}
+};

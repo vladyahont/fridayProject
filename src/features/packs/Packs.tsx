@@ -36,7 +36,7 @@ export const Packs = () => {
 
     useEffect(() => {
         dispatch(getPacksTC())
-    }, [par.min, par.max, par.page, par.packName])
+    }, [par.min, par.max, par.page, par.packName, par.user_id])
 
 
     return (
@@ -44,8 +44,6 @@ export const Packs = () => {
             <div className={s.headContainer}>
                 <h1 className={s.h1}>Packs List</h1>
                 <AddPackModal/>
-                {/*<AddModal entityTitle={'pack'} open={false} onClose={false}/>*/}
-                {/*<EditModal onClose={false} id={'12'} name={'sad'}/>*/}
             </div>
             <div className={s.filterContainer}>
                 <SearchInput/>

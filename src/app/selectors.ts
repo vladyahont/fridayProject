@@ -19,4 +19,4 @@ export const packsSelector = (state: AppStateType) => state.packs.cardPacks
 export const minCardsCountSelector = (state: AppStateType) => state.packs.minCardsCount
 export const maxCardsCountSelector =(state: AppStateType) => state.packs.maxCardsCount
 export const cardPacksTotalCountSelector =(state: AppStateType) => state.packs.cardPacksTotalCount
-export const getParams =(state: AppStateType) => state.packs.params;
+export const getParams = (state: AppStateType) => state.packs.params
