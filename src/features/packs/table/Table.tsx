@@ -18,54 +18,54 @@ import SchoolIcon from '@mui/icons-material/School';
 import EditIcon from '@mui/icons-material/Edit';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import IconButton from '@mui/material/IconButton/IconButton';
-import {SuperPagination} from "./Pagination";
+
 
 export type TableDataType = {
-    name: string | undefined
-    cards: number
-    lastUpdated: string
-    createdBy: string
-    action: 'learn' | 'edit' | 'delete'
+  name: string | undefined
+  cards: number
+  lastUpdated: string
+  createdBy: string
+  action: 'learn' | 'edit' | 'delete'
 }
 
 export function createData(
-    name: string | undefined,
-    cards: number,
-    lastUpdated: string,
-    createdBy: string,
-    action: 'learn' | 'edit' | 'delete',
+  name: string | undefined,
+  cards: number,
+  lastUpdated: string,
+  createdBy: string,
+  action: 'learn' | 'edit' | 'delete',
 ): TableDataType {
-    return {
-        name,
-        cards,
-        lastUpdated,
-        createdBy,
-        action,
-    };
+  return {
+    name,
+    cards,
+    lastUpdated,
+    createdBy,
+    action,
+  };
 }
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-    if (b[orderBy] < a[orderBy]) {
-        return -1;
-    }
-    if (b[orderBy] > a[orderBy]) {
-        return 1;
-    }
-    return 0;
+  if (b[orderBy] < a[orderBy]) {
+    return -1;
+  }
+  if (b[orderBy] > a[orderBy]) {
+    return 1;
+  }
+  return 0;
 }
 
 type Order = 'asc' | 'desc';
 
 function getComparator<Key extends keyof any>(
-    order: Order,
-    orderBy: Key,
+  order: Order,
+  orderBy: Key,
 ): (
-    a: { [key in Key]: number | string | undefined },
-    b: { [key in Key]: number | string | undefined },
+  a: { [key in Key]: number | string | undefined },
+  b: { [key in Key]: number | string | undefined },
 ) => number {
-    return order === 'desc'
-        ? (a, b) => descendingComparator(a, b, orderBy)
-        : (a, b) => -descendingComparator(a, b, orderBy);
+  return order === 'desc'
+    ? (a, b) => descendingComparator(a, b, orderBy)
+    : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
 // Since 2020 all major browsers ensure sort stability with Array.prototype.sort().
@@ -73,234 +73,234 @@ function getComparator<Key extends keyof any>(
 // only support modern browsers you can replace stableSort(exampleArray, exampleComparator)
 // with exampleArray.slice().sort(exampleComparator)
 function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => number) {
-    const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
-    stabilizedThis.sort((a, b) => {
-        const order = comparator(a[0], b[0]);
-        if (order !== 0) {
-            return order;
-        }
-        return a[1] - b[1];
-    });
-    return stabilizedThis.map((el) => el[0]);
+  const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
+  stabilizedThis.sort((a, b) => {
+    const order = comparator(a[0], b[0]);
+    if (order !== 0) {
+      return order;
+    }
+    return a[1] - b[1];
+  });
+  return stabilizedThis.map((el) => el[0]);
 }
 
 interface HeadCell {
-    disablePadding: boolean;
-    id: keyof TableDataType;
-    label: string;
-    numeric: boolean;
+  disablePadding: boolean;
+  id: keyof TableDataType;
+  label: string;
+  numeric: boolean;
 }
 
 const headCells: readonly HeadCell[] = [
-    {
-        id: 'name',
-        numeric: false,
-        disablePadding: true,
-        label: 'Name',
-    },
-    {
-        id: 'cards',
-        numeric: true,
-        disablePadding: false,
-        label: 'cards',
-    },
-    {
-        id: 'lastUpdated',
-        numeric: false,
-        disablePadding: false,
-        label: 'Last Updated',
-    },
-    {
-        id: 'createdBy',
-        numeric: false,
-        disablePadding: false,
-        label: 'Created By',
-    },
-    {
-        id: 'action',
-        numeric: false,
-        disablePadding: false,
-        label: 'Actions',
-    },
+  {
+    id: 'name',
+    numeric: false,
+    disablePadding: true,
+    label: 'Name',
+  },
+  {
+    id: 'cards',
+    numeric: true,
+    disablePadding: false,
+    label: 'cards',
+  },
+  {
+    id: 'lastUpdated',
+    numeric: false,
+    disablePadding: false,
+    label: 'Last Updated',
+  },
+  {
+    id: 'createdBy',
+    numeric: false,
+    disablePadding: false,
+    label: 'Created By',
+  },
+  {
+    id: 'action',
+    numeric: false,
+    disablePadding: false,
+    label: 'Actions',
+  },
 ];
 
 interface EnhancedTableProps {
-    onRequestSort: (event: React.MouseEvent<unknown>, property: keyof TableDataType) => void;
-    order: Order;
-    orderBy: string;
-    rowCount: number;
+  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof TableDataType) => void;
+  order: Order;
+  orderBy: string;
+  rowCount: number;
 }
 
 function EnhancedTableHead(props: EnhancedTableProps) {
 
-    const {order, orderBy, rowCount, onRequestSort} = props;
-    const createSortHandler =
-        (property: keyof TableDataType) => (event: React.MouseEvent<unknown>) => {
-            onRequestSort(event, property);
-        };
+  const {order, orderBy, rowCount, onRequestSort} = props;
+  const createSortHandler =
+    (property: keyof TableDataType) => (event: React.MouseEvent<unknown>) => {
+      onRequestSort(event, property);
+    };
 
-    return (
-        <TableHead>
-            <TableRow>
-                {headCells.map((headCell) => (
-                    <TableCell
-                        key={headCell.id}
-                        // align={headCell.numeric ? 'right' : 'left'}
-                        align={'left'}
-                        padding={headCell.disablePadding ? 'none' : 'normal'}
-                        sortDirection={orderBy === headCell.id ? order : false}
-                    >
-                        <TableSortLabel
-                            active={orderBy === headCell.id}
-                            direction={orderBy === headCell.id ? order : 'asc'}
-                            onClick={createSortHandler(headCell.id)}
-                        >
-                            {headCell.label}
-                            {orderBy === headCell.id ? (
-                                <Box component="span" sx={visuallyHidden}>
-                                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                                </Box>
-                            ) : null}
-                        </TableSortLabel>
-                    </TableCell>
-                ))}
-            </TableRow>
-        </TableHead>
-    );
+  return (
+    <TableHead>
+      <TableRow>
+        {headCells.map((headCell) => (
+          <TableCell
+            key={headCell.id}
+            // align={headCell.numeric ? 'right' : 'left'}
+            align={'left'}
+            padding={headCell.disablePadding ? 'none' : 'normal'}
+            sortDirection={orderBy === headCell.id ? order : false}
+          >
+            <TableSortLabel
+              active={orderBy === headCell.id}
+              direction={orderBy === headCell.id ? order : 'asc'}
+              onClick={createSortHandler(headCell.id)}
+            >
+              {headCell.label}
+              {orderBy === headCell.id ? (
+                <Box component="span" sx={visuallyHidden}>
+                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                </Box>
+              ) : null}
+            </TableSortLabel>
+          </TableCell>
+        ))}
+      </TableRow>
+    </TableHead>
+  );
 }
 
 export function EnhancedTable(props: { rows: TableDataType[] }) {
-    const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
-    const params = Object.fromEntries(searchParams);
-    const userName = useAppSelector(packsSelector)
+  const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
+  const params = Object.fromEntries(searchParams);
+  const userName = useAppSelector(packsSelector)
 
-    const [order, setOrder] = React.useState<Order>('asc');
-    const [orderBy, setOrderBy] = React.useState<keyof TableDataType>('name');
-
-
-    const [dense, setDense] = React.useState(false);
-
-    const dispatch = useAppDispatch();
+  const [order, setOrder] = React.useState<Order>('asc');
+  const [orderBy, setOrderBy] = React.useState<keyof TableDataType>('name');
 
 
-    const handleRequestSort = (
-        event: React.MouseEvent<unknown>,
-        property: keyof TableDataType,
-    ) => {
-        const isAsc = orderBy === property && order === 'asc';
-        setOrder(isAsc ? 'desc' : 'asc');
-        setOrderBy(property);
-    };
+  const [dense, setDense] = React.useState(false);
 
-    const cardPacksTotalCount = useAppSelector(cardPacksTotalCountSelector)
-
-    const page = Number(searchParams.get('page'))
-    const rowsPerPage = Number(searchParams.get('pageCount'))
+  const dispatch = useAppDispatch();
 
 
-    const handleChangePage = (event: unknown, newPage: number) => {
-        dispatch(searchPackAC({page: newPage}))
-        setSearchParams({...params, page: newPage});
-    };
+  const handleRequestSort = (
+    event: React.MouseEvent<unknown>,
+    property: keyof TableDataType,
+  ) => {
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderBy(property);
+  };
 
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const pageCount = parseInt(event.target.value)
-        setSearchParams({...params, pageCount: pageCount});
-        dispatch(searchPackAC({pageCount: pageCount,page: 0}))
+  const cardPacksTotalCount = useAppSelector(cardPacksTotalCountSelector)
 
-    };
+  const page = Number(searchParams.get('page') || 1)
+  const rowsPerPage = Number(searchParams.get('pageCount') || 5)
 
-    const emptyRows =
-      page === Math.floor(cardPacksTotalCount/rowsPerPage) ?  rowsPerPage-(cardPacksTotalCount % rowsPerPage) : 0;
+  const handleChangePage = (event: unknown, newPage: number) => {
+    dispatch(searchPackAC({page: newPage + 1}))
+    setSearchParams({...params, page: newPage + 1});
+  };
 
-    return (
-        <Box sx={{width: '100%'}}>
-            <Paper sx={{width: '100%', mb: 2}}>
-                <TableContainer>
-                    <Table
-                        sx={{minWidth: 750, textAlign: 'center'}}
-                        aria-labelledby="tableTitle"
-                        size={dense ? 'small' : 'medium'}
-                    >
-                        <EnhancedTableHead rowCount={props.rows.length + 1}
-                                           onRequestSort={handleRequestSort}
-                                           order={order}
-                                           orderBy={orderBy}
-                        />
-                        <TableBody>
-                            {stableSort(props.rows, getComparator(order, orderBy))
-                                /*.slice(1 * rowsPerPage, 1 * rowsPerPage + rowsPerPage)*/
-                                .map((row, index) => {
-                                    const labelId = `enhanced-table-checkbox-${index}`;
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const pageCount = parseInt(event.target.value)
+    setSearchParams({...params, pageCount: pageCount});
+    dispatch(searchPackAC({pageCount: pageCount, page: 1}))
+  };
 
-                                    return (
-                                        <>
-                                            <TableRow
-                                                hover
-                                                //onClick={(event) => handleClick(event, row.name)}
-                                                // role="checkbox"
-                                                tabIndex={-1}
-                                                key={row.name}
-                                            >
-                                                <TableCell
-                                                    component="th"
-                                                    id={labelId}
-                                                    scope="row"
-                                                    padding="none"
-                                                >
-                                                    {row.name}
-                                                </TableCell>
-                                                <TableCell align="left">{row.cards}</TableCell>
-                                                <TableCell align="left">{row.lastUpdated}</TableCell>
-                                                <TableCell align="left">{row.createdBy}</TableCell>
-                                                {row.createdBy === userName[0].user_name
-                                                    ? <TableCell align="left">
-                                                        <IconButton onClick={()=>{console.log('alalala')}}>
-                                                            <SchoolIcon/>
-                                                        </IconButton>
-                                                        <IconButton>
-                                                            <EditIcon/>
-                                                        </IconButton>
-                                                        <IconButton>
-                                                            <HighlightOffIcon/>
-                                                        </IconButton>
-                                                    </TableCell>
-                                                    : <TableCell align="left">
-                                                        <IconButton>
-                                                            <SchoolIcon/>
-                                                        </IconButton>
-                                                    </TableCell>
-                                                }
-                                            </TableRow>
-                                        </>
-                                    );
-                                })}
-                            {emptyRows > 0 && (
-                              <TableRow
-                                style={{
-                                    height: (53) * emptyRows,
-                                }}
-                              >
-                                  <TableCell colSpan={6}/>
-                              </TableRow>
-                            )}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+  const emptyRows =
+    page === Math.floor(cardPacksTotalCount / rowsPerPage) + 1 ? rowsPerPage - (cardPacksTotalCount % rowsPerPage) : 0;
+  console.log(emptyRows)
+  return (
+    <Box sx={{width: '100%'}}>
+      <Paper sx={{width: '100%', mb: 2}}>
+        <TableContainer>
+          <Table
+            sx={{minWidth: 750, textAlign: 'center'}}
+            aria-labelledby="tableTitle"
+            size={dense ? 'small' : 'medium'}
+          >
+            <EnhancedTableHead rowCount={props.rows.length + 1}
+                               onRequestSort={handleRequestSort}
+                               order={order}
+                               orderBy={orderBy}
+            />
+            <TableBody>
+              {stableSort(props.rows, getComparator(order, orderBy))
+                /*.slice(1 * rowsPerPage, 1 * rowsPerPage + rowsPerPage)*/
+                .map((row, index) => {
+                  const labelId = `enhanced-table-checkbox-${index}`;
 
-                <TablePagination
-                  component="div"
-                  count={cardPacksTotalCount}
-                  page={page}
-                  onPageChange={handleChangePage}
-                  rowsPerPageOptions={[5, 10, 15]}
-                  rowsPerPage={rowsPerPage}
-                  labelRowsPerPage={"test"}
-                  onRowsPerPageChange={handleChangeRowsPerPage}
-                  showFirstButton
-                  showLastButton
-                />
-            </Paper>
-        </Box>
-    );
+                  return (
+                    <>
+                      <TableRow
+                        hover
+                        //onClick={(event) => handleClick(event, row.name)}
+                        // role="checkbox"
+                        tabIndex={-1}
+                        key={row.name}
+                      >
+                        <TableCell
+                          component="th"
+                          id={labelId}
+                          scope="row"
+                          padding="none"
+                        >
+                          {row.name}
+                        </TableCell>
+                        <TableCell align="left">{row.cards}</TableCell>
+                        <TableCell align="left">{row.lastUpdated}</TableCell>
+                        <TableCell align="left">{row.createdBy}</TableCell>
+                        {row.createdBy === userName[0].user_name
+                          ? <TableCell align="left">
+                            <IconButton onClick={() => {
+                              console.log('alalala')
+                            }}>
+                              <SchoolIcon/>
+                            </IconButton>
+                            <IconButton>
+                              <EditIcon/>
+                            </IconButton>
+                            <IconButton>
+                              <HighlightOffIcon/>
+                            </IconButton>
+                          </TableCell>
+                          : <TableCell align="left">
+                            <IconButton>
+                              <SchoolIcon/>
+                            </IconButton>
+                          </TableCell>
+                        }
+                      </TableRow>
+                    </>
+                  );
+                })}
+              {emptyRows > 0 && (
+                <TableRow
+                  style={{
+                    height: (53) * emptyRows,
+                  }}
+                >
+                  <TableCell colSpan={6}/>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+
+        <TablePagination
+          component="div"
+          count={cardPacksTotalCount}
+          page={page - 1}
+          onPageChange={handleChangePage}
+          rowsPerPageOptions={[5, 10, 15]}
+          rowsPerPage={rowsPerPage}
+          labelRowsPerPage={"test"}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          showFirstButton
+          showLastButton
+        />
+      </Paper>
+    </Box>
+  );
 }

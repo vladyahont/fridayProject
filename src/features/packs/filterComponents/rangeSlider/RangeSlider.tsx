@@ -57,7 +57,7 @@ export const RangeSlider = () => {
       let max = value[1];
       const params = userID ? { user_id: userID, min, max } : { min, max };
       dispatch(changeMinMaxCountAC(values[0],values[1]))
-      setSearchParams({ ...searchParamsObject, ...params, page:"0" });
+      setSearchParams({ ...searchParamsObject, ...params});
     }
   };
 

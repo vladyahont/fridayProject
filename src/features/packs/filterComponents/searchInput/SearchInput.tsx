@@ -35,7 +35,7 @@ export const SearchInput:React.FC<SearchInputPropsType> = ({
   const searchDebouncedValue = useDebounce<string>(searchValue, 800);
   useEffect(() => {
     if (!!searchDebouncedValue) {
-      setSearchParams({...params, packName: searchValue ,page:"0"});
+      setSearchParams({...params, packName: searchValue});
       dispatch(searchPackAC({packName: searchValue}))
     } else {
       delete params.packName

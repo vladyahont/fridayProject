@@ -14,7 +14,6 @@ export const ChosePack = () => {
 
   const [switcher, setSwitcher] = useState(!!searchParams.get("user_id"))
 
-  console.log(!!searchParams.get("user_id"))
   useEffect(() => {
       setSwitcher(searchParams.has("user_id"))
     }, [searchParams])
@@ -24,12 +23,12 @@ export const ChosePack = () => {
 
   useEffect(() => {
     if (switcher) {
-      setSearchParams({ ...params, user_id: userID,page:"0" });
+      setSearchParams({ ...params, user_id: userID});
       dispatch(searchPackAC({user_id: userID}))
     } else {
       delete params.user_id
       dispatch(searchPackAC({user_id: ''}))
-      setSearchParams({...params,page:"0"});
+      setSearchParams({...params});
     }
   }, [switcher])
 

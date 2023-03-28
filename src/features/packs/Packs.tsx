@@ -41,17 +41,18 @@ export const Packs = () => {
     const params = Object.fromEntries(searchParams)
     const resetFilter = () => {
         delete params.packName
-        delete params.min
-        delete params.max
         delete params.user_id
-        /*delete params.pageCount*/
-        params.page = "0"
+
+        params.page = "1"
+        params.min =  "0"
+        params.max = maxCardsCount + ''
 
         dispatch(changeMinMaxCountAC(0,maxCardsCount))
 
+        dispatch(setSearchParams(params))
         setSearchParams(params)
     };
-    console.log(params)
+
     useEffect(() => {
         dispatch(getPacksTC())
     }, [min, max, page, packName,params.user_id,params.pageCount,params.page])
