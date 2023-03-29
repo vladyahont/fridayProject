@@ -6,7 +6,7 @@ import TableSortLabel from "@mui/material/TableSortLabel";
 import Box from "@mui/material/Box";
 import {visuallyHidden} from "@mui/utils";
 
-import {Order} from "./typesTable";
+import {HeaderType, Order} from "./typesTable";
 
 export type EnhancedTableProps<D> = {
   onRequestSort: (event: React.MouseEvent<unknown>, property: keyof D) => void;
@@ -14,13 +14,6 @@ export type EnhancedTableProps<D> = {
   orderBy: keyof D;
   headCells: HeaderType<D>[],
 }
-export type HeaderType<D> = {
-  id: keyof D
-  numeric: boolean,
-  disablePadding: boolean,
-  label: string
-}
-
 
 export const HeadTable = <D extends unknown>({
                                                        headCells,order, orderBy, onRequestSort

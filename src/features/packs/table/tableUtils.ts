@@ -1,18 +1,18 @@
 import {TableDataType} from "./packsTable/PacksTable";
 import {Order} from "./typesTable";
 
-export function createData(
+export function createDataPacks(
   name: string | undefined,
-  cards: number,
-  lastUpdated: string,
-  createdBy: string,
+  cardsCount: number,
+  updated: string,
+  user_name: string,
   action: 'learn' | 'edit' | 'delete',
 ): TableDataType {
   return {
     name,
-    cards,
-    lastUpdated,
-    createdBy,
+    cardsCount,
+    updated,
+    user_name,
     action,
   };
 }

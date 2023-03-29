@@ -4,69 +4,39 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import TableSortLabel from '@mui/material/TableSortLabel';
 import Paper from '@mui/material/Paper';
-import {visuallyHidden} from '@mui/utils';
-import {useSearchParams} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from "app/store";
-import {getPacksTC, searchPackAC} from "../../packs-reducer";
-import {cardPacksTotalCountSelector, maxCardsCountSelector, packsSelector} from "app/selectors";
+import {useAppSelector} from "app/store";
+import {packsSelector, userNameSelector} from "app/selectors";
 import SchoolIcon from '@mui/icons-material/School';
 import EditIcon from '@mui/icons-material/Edit';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import IconButton from '@mui/material/IconButton/IconButton';
-import {createData, getComparator, stableSort} from "../tableUtils";
+import {createDataPacks, getComparator, stableSort} from "../tableUtils";
 import {PacksPagination} from "./PacksPagination";
 import {Order} from "../typesTable";
-import {HeaderType, HeadTable} from "../HeadTable";
-import {useEffect} from "react";
+import PacksHeadTable from "./PacksHeadTable";
 
 
 export type TableDataType = {
   name: string | undefined
-  cards: number
-  lastUpdated: string
-  createdBy: string
+  cardsCount: number
+  user_name: string
+  updated: string
   action: 'learn' | 'edit' | 'delete'
 }
 
 export function PacksTable() {
-  const dispatch = useAppDispatch();
-  const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
-  const params = Object.fromEntries(searchParams);
-  const userName = useAppSelector(packsSelector)
+  const myName = useAppSelector(userNameSelector)
   const packs = useAppSelector(packsSelector)
+
   const rows: TableDataType[] = packs
-    .map(p => createData(p.name, p.cardsCount, p.updated, p.user_name, 'learn'))
+    .map(p => createDataPacks(p.name, p.cardsCount, p.updated, p.user_name, 'learn'))
+
   const [emptyRows, setEmptyRows] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
-
   const [order, setOrder] = React.useState<Order>('0');
-  const [orderBy, setOrderBy] = React.useState<keyof TableDataType>('name');
+  const [orderBy, setOrderBy] = React.useState<keyof TableDataType>('updated');
 
-
-  console.log(order+orderBy)
-
-  useEffect(() => {
-    const sortPacks = order + orderBy
-    setSearchParams({...params, sortPacks: sortPacks});
-    dispatch(searchPackAC({sortPacks: sortPacks}))
-  }, [order,orderBy])
-
-
-
-
-  const handleRequestSort = (
-    event: React.MouseEvent<unknown>,
-    property: keyof TableDataType,
-  ) => {
-    const isAsc = orderBy === property && order === '0';
-    setOrder(isAsc ? '1' : '0');
-    setOrderBy(property);
-  };
 
 
   return (
@@ -76,13 +46,9 @@ export function PacksTable() {
           <Table
             sx={{minWidth: 750, textAlign: 'center'}}
             aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
+            size={'medium'}
           >
-            <HeadTable  headCells={headCells}
-                        onRequestSort={handleRequestSort}
-                        order={order}
-                        orderBy={orderBy}
-            />
+          <PacksHeadTable order = {order} orderBy ={orderBy} setOrder = {setOrder} setOrderBy ={setOrderBy} />
             <TableBody>
               {stableSort(rows, getComparator(order, orderBy))
                 .map((row, index) => {
@@ -102,10 +68,10 @@ export function PacksTable() {
                         >
                           {row.name}
                         </TableCell>
-                        <TableCell align="left">{row.cards}</TableCell>
-                        <TableCell align="left">{row.lastUpdated}</TableCell>
-                        <TableCell align="left">{row.createdBy}</TableCell>
-                        {row.createdBy === userName[0].user_name
+                        <TableCell align="left">{row.cardsCount}</TableCell>
+                        <TableCell align="left">{row.updated}</TableCell>
+                        <TableCell align="left">{row.user_name}</TableCell>
+                        {row.user_name === myName
                           ? <TableCell align="left">
                             <IconButton onClick={() => {
                               console.log('alalala')
@@ -147,35 +113,3 @@ export function PacksTable() {
   );
 }
 
-const headCells: HeaderType<TableDataType>[] = [
-  {
-    id: 'name',
-    numeric: false,
-    disablePadding: true,
-    label: 'Name',
-  },
-  {
-    id: 'cards',
-    numeric: true,
-    disablePadding: false,
-    label: 'cards',
-  },
-  {
-    id: 'lastUpdated',
-    numeric: false,
-    disablePadding: false,
-    label: 'Last Updated',
-  },
-  {
-    id: 'createdBy',
-    numeric: false,
-    disablePadding: false,
-    label: 'Created By',
-  },
-  {
-    id: 'action',
-    numeric: false,
-    disablePadding: false,
-    label: 'Actions',
-  },
-];

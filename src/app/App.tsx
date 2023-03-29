@@ -13,11 +13,12 @@ import {Loading} from "../features/components/loading/Loading";
 import {Loader} from "../features/components/loading/Loader";
 import {appStatusSelector, isInitializedSelector} from "./selectors";
 import {DevFooter} from "../features/components/devFooter/DevFooter";
-import {Packs} from "../features/packs/Packs";
+
 import {CheckEmail} from "../features/auth/recoveryPassword/checkEmail/CheckEmail";
 import {ErrorPage} from "../features/components/errorPage/ErrorPage";
 import {PasswordRecovery} from "../features/auth/recoveryPassword/PasswordRecovery";
 import {NewPassword} from "../features/auth/recoveryPassword/creadeNew/NewPassword";
+import {Packs} from "../features/packs/Packs";
 
 function App() {
   const dispatch = useAppDispatch()
