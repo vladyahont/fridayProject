@@ -40,8 +40,12 @@ export const PacksTableBody = ({
                 <IconButton onClick={() => {
                   console.log('alalala')
                 }}><SchoolIcon/></IconButton>
-                <IconButton><EditIcon/></IconButton>
-                <IconButton><HighlightOffIcon/></IconButton>
+                <IconButton>
+                  <EditIcon/>
+                </IconButton>
+                <IconButton>
+                  <HighlightOffIcon/>
+                </IconButton>
               </TableCell>
               : <TableCell align="left">
                 <IconButton>
