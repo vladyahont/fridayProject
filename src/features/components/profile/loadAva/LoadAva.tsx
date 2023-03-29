@@ -1,20 +1,62 @@
-import React from 'react'
-
+import React, {ChangeEvent, useState} from 'react'
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera'
-
-import avatar from '../../../../assest/imgs/ava.png'
 import s from '../profile.module.css'
+import {useAppDispatch, useAppSelector} from "app/store";
+import {userAvatarSelector, userNameSelector} from "app/selectors";
+import {updUserDataTC} from "features/auth/auth-reducer";
+import {fileConverter} from "utils/add-img-utils";
 
 export const LoadAva = () => {
+
+    const name = useAppSelector(userNameSelector)
+    const ava = useAppSelector(userAvatarSelector)
+
+    const dispatch = useAppDispatch()
+
+
+    const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        fileConverter(e.target.files, (file64: string) => {
+            dispatch(updUserDataTC(name, file64))
+        })
+    };
+
   return (
     <div className={s.avatarContainer}>
-      <img src={avatar} alt="avatar" className={s.imgAvatar} />
-      <PhotoCameraIcon
-        className={s.iconAvatar}
-        onClick={() => {
-          console.log('tut')
-        }}
-      />
+      <img src={ava} alt="avatar" className={s.imgAvatar} />
+        <label>
+            <input type="file"
+                   onChange={uploadHandler}
+                   style={{display: 'none'}}
+            />
+            <PhotoCameraIcon
+                className={s.iconAvatar}
+                onClick={() => {}}
+                //onClick={addAvaHandler}
+            />
+        </label>
     </div>
   )
 }
+
+
+
+// if (e.target.files && e.target.files.length) {
+//     const file = e.target.files[0]
+//     console.log('file: ', file)
+//
+//     if (file.size < 4000000) {
+//         // https://developer.mozilla.org/ru/docs/Web/API/FileReader/FileReader
+//         const reader = new FileReader();
+//
+//         reader.onloadend = () => {
+//             const file64 = reader.result as string
+//             //console.log('file64: ', file64)
+//             dispatch(updUserDataTC(name, file64))
+//         }
+//         // https://developer.mozilla.org/ru/docs/Web/API/FileReader/readAsDataURL
+//         reader.readAsDataURL(file)
+//
+//     } else {
+//         console.error('Error: ', 'Файл слишком большого размера')
+//     }
+// }

@@ -8,12 +8,12 @@ import EditableSpanProfile from './editSpan/EditableSpanProfile'
 import {LoadAva} from './loadAva/LoadAva'
 import s from './profile.module.css'
 import backIcon from "../../../assest/imgs/icons/back.svg"
-import {useAppDispatch, useAppSelector} from "../../../app/store";
+import {useAppDispatch, useAppSelector} from "app/store";
 
 import {logoutTC, updUserDataTC} from "../../auth/auth-reducer";
 import { useNavigate} from "react-router-dom";
-import {isLoggedInSelector, userEmailSelector, userNameSelector} from "../../../app/selectors";
-import {PATH} from "../../../app/Path";
+import {isLoggedInSelector, userEmailSelector, userNameSelector} from "app/selectors";
+import {PATH} from "app/Path";
 
 
 export const Profile = () => {

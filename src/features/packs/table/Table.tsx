@@ -19,6 +19,7 @@ import IconButton from '@mui/material/IconButton/IconButton';
 
 
 export type TableDataType = {
+    cover: string
     name: string | undefined
     _id: string
     cards: number
@@ -28,6 +29,7 @@ export type TableDataType = {
 }
 
 export function createData(
+    cover: string,
     name: string | undefined,
     _id: string,
     cards: number,
@@ -36,6 +38,7 @@ export function createData(
     action: 'learn' | 'edit' | 'delete',
 ): TableDataType {
     return {
+        cover,
         name,
         _id,
         cards,

@@ -1,4 +1,4 @@
-import { instance } from '../../app/instance'
+import { instance } from 'app/instance'
 import {AxiosResponse} from "axios";
 
 export const authApi = {
