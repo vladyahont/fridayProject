@@ -12,7 +12,7 @@ import Paper from '@mui/material/Paper';
 import {visuallyHidden} from '@mui/utils';
 import {useSearchParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "app/store";
-import {searchPackAC} from "../../packs-reducer";
+import {getPacksTC, searchPackAC} from "../../packs-reducer";
 import {cardPacksTotalCountSelector, maxCardsCountSelector, packsSelector} from "app/selectors";
 import SchoolIcon from '@mui/icons-material/School';
 import EditIcon from '@mui/icons-material/Edit';
@@ -22,6 +22,7 @@ import {createData, getComparator, stableSort} from "../tableUtils";
 import {PacksPagination} from "./PacksPagination";
 import {Order} from "../typesTable";
 import {HeaderType, HeadTable} from "../HeadTable";
+import {useEffect} from "react";
 
 
 export type TableDataType = {
@@ -34,26 +35,26 @@ export type TableDataType = {
 
 export function PacksTable() {
   const dispatch = useAppDispatch();
-
-
   const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
   const params = Object.fromEntries(searchParams);
-
-
   const userName = useAppSelector(packsSelector)
-
   const packs = useAppSelector(packsSelector)
   const rows: TableDataType[] = packs
     .map(p => createData(p.name, p.cardsCount, p.updated, p.user_name, 'learn'))
-
+  const [emptyRows, setEmptyRows] = React.useState(0);
+  const [dense, setDense] = React.useState(false);
 
   const [order, setOrder] = React.useState<Order>('0');
   const [orderBy, setOrderBy] = React.useState<keyof TableDataType>('name');
 
 
   console.log(order+orderBy)
-  const [dense, setDense] = React.useState(false);
-  const [emptyRows, setEmptyRows] = React.useState(0);
+
+  useEffect(() => {
+    const sortPacks = order + orderBy
+    setSearchParams({...params, sortPacks: sortPacks});
+    dispatch(searchPackAC({sortPacks: sortPacks}))
+  }, [order,orderBy])
 
 
 

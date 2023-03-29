@@ -31,7 +31,6 @@ export const PacksPagination = ({setEmptyRow}:PaginationPropsType) => {
     const pageCount = parseInt(event.target.value)
     dispatch(searchPackAC({pageCount: pageCount, page: 1}))
     setSearchParams({...params, pageCount: pageCount});
-
   };
 
   useEffect(() => {
