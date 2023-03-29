@@ -12,6 +12,7 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import {BasicModal} from "features/packs/modal/BasicModal";
 import {appStatusSelector} from "app/selectors";
 import {fileConverter} from "utils/add-img-utils";
+import {updUserDataTC} from "features/auth/auth-reducer";
 
 export const AddPackModal = memo(() => {
 
@@ -19,11 +20,10 @@ export const AddPackModal = memo(() => {
 
     const dispatch = useAppDispatch()
 
-
     const [open, setOpen] = useState(false)
     const [name, setPackName] = useState('')
     const [privateValue, setPrivateValue] = useState(false)
-    const [img, setImg] = useState('')
+    const [deckCover, setDeckCover] = useState('')
 
     const onClose = () => setOpen(false)
     const onOpen = () => setOpen(true)
@@ -35,19 +35,16 @@ export const AddPackModal = memo(() => {
         }
     }
     const addPackHandler = () => {
-        const cardsPack: NewPackType = {name, private: privateValue}
+        const cardsPack: NewPackType = {name, deckCover, private: privateValue}
         dispatch(addPackTC(cardsPack))
         setPackName('')
         onClose()
     }
 
     const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        const reader = fileConverter(e.target.files)
-        console.log('reader => ', reader)
-        if (reader instanceof FileReader) {
-
-            setImg(reader.result as string)
-        }
+        fileConverter(e.target.files, (file64: string) => {
+            setDeckCover(file64)
+        })
     };
 
     return (

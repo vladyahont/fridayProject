@@ -20,6 +20,7 @@ import {EditModal} from "features/packs/modal/packModals/EditModal";
 import {DeleteModal} from "features/packs/modal/packModals/DeleteModal";
 
 export type TableDataType = {
+    cover: string
     name: string | undefined
     _id: string
     cards: number
@@ -29,6 +30,7 @@ export type TableDataType = {
 }
 
 export function createData(
+    cover: string,
     name: string | undefined,
     _id: string,
     cards: number,
@@ -37,6 +39,7 @@ export function createData(
     action: 'learn' | 'edit' | 'delete',
 ): TableDataType {
     return {
+        cover,
         name,
         _id,
         cards,
@@ -47,15 +50,15 @@ export function createData(
 }
 
 const rowsExample = [
-    createData('Pack Name', '640a57dbb8230638104d84e5', 305, '28 feb', 'Me', 'learn',),
-    createData('Pack Name', '640a57dbb8230638104d84e5', 308, '28 feb', 'Me', 'learn',),
-    createData('Pack Name', '640a57dbb8230638104d84e5', 305, '28 feb', 'Me', 'learn',),
-    createData('Pack Name', '640a57dbb8230638104d84e5', 0, '28 feb', 'Me', 'learn',),
-    createData('Pack Name', '640a57dbb8230638104d84e5', 305, '28 feb', 'Me', 'learn',),
-    createData('Pack Name', '640a57dbb8230638104d84e5', 305, '28 feb', 'Me', 'learn',),
-    createData('Pack Name', '640a57dbb8230638104d84e5', 8800, '28 feb', 'Me', 'learn',),
-    createData('Pack Name', '640a57dbb8230638104d84e5', 305, '28 feb', 'Me', 'learn',),
-    createData('Pack Name', '640a57dbb8230638104d84e5', 305, '28 feb', 'Me', 'learn',),
+    createData('111', 'Pack Name', '640a57dbb8230638104d84e5', 305, '28 feb', 'Me', 'learn',),
+    createData('111', 'Pack Name', '640a57dbb8230638104d84e5', 308, '28 feb', 'Me', 'learn',),
+    createData('111', 'Pack Name', '640a57dbb8230638104d84e5', 305, '28 feb', 'Me', 'learn',),
+    createData('111', 'Pack Name', '640a57dbb8230638104d84e5', 0, '28 feb', 'Me', 'learn',),
+    createData('111', 'Pack Name', '640a57dbb8230638104d84e5', 305, '28 feb', 'Me', 'learn',),
+    createData('111', 'Pack Name', '640a57dbb8230638104d84e5', 305, '28 feb', 'Me', 'learn',),
+    createData('111', 'Pack Name', '640a57dbb8230638104d84e5', 8800, '28 feb', 'Me', 'learn',),
+    createData('111', 'Pack Name', '640a57dbb8230638104d84e5', 305, '28 feb', 'Me', 'learn',),
+    createData('111', 'Pack Name', '640a57dbb8230638104d84e5', 305, '28 feb', 'Me', 'learn',),
 ];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -267,6 +270,7 @@ export default function EnhancedTable(props: { rows: TableDataType[] }) {
                                                 tabIndex={-1}
                                                 key={rand}
                                             >
+                                                <TableCell align="left">{row.cover}</TableCell>
                                                 <TableCell
                                                     component="th"
                                                     id={labelId}

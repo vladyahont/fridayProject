@@ -20,7 +20,7 @@ export const Packs = () => {
     const par = useAppSelector(getParams)
 
     let rows: TableDataType[] = packs
-        .map(p => createData(p.name, p._id, p.cardsCount, p.updated, p.user_name, 'learn'))
+        .map(p => createData(p.deckCover, p.name, p._id, p.cardsCount, p.updated, p.user_name, 'learn'))
 
     const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
     const params = Object.fromEntries(searchParams)
