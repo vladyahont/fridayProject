@@ -19,8 +19,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import IconButton from '@mui/material/IconButton/IconButton';
 import {createData, getComparator, stableSort} from "../tableUtils";
-import {PaginationPacks} from "./PaginationPacks";
+import {PacksPagination} from "./PacksPagination";
 import {Order} from "../typesTable";
+import {HeaderType, HeadTable} from "../HeadTable";
 
 
 export type TableDataType = {
@@ -31,104 +32,24 @@ export type TableDataType = {
   action: 'learn' | 'edit' | 'delete'
 }
 
-
-
-interface HeadCell {
-  disablePadding: boolean;
-  id: keyof TableDataType;
-  label: string;
-  numeric: boolean;
-}
-
-const headCells: readonly HeadCell[] = [
-  {
-    id: 'name',
-    numeric: false,
-    disablePadding: true,
-    label: 'Name',
-  },
-  {
-    id: 'cards',
-    numeric: true,
-    disablePadding: false,
-    label: 'cards',
-  },
-  {
-    id: 'lastUpdated',
-    numeric: false,
-    disablePadding: false,
-    label: 'Last Updated',
-  },
-  {
-    id: 'createdBy',
-    numeric: false,
-    disablePadding: false,
-    label: 'Created By',
-  },
-  {
-    id: 'action',
-    numeric: false,
-    disablePadding: false,
-    label: 'Actions',
-  },
-];
-
-interface EnhancedTableProps {
-  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof TableDataType) => void;
-  order: Order;
-  orderBy: string;
-  rowCount: number;
-}
-
-function EnhancedTableHead(props: EnhancedTableProps) {
-
-  const {order, orderBy, rowCount, onRequestSort} = props;
-  const createSortHandler =
-    (property: keyof TableDataType) => (event: React.MouseEvent<unknown>) => {
-      onRequestSort(event, property);
-    };
-
-  return (
-    <TableHead>
-      <TableRow>
-        {headCells.map((headCell) => (
-          <TableCell
-            key={headCell.id}
-            align={'left'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </Box>
-              ) : null}
-            </TableSortLabel>
-          </TableCell>
-        ))}
-      </TableRow>
-    </TableHead>
-  );
-}
-
-export function EnhancedTable() {
+export function PacksTable() {
   const dispatch = useAppDispatch();
+
+
   const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
   const params = Object.fromEntries(searchParams);
+
+
   const userName = useAppSelector(packsSelector)
 
   const packs = useAppSelector(packsSelector)
   const rows: TableDataType[] = packs
     .map(p => createData(p.name, p.cardsCount, p.updated, p.user_name, 'learn'))
 
-  const [order, setOrder] = React.useState<Order>('asc');
+
+  const [order, setOrder] = React.useState<Order>('0');
   const [orderBy, setOrderBy] = React.useState<keyof TableDataType>('name');
+
 
   console.log(order+orderBy)
   const [dense, setDense] = React.useState(false);
@@ -141,8 +62,8 @@ export function EnhancedTable() {
     event: React.MouseEvent<unknown>,
     property: keyof TableDataType,
   ) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
+    const isAsc = orderBy === property && order === '0';
+    setOrder(isAsc ? '1' : '0');
     setOrderBy(property);
   };
 
@@ -156,10 +77,10 @@ export function EnhancedTable() {
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}
           >
-            <EnhancedTableHead rowCount={rows.length + 1}
-                               onRequestSort={handleRequestSort}
-                               order={order}
-                               orderBy={orderBy}
+            <HeadTable  headCells={headCells}
+                        onRequestSort={handleRequestSort}
+                        order={order}
+                        orderBy={orderBy}
             />
             <TableBody>
               {stableSort(rows, getComparator(order, orderBy))
@@ -219,8 +140,41 @@ export function EnhancedTable() {
             </TableBody>
           </Table>
         </TableContainer>
-        <PaginationPacks setEmptyRow={setEmptyRows}/>
+        <PacksPagination setEmptyRow={setEmptyRows}/>
       </Paper>
     </Box>
   );
 }
+
+const headCells: HeaderType<TableDataType>[] = [
+  {
+    id: 'name',
+    numeric: false,
+    disablePadding: true,
+    label: 'Name',
+  },
+  {
+    id: 'cards',
+    numeric: true,
+    disablePadding: false,
+    label: 'cards',
+  },
+  {
+    id: 'lastUpdated',
+    numeric: false,
+    disablePadding: false,
+    label: 'Last Updated',
+  },
+  {
+    id: 'createdBy',
+    numeric: false,
+    disablePadding: false,
+    label: 'Created By',
+  },
+  {
+    id: 'action',
+    numeric: false,
+    disablePadding: false,
+    label: 'Actions',
+  },
+];

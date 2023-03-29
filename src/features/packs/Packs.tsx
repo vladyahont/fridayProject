@@ -9,7 +9,7 @@ import {
 } from "app/selectors";
 import React, {useEffect} from "react";
 import {getPacksTC, searchPackAC} from "./packs-reducer";
-import {EnhancedTable} from "./table/packsTable/PacksTable";
+import { PacksTable} from "./table/packsTable/PacksTable";
 import s from './Packs.module.css'
 import {SearchInput} from "./filterComponents/searchInput/SearchInput";
 import {ChosePack} from "./filterComponents/chosePacks/Chose";
@@ -61,7 +61,7 @@ export const Packs = () => {
                     <FilterAltOffIcon/>
                 </SuperButton>
             </div>
-            <EnhancedTable/>
+            <PacksTable />
         </div>
     )
 }

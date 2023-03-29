@@ -11,7 +11,7 @@ type PaginationPropsType = {
   setEmptyRow: (emptyRows:number) => void
 }
 
-export const PaginationPacks = ({setEmptyRow}:PaginationPropsType) => {
+export const PacksPagination = ({setEmptyRow}:PaginationPropsType) => {
   const dispatch = useAppDispatch();
 
   const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
