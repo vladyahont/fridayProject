@@ -28,7 +28,7 @@ export const RangeSlider = () => {
   useEffect(() => {
     if(searchParams.get('max')) {
       setValues([Number(searchParams.get("min")) || min, Number(searchParams.get("max")) || max])
-      dispatch(changeMinMaxCountAC(Number(searchParams.get("min")),Number(searchParams.get("max"))))
+      //dispatch(changeMinMaxCountAC(Number(searchParams.get("min")),Number(searchParams.get("max"))))
     }else {
       setValues([minCardsCount,maxCardsCount]);
     }
@@ -57,7 +57,7 @@ export const RangeSlider = () => {
       let max = value[1];
       const params = userID ? { user_id: userID, min, max } : { min, max };
       dispatch(changeMinMaxCountAC(values[0],values[1]))
-      setSearchParams({ ...searchParamsObject, ...params });
+      setSearchParams({ ...searchParamsObject, ...params});
     }
   };
 

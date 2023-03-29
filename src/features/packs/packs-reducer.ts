@@ -12,9 +12,9 @@ const initialState = {
         user_id: '' ,
         min: 0,
         max: 10,
-        sortPacks: '',
+        sortPacks: "0updated",
         page: 1,
-        pageCount: 0,
+        pageCount: 5,
         block: false
     } as PacksParamsType,
     cardPacksTotalCount: 0,
@@ -52,6 +52,7 @@ type ChangePackParam = {
     user_id?: string,
     page?: number,
     pageCount?: number
+    sortPacks?:string
 }
 
 export const getPacksAC = (data: PacksResponseType) => ({type: 'PACKS/GET-PACKS', payload: {data}} as const)
