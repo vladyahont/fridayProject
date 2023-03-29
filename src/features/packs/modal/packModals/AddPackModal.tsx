@@ -11,6 +11,7 @@ import IconButton from "@mui/material/IconButton/IconButton";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import {BasicModal} from "features/packs/modal/BasicModal";
 import {appStatusSelector} from "app/selectors";
+import {fileConverter} from "utils/add-img-utils";
 
 export const AddPackModal = memo(() => {
 
@@ -22,6 +23,7 @@ export const AddPackModal = memo(() => {
     const [open, setOpen] = useState(false)
     const [name, setPackName] = useState('')
     const [privateValue, setPrivateValue] = useState(false)
+    const [img, setImg] = useState('')
 
     const onClose = () => setOpen(false)
     const onOpen = () => setOpen(true)
@@ -40,9 +42,11 @@ export const AddPackModal = memo(() => {
     }
 
     const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files.length) {
-            const file = e.target.files[0]
-            console.log('file: ', file)
+        const reader = fileConverter(e.target.files)
+        console.log('reader => ', reader)
+        if (reader instanceof FileReader) {
+
+            setImg(reader.result as string)
         }
     };
 
@@ -57,14 +61,13 @@ export const AddPackModal = memo(() => {
                 <h4>Add new pack</h4>
                 <InputLabel>Name pack</InputLabel>
                 <Input className={auth.input} value={name} onChange={enterNameHandler}/>
-                <IconButton component="label">
-                    <CloudUploadIcon/>
-                    {/*<Button>Download cover for pack</Button>*/}
+                <label>
                     <input type="file"
                            onChange={uploadHandler}
                            style={{display: 'none'}}
                     />
-                </IconButton>
+                    <Button variant='contained' component='span'>Download cover for pack</Button>
+                </label>
                 <FormControlLabel className={auth.remMe} label={'Private pack'}
                                   control={<Checkbox value={privateValue}
                                                      onClick={() => setPrivateValue(!privateValue)}/>}/>
