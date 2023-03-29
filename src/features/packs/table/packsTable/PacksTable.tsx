@@ -30,8 +30,6 @@ export function PacksTable() {
   const [order, setOrder] = React.useState<Order>('0');
   const [orderBy, setOrderBy] = React.useState<keyof TableDataType>('updated');
 
-
-
   return (
     <Box sx={{width: '100%'}}>
       <Paper sx={{width: '100%', mb: 2}}>

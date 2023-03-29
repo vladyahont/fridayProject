@@ -31,3 +31,4 @@ export const getPageCountParamsSelector =(state: AppStateType) => state.packs.pa
 export const getSortPacksParamsSelector =(state: AppStateType) => state.packs.params.sortPacks;
 export const getPackNameParamsSelector =(state: AppStateType) => state.packs.params.packName;
 export const getPageParamsSelector =(state: AppStateType) => state.packs.params.page;
+export const getUserIdParamsSelector =(state: AppStateType) => state.packs.params.user_id;

@@ -4,7 +4,7 @@ import {
     getMinParamsSelector,
     getPackNameParamsSelector,
     getPageCountParamsSelector,
-    getPageParamsSelector, getSortPacksParamsSelector,
+    getPageParamsSelector, getSortPacksParamsSelector, getUserIdParamsSelector,
     maxCardsCountSelector
 } from "app/selectors";
 import React, {useEffect} from "react";
@@ -30,23 +30,27 @@ export const Packs = () => {
     const pageCount = useAppSelector(getPageCountParamsSelector)
     const maxCardsCount = useAppSelector(maxCardsCountSelector)
     const sortPacks = useAppSelector(getSortPacksParamsSelector)
+    const userId = useAppSelector(getUserIdParamsSelector)
 
     const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
     const params = Object.fromEntries(searchParams)
     const resetFilter = () => {
-        delete params.packName
         delete params.user_id
+        /*delete params.packName*/
+        /*params.user_id = ""*/
+        params.packName = ""
         params.sortPacks = "0updated"
         params.page = "1"
         params.min =  "0"
         params.max = maxCardsCount + ''
         dispatch(searchPackAC(params))
+        console.log(params)
         setSearchParams({...params})
     };
 
     useEffect(() => {
         dispatch(getPacksTC())
-    }, [min, max, page, packName,params.user_id,pageCount,page,sortPacks])
+    }, [min, max, page, packName,userId,pageCount,page,sortPacks])
 
     return (
         <div className={s.componentContainer}>
