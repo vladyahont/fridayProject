@@ -1,8 +1,8 @@
-import {useAppDispatch, useAppSelector} from "../../../app/store";
+import {useAppDispatch, useAppSelector} from "app/store";
 import {NavLink, useNavigate} from "react-router-dom";
-import {isRegisteredSelector} from "../../../app/selectors";
+import {isRegisteredSelector} from "app/selectors";
 import React, {useEffect} from "react";
-import {PATH} from "../../../app/Path";
+import {PATH} from "app/Path";
 import {setRegisteredAC} from "../auth-reducer";
 import auth from "../auth.module.css";
 import {SignUpForm} from "./SingUpForm";
