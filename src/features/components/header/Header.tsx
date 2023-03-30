@@ -1,11 +1,11 @@
 import React from 'react'
 import Box from "@mui/material/Box";
 import {NavLink} from 'react-router-dom'
-import {useAppSelector} from "../../../app/store";
-import {isLoggedInSelector, userAvatarSelector, userNameSelector} from "../../../app/selectors";
+import {useAppSelector} from "app/store";
+import {isLoggedInSelector, userAvatarSelector, userNameSelector} from "app/selectors";
 import {AppBar, Toolbar} from "@mui/material";
 import logo from "../../../assest/logo.png";
-import {PATH} from "../../../app/Path";
+import {PATH} from "app/Path";
 import s from ".//header.module.css"
 import ava from "../../../assest/imgs/ava.png";
 export const Header = () => {

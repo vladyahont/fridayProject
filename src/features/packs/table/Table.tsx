@@ -162,7 +162,6 @@ function EnhancedTableHead(props: EnhancedTableProps) {
                 {headCells.map((headCell) => (
                     <TableCell
                         key={headCell.id}
-                        // align={headCell.numeric ? 'right' : 'left'}
                         align={'left'}
                         padding={headCell.disablePadding ? 'none' : 'normal'}
                         sortDirection={orderBy === headCell.id ? order : false}
@@ -270,7 +269,9 @@ export default function EnhancedTable(props: { rows: TableDataType[] }) {
                                                 tabIndex={-1}
                                                 key={rand}
                                             >
-                                                <TableCell align="left">{row.cover}</TableCell>
+                                                <TableCell align="left">
+                                                   <img src={row.cover} style={{width:'80px', height:'50px'}}/>
+                                                </TableCell>
                                                 <TableCell
                                                     component="th"
                                                     id={labelId}

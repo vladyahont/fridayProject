@@ -10,5 +10,7 @@ export const fileConverter = (files: any, callBack: (value: string) => void) => 
             callBack(file64)
         }
         reader.readAsDataURL(file)
+    } else {
+        console.log('Error: file is very big for loading')
     }
 }

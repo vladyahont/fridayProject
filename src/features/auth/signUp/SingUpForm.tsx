@@ -1,5 +1,5 @@
 import React, {FC, useCallback, useState} from "react";
-import {useAppDispatch} from "../../../app/store";
+import {useAppDispatch} from "app/store";
 import {Form, Formik} from "formik";
 import {registerTC} from "../auth-reducer";
 import {EmailField} from "../fields/EmailField";

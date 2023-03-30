@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
-import {useAppSelector} from "../../../app/store";
-import {isSentInstructionSelector} from "../../../app/selectors";
+import {useAppSelector} from "app/store";
+import {isSentInstructionSelector} from "app/selectors";
 import auth from "../auth.module.css";
-import {PATH} from "../../../app/Path";
+import {PATH} from "app/Path";
 import {NavLink, useNavigate} from "react-router-dom";
 import {Grid} from "@mui/material";
 import FormControl from "@mui/material/FormControl";
