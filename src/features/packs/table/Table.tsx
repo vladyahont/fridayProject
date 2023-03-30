@@ -16,6 +16,10 @@ import {searchPackAC} from "../packs-reducer";
 import {cardPacksTotalCountSelector, packsSelector} from "app/selectors";
 import SchoolIcon from '@mui/icons-material/School';
 import IconButton from '@mui/material/IconButton/IconButton';
+import { EditModal } from '../modal/packModals/EditModal';
+import {DeleteModal} from "features/packs/modal/packModals/DeleteModal";
+import noCover from './../../../assest/imgs/noCover.png'
+
 
 
 export type TableDataType = {
@@ -253,16 +257,16 @@ export function EnhancedTable(props: { rows: TableDataType[] }) {
                                                 tabIndex={-1}
                                                 key={rand}
                                             >
-                                                <TableCell align="left">
-                                                   <img src={row.cover} style={{width:'80px', height:'50px'}}/>
-                                                </TableCell>
                                                 <TableCell
                                                     component="th"
                                                     id={labelId}
                                                     scope="row"
                                                     padding="none"
                                                 >
-                                                    {row.name}
+                                                    <div style={{display:'flex', alignItems:'center'}}>
+                                                        <img src={row.cover ? row.cover : noCover} style={{width:'80px', height:'50px', }}/>
+                                                        <div style={{marginLeft:'15px'}}>{row.name}</div>
+                                                    </div>
                                                 </TableCell>
                                                 <TableCell align="left">{row.cards}</TableCell>
                                                 <TableCell align="left">{row.lastUpdated}</TableCell>
@@ -274,7 +278,7 @@ export function EnhancedTable(props: { rows: TableDataType[] }) {
                                                             <IconButton>
                                                                 <SchoolIcon/>
                                                             </IconButton>
-                                                            <EditModal name={row.name} id={row._id}/>
+                                                            <EditModal name={row.name} id={row._id} cover={row.cover}/>
                                                             <DeleteModal id={row._id} packName={row.name}/>
                                                             </div>
 

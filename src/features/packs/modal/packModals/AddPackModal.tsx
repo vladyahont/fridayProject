@@ -38,6 +38,7 @@ export const AddPackModal = memo(() => {
         const cardsPack: NewPackType = {name, deckCover, private: privateValue}
         dispatch(addPackTC(cardsPack))
         setPackName('')
+        setDeckCover('')
         onClose()
     }
 
@@ -64,6 +65,7 @@ export const AddPackModal = memo(() => {
                            style={{display: 'none'}}
                     />
                     <Button variant='contained' component='span'>Download cover for pack</Button>
+                    {deckCover ? <span style={{color:'green'} }>File selected!</span> : ''}
                 </label>
                 <FormControlLabel className={auth.remMe} label={'Private pack'}
                                   control={<Checkbox value={privateValue}

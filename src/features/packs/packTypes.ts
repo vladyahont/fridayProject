@@ -50,6 +50,7 @@ export type NewPackResponseType = {
 export type UpdatePackType = {
     _id: string
     name: string
+    deckCover?: string
 }
 
 
