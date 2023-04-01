@@ -5,7 +5,7 @@ import TableBody from "@mui/material/TableBody"
 import {useAppSelector} from "../../../../app/store";
 import {appStatusSelector, packsSelector} from "../../../../app/selectors";
 import {PackActions} from "./PackActions";
-
+import noCover from "./../../../../assest/imgs/noCover.png"
 
 type Props = {
   emptyRows: number,
@@ -23,11 +23,20 @@ export const PacksTableBody = ({
       {packs?.map(pack => (
         <TableRow key={pack._id} sx={{'&:last-child td, &:last-child th': {border: 0}}}>
           <TableCell
+            style={{ cursor: 'pointer', width: '350px' }}
             onClick={() => console.log("tut")}
+            component="th"
+            scope="row"
           >
+            {isLoading && (
+              <img
+                src={pack.deckCover ? pack.deckCover : noCover}
+                style={{ width: '100px', height: '40px'}}
+                alt="packImage"
+              />
+            )}
             {pack.name}
           </TableCell>
-          {/*IMG*/}
           <TableCell align="left">{pack.cardsCount}</TableCell>
           <TableCell align="left">{pack.updated.substring(0, 10)}</TableCell>
           <TableCell align="left">{pack.user_name}</TableCell>
