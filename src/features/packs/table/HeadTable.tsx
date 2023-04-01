@@ -12,43 +12,53 @@ export type EnhancedTableProps<D> = {
   onRequestSort: (event: React.MouseEvent<unknown>, property: keyof D) => void;
   order: Order;
   orderBy: keyof D;
+  disable: boolean,
   headCells: HeaderType<D>[],
 }
 
 export const HeadTable = <D extends unknown>({
-                                                       headCells,order, orderBy, onRequestSort
-                                                     }: EnhancedTableProps<D>) =>{
+                                               headCells,
+                                               order,
+                                               orderBy,
+                                               onRequestSort,
+                                               disable
+                                             }: EnhancedTableProps<D>) => {
 
   const createSortHandler =
     (property: keyof D) => (event: React.MouseEvent<unknown>) => {
-      onRequestSort(event, property );
+      onRequestSort(event, property);
     };
 
   const reOrder = order === "0" ? 'asc' : 'desc'
+
   return (
     <TableHead>
       <TableRow>
-        {headCells.map((headCell) => (
-          <TableCell
-            key={headCell.id as string}
-            align={'left'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
-            sortDirection={orderBy === headCell.id ? reOrder : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? reOrder : 'asc'}
-              onClick={createSortHandler(headCell.id)}
+        {headCells.map((headCell) =>
+          (headCell.sortable) ? <TableCell
+              key={headCell.id as string}
+              align={'left'}
+              padding={headCell.disablePadding ? 'none' : 'normal'}
+              sortDirection={orderBy === headCell.id ? reOrder : false}
             >
+              <TableSortLabel
+                active={orderBy === headCell.id}
+                direction={orderBy === headCell.id ? reOrder : 'asc'}
+                onClick={createSortHandler(headCell.id)}
+              >
+                {headCell.label}
+                {orderBy === headCell.id ? (
+                  <Box component="span" sx={visuallyHidden}>
+                    {reOrder === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                  </Box>
+                ) : null}
+              </TableSortLabel>
+            </TableCell>
+            :
+            <TableCell>
               {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {reOrder === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </Box>
-              ) : null}
-            </TableSortLabel>
-          </TableCell>
-        ))}
+            </TableCell>)
+        }
       </TableRow>
     </TableHead>
   );

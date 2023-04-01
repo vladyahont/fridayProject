@@ -13,6 +13,7 @@ import {getPacksTC} from "./packs-reducer";
 import {PacksTable} from "./table/packsTable/PacksTable";
 import s from './Packs.module.css'
 import {PacksFilter} from "./filterComponents/PacksFillter";
+import {AddPackModal} from "./modal/packModals/AddPackModal";
 
 export const Packs = () => {
 

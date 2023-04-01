@@ -3,13 +3,10 @@ import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableContainer from '@mui/material/TableContainer';
 import Paper from '@mui/material/Paper';
-import {useAppSelector} from "app/store";
-import {packsSelector} from "app/selectors";
-import {createDataPacks} from "../tableUtils";
 import {PacksPagination} from "./PacksPagination";
-import {Order} from "../typesTable";
-import PacksHeadTable from "./PacksHeadTable";
+
 import {PacksTableBody} from "./PacksTableBody";
+import {PacksHeadTable} from "./PacksHeadTable";
 
 
 export type TableDataType = {
@@ -21,14 +18,8 @@ export type TableDataType = {
 }
 
 export function PacksTable() {
-
-  const packs = useAppSelector(packsSelector)
-  const rows: TableDataType[] = packs
-    .map(p => createDataPacks(p.name, p.cardsCount, p.updated, p.user_name, 'learn'))
-
   const [emptyRows, setEmptyRows] = React.useState(0);
-  const [order, setOrder] = React.useState<Order>('0');
-  const [orderBy, setOrderBy] = React.useState<keyof TableDataType>('updated');
+
 
   return (
     <Box sx={{width: '100%'}}>
@@ -39,8 +30,8 @@ export function PacksTable() {
             aria-labelledby="tableTitle"
             size={'medium'}
           >
-          <PacksHeadTable order = {order} orderBy ={orderBy} setOrder = {setOrder} setOrderBy ={setOrderBy} />
-           <PacksTableBody order={order} orderBy={orderBy} emptyRows={emptyRows} rows={rows} />
+           <PacksHeadTable />
+           <PacksTableBody emptyRows={emptyRows}/>
           </Table>
         </TableContainer>
         <PacksPagination setEmptyRow={setEmptyRows}/>

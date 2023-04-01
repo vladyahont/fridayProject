@@ -1,72 +1,79 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {HeadTable} from "../HeadTable";
 import {TableDataType} from "./PacksTable";
 import {HeaderType, Order} from "../typesTable";
 import {searchPackAC} from "../../packs-reducer";
-import {useAppDispatch} from "../../../../app/store";
+import {useAppDispatch, useAppSelector} from "../../../../app/store";
 import {useSearchParams} from "react-router-dom";
+import {appStatusSelector} from "../../../../app/selectors";
 const headCells: HeaderType<TableDataType>[] = [
   {
     id: 'name',
     numeric: false,
     disablePadding: true,
     label: 'Name',
+    sortable:true,
   },
   {
     id: 'cardsCount',
     numeric: true,
     disablePadding: false,
     label: 'cards',
+    sortable:true,
   },
   {
     id: 'updated',
     numeric: false,
     disablePadding: false,
     label: 'Last Updated',
+    sortable:true,
   },
   {
     id: 'user_name',
     numeric: false,
     disablePadding: false,
     label: 'Created By',
+    sortable:true,
   },
   {
     id: 'action',
     numeric: false,
     disablePadding: false,
     label: 'Actions',
+    sortable:false,
   },
 ];
-
-
-type Props = {
-  order:Order,
-  orderBy:keyof TableDataType,
-  setOrder:(order:Order) =>void,
-  setOrderBy:(orderBy:keyof TableDataType) => void,
-}
-const PacksHeadTable = ({order,
-                          orderBy,
-                          setOrder,
-                          setOrderBy}:Props) => {
+export const PacksHeadTable = () => {
   const dispatch = useAppDispatch();
+  const appStatus = useAppSelector(appStatusSelector)
+
   const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
   const params = Object.fromEntries(searchParams);
 
+  const [order, setOrder] = React.useState<Order>("0");
+  const [orderBy, setOrderBy] = React.useState<keyof TableDataType>("updated");
 
+  useEffect(() => {
+    const paramsOrder = params.sortPacks?.slice(0,1)
+    const paramsOrderBy = params.sortPacks?.replace(paramsOrder,'')
+
+    setOrder(paramsOrder as Order)
+    setOrderBy(paramsOrderBy as keyof TableDataType)
+  }, [params.sortPacks])
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
     property: keyof TableDataType,
   ) => {
-    const isAsc = orderBy === property && order === '0';
-    const sortPacks = order + orderBy
+    const isNewOrder = orderBy !== property
+    const newOrder = isNewOrder?  '0' : order === '0' ? '1' : '0'
+    const sortPacks = newOrder + property
 
-    dispatch(searchPackAC({sortPacks:params.sortPacks}))
-    setSearchParams({...params, sortPacks: sortPacks});
-
-    setOrder(isAsc ? '1' : '0');
+    setOrder(newOrder);
     setOrderBy(property);
+
+    setSearchParams({...params, sortPacks: sortPacks});
+    dispatch(searchPackAC({sortPacks:sortPacks}))
   };
 
   return (
@@ -74,9 +81,7 @@ const PacksHeadTable = ({order,
                 onRequestSort={handleRequestSort}
                 order={order}
                 orderBy={orderBy}
+                disable={appStatus === "loading"}
     />
   );
 };
-
-
-export default PacksHeadTable;

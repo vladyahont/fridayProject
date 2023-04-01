@@ -1,67 +1,54 @@
 import React from 'react';
-import {getComparator, stableSort} from "../tableUtils";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
-import IconButton from "@mui/material/IconButton/IconButton";
-import SchoolIcon from "@mui/icons-material/School";
-import EditIcon from "@mui/icons-material/Edit";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import TableBody from "@mui/material/TableBody"
-import {Order} from "../typesTable";
-import {TableDataType} from "./PacksTable";
 import {useAppSelector} from "../../../../app/store";
-import {userNameSelector} from "../../../../app/selectors";
+import {appStatusSelector, packsSelector} from "../../../../app/selectors";
+import {PackActions} from "./PackActions";
 
 
-type Props ={
-  order:Order,
-  orderBy:keyof TableDataType,
-  emptyRows:number,
-  rows: TableDataType[]
+type Props = {
+  emptyRows: number,
 }
 export const PacksTableBody = ({
-                                 order,
-                                 orderBy,
                                  emptyRows,
-                                 rows,
-                               }:Props) => {
-  const myName = useAppSelector(userNameSelector)
+                               }: Props) => {
+  const packs = useAppSelector(packsSelector)
+  const appStatus = useAppSelector(appStatusSelector)
+  const isLoading = appStatus === "loading"
+  console.log(emptyRows)
+
   return (
     <TableBody>
-      {stableSort(rows, getComparator(order, orderBy))
-        .map((row, index) => <>
-          <TableRow hover tabIndex={-1} key={row.name}>
-            <TableCell component="th" id={`enhanced-table-checkbox-${index}`} scope="row" padding="none">{row.name}</TableCell>
-            <TableCell align="left">{row.cardsCount}</TableCell>
-            <TableCell align="left">{row.updated}</TableCell>
-            <TableCell align="left">{row.user_name}</TableCell>
-            {row.name === myName
-              ? <TableCell align="left">
-                <IconButton onClick={() => {
-                  console.log('alalala')
-                }}><SchoolIcon/></IconButton>
-                <IconButton>
-                  <EditIcon/>
-                </IconButton>
-                <IconButton>
-                  <HighlightOffIcon/>
-                </IconButton>
-              </TableCell>
-              : <TableCell align="left">
-                <IconButton>
-                  <SchoolIcon/>
-                </IconButton>
-              </TableCell>
-            }
-          </TableRow>
-        </>)
+      {packs?.map(pack => (
+        <TableRow key={pack._id} sx={{'&:last-child td, &:last-child th': {border: 0}}}>
+          <TableCell
+            onClick={() => console.log("tut")}
+          >
+            {pack.name}
+          </TableCell>
+          {/*IMG*/}
+          <TableCell align="left">{pack.cardsCount}</TableCell>
+          <TableCell align="left">{pack.updated.substring(0, 10)}</TableCell>
+          <TableCell align="left">{pack.user_name}</TableCell>
+          <TableCell align="left">
+            <PackActions
+              packName={pack.name}
+              idUser={pack.user_id}
+            />
+          </TableCell>
+        </TableRow>
+      ))
       }
-      {emptyRows > 0 && (
+      {emptyRows > 0 && Array(emptyRows).map(()=>
         <TableRow style={{height: (53) * emptyRows,}}>
           <TableCell colSpan={6}/>
+          {/*?????*/}
         </TableRow>
-      )}
+      )
+      }
     </TableBody>
   );
 };
+
 
