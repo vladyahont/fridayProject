@@ -1,9 +1,9 @@
 import React, {FC, useEffect} from 'react'
 import {Grid} from '@mui/material'
 import {NavLink, useNavigate} from 'react-router-dom'
-import {useAppSelector} from '../../../app/store'
-import {isLoggedInSelector} from "../../../app/selectors";
-import {PATH} from "../../../app/Path";
+import {useAppSelector} from 'app/store'
+import {isLoggedInSelector} from "app/selectors";
+import {PATH} from "app/Path";
 import auth from "../auth.module.css";
 import FormControl from "@mui/material/FormControl";
 import {LoginForm} from "./LoginForm";
