@@ -1,6 +1,6 @@
 import React from 'react'
 import error400 from '../../../assest/imgs/404.svg'
-import {PATH} from "../../../app/Path";
+import {PATH} from "app/Path";
 import auth from "../../auth/auth.module.css";
 import {NavLink} from "react-router-dom";
 import Button from "@mui/material/Button";

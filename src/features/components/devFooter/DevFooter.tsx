@@ -1,6 +1,6 @@
 import React from 'react'
 import {NavLink} from 'react-router-dom'
-import {PATH} from "../../../app/Path";
+import {PATH} from "app/Path";
 import s from "../header/header.module.css"
 import {AppBar} from "@mui/material";
 

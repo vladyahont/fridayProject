@@ -1,8 +1,8 @@
 import React, {DetailedHTMLProps, InputHTMLAttributes, useEffect, useState} from 'react';
 import {useSearchParams} from "react-router-dom";
-import {appStatusSelector} from "../../../../app/selectors";
-import {useAppDispatch, useAppSelector} from "../../../../app/store";
-import {useDebounce} from "../../../../hooks/useDebounce";
+import {appStatusSelector} from "app/selectors";
+import {useAppDispatch, useAppSelector} from "app/store";
+import {useDebounce} from "hooks/useDebounce";
 import SuperInputText from "../../../../superComponents/c1-SuperInputText/SuperInputText";
 import {searchPackAC} from "../../packs-reducer";
 

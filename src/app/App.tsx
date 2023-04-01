@@ -1,24 +1,23 @@
 import React, { useEffect } from 'react'
 
-import { Header } from '../features/components/header/Header'
+import { Header } from 'features/components/header/Header'
 import './App.css'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { Profile } from '../features/components/profile/Profile'
-import { Login } from '../features/auth/singIn/Login'
+import { Profile } from 'features/components/profile/Profile'
+import { Login } from 'features/auth/singIn/Login'
 import { useAppDispatch, useAppSelector } from './store'
-import { initializeProfileTC } from '../features/auth/auth-reducer'
-import {SignUp} from "../features/auth/signUp/SignUp";
+import { initializeProfileTC } from 'features/auth/auth-reducer'
+import {SignUp} from "features/auth/signUp/SignUp";
 import {PATH} from "./Path";
-import {Loading} from "../features/components/loading/Loading";
-import {Loader} from "../features/components/loading/Loader";
+import {Loading} from "features/components/loading/Loading";
+import {Loader} from "features/components/loading/Loader";
 import {appStatusSelector, isInitializedSelector} from "./selectors";
-import {DevFooter} from "../features/components/devFooter/DevFooter";
-
-import {CheckEmail} from "../features/auth/recoveryPassword/checkEmail/CheckEmail";
-import {ErrorPage} from "../features/components/errorPage/ErrorPage";
-import {PasswordRecovery} from "../features/auth/recoveryPassword/PasswordRecovery";
-import {NewPassword} from "../features/auth/recoveryPassword/creadeNew/NewPassword";
-import {Packs} from "../features/packs/Packs";
+import {DevFooter} from "features/components/devFooter/DevFooter";
+import {Packs} from "features/packs/Packs";
+import {CheckEmail} from "features/auth/recoveryPassword/checkEmail/CheckEmail";
+import {ErrorPage} from "features/components/errorPage/ErrorPage";
+import {PasswordRecovery} from "features/auth/recoveryPassword/PasswordRecovery";
+import {NewPassword} from "features/auth/recoveryPassword/creadeNew/NewPassword";
 
 function App() {
   const dispatch = useAppDispatch()

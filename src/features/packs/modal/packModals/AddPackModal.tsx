@@ -11,6 +11,8 @@ import IconButton from "@mui/material/IconButton/IconButton";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import {BasicModal} from "features/packs/modal/BasicModal";
 import {appStatusSelector} from "app/selectors";
+import {fileConverter} from "utils/add-img-utils";
+import {updUserDataTC} from "features/auth/auth-reducer";
 
 export const AddPackModal = memo(() => {
 
@@ -18,10 +20,10 @@ export const AddPackModal = memo(() => {
 
     const dispatch = useAppDispatch()
 
-
     const [open, setOpen] = useState(false)
     const [name, setPackName] = useState('')
     const [privateValue, setPrivateValue] = useState(false)
+    const [deckCover, setDeckCover] = useState('')
 
     const onClose = () => setOpen(false)
     const onOpen = () => setOpen(true)
@@ -33,17 +35,17 @@ export const AddPackModal = memo(() => {
         }
     }
     const addPackHandler = () => {
-        const cardsPack: NewPackType = {name, private: privateValue}
+        const cardsPack: NewPackType = {name, deckCover, private: privateValue}
         dispatch(addPackTC(cardsPack))
         setPackName('')
+        setDeckCover('')
         onClose()
     }
 
     const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files.length) {
-            const file = e.target.files[0]
-            console.log('file: ', file)
-        }
+        fileConverter(e.target.files, (file64: string) => {
+            setDeckCover(file64)
+        })
     };
 
     return (
@@ -57,14 +59,14 @@ export const AddPackModal = memo(() => {
                 <h4>Add new pack</h4>
                 <InputLabel>Name pack</InputLabel>
                 <Input className={auth.input} value={name} onChange={enterNameHandler}/>
-                <IconButton component="label">
-                    <CloudUploadIcon/>
-                    {/*<Button>Download cover for pack</Button>*/}
+                <label>
                     <input type="file"
                            onChange={uploadHandler}
                            style={{display: 'none'}}
                     />
-                </IconButton>
+                    <Button variant='contained' component='span'>Download cover for pack</Button>
+                    {deckCover ? <span style={{color:'green'} }>File selected!</span> : ''}
+                </label>
                 <FormControlLabel className={auth.remMe} label={'Private pack'}
                                   control={<Checkbox value={privateValue}
                                                      onClick={() => setPrivateValue(!privateValue)}/>}/>

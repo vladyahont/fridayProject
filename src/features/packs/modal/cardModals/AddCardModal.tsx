@@ -58,12 +58,12 @@ export const AddCardModal = memo(() => {
                 <InputLabel>Name pack</InputLabel>
                 <Input className={auth.input} value={name} onChange={enterNameHandler}/>
                 <IconButton component="label">
-                    <CloudUploadIcon/>
-                    {/*<Button>Download cover for pack</Button>*/}
                     <input type="file"
+                           accept="image/*"
                            onChange={uploadHandler}
                            style={{display: 'none'}}
                     />
+                    <Button>Download cover for pack</Button>
                 </IconButton>
                 {name ? <Button variant={'contained'} color={'primary'} onClick={addPackHandler}>Save</Button>
                     : <Button disabled={true}>Save</Button>}
