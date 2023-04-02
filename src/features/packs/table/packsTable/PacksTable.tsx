@@ -20,21 +20,16 @@ export type TableDataType = {
 export function PacksTable() {
   const [emptyRows, setEmptyRows] = React.useState(0);
 
-
   return (
     <Box sx={{width: '100%'}}>
       <Paper sx={{width: '100%', mb: 2}}>
         <TableContainer>
-          <Table
-            sx={{minWidth: 750, textAlign: 'center'}}
-            aria-labelledby="tableTitle"
-            size={'medium'}
-          >
-           <PacksHeadTable />
-           <PacksTableBody emptyRows={emptyRows}/>
+          <Table sx={{minWidth: 750, textAlign: 'center'}} aria-labelledby="tableTitle" size={'medium'}>
+            <PacksHeadTable/>
+            <PacksTableBody emptyRows={emptyRows}/>
           </Table>
+          <PacksPagination setEmptyRow={setEmptyRows}/>
         </TableContainer>
-        <PacksPagination setEmptyRow={setEmptyRows}/>
       </Paper>
     </Box>
   );

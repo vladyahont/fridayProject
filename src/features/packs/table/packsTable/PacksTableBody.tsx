@@ -6,6 +6,7 @@ import {useAppSelector} from "../../../../app/store";
 import {appStatusSelector, packsSelector} from "../../../../app/selectors";
 import {PackActions} from "./PackActions";
 import noCover from "./../../../../assest/imgs/noCover.png"
+import {useNavigate} from "react-router-dom";
 
 type Props = {
   emptyRows: number,
@@ -16,6 +17,7 @@ export const PacksTableBody = ({
   const packs = useAppSelector(packsSelector)
   const appStatus = useAppSelector(appStatusSelector)
   const isLoading = appStatus === "loading"
+  const navigate = useNavigate()
   console.log(emptyRows)
 
   return (
@@ -24,7 +26,7 @@ export const PacksTableBody = ({
         <TableRow key={pack._id} sx={{'&:last-child td, &:last-child th': {border: 0}}}>
           <TableCell
             style={{ cursor: 'pointer', width: '350px' }}
-            onClick={() => console.log("tut")}
+            onClick={() => navigate(`/packs/${pack._id}`)}
             component="th"
             scope="row"
           >

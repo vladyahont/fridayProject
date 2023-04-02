@@ -18,6 +18,7 @@ import {CheckEmail} from "features/auth/recoveryPassword/checkEmail/CheckEmail";
 import {ErrorPage} from "features/components/errorPage/ErrorPage";
 import {PasswordRecovery} from "features/auth/recoveryPassword/PasswordRecovery";
 import {NewPassword} from "features/auth/recoveryPassword/creadeNew/NewPassword";
+import {Cards} from "../features/packs/cards/Cards";
 
 function App() {
   const dispatch = useAppDispatch()
@@ -49,6 +50,7 @@ function App() {
         <Route path={PATH.RECOVERY} element={<PasswordRecovery />} />
         <Route path={PATH.NEWPASSWORD} element={<NewPassword />} />
         <Route path={PATH.PACKS} element={<Packs />} />
+        <Route path={PATH.CARDS} element={<Cards />} />
         <Route path={PATH.CHECK_EMAIL} element={<CheckEmail />} />
         <Route path={'*'} element={<Navigate to={PATH['400']} />} />
       </Routes>

@@ -55,7 +55,7 @@ export const HeadTable = <D extends unknown>({
               </TableSortLabel>
             </TableCell>
             :
-            <TableCell>
+            <TableCell key={headCell.id as string}>
               {headCell.label}
             </TableCell>)
         }
