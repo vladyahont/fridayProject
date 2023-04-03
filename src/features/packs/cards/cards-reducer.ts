@@ -6,14 +6,13 @@ import {cardsApi} from "./cards-api";
 import {CardParamsType, CardRequestType, CardsResponseType, CardsType, UpdateCardType} from "features/packs/packTypes";
 
 
+
 const initialState = {
     cards: [] as CardsType[],
     params: {
         cardAnswer: '',
         cardQuestion: '',
         cardsPack_id: '',
-        min: 0,
-        max: 100,
         sortCards: '',
         page: 1,
         pageCount: 10,
@@ -26,28 +25,44 @@ const initialState = {
     packUserId: '',
     question: '',
     answer: '',
+    packName: '',
 }
-type InitialStateType = typeof initialState
+export type CardsInitialStateType = typeof initialState
+
 
 export const cardsReducer = (
-    state: InitialStateType = initialState,
+    state: CardsInitialStateType = initialState,
     action: CardsActionsType
-): InitialStateType => {
+): CardsInitialStateType => {
     switch (action.type) {
         case 'CARDS/GET-CARDS':
             return {...state, ...action.payload}
         case "CARDS/UPDATE-CARD":
             return state
+        case "CARDS/SET-PARAMS":
+
+          return {...state, params: {...state.params, ...action.payload}}
         default:
             return state
     }
 }
 
-export type CardsActionsType = GetCardsACType | UpdateCardACType
+export type CardsActionsType = GetCardsACType | UpdateCardACType|SetSearchParamsCardsACType
 type GetCardsACType = ReturnType<typeof getCardsAC>
 type UpdateCardACType = ReturnType<typeof updateCardAC>
+type SetSearchParamsCardsACType = ReturnType<typeof setSearchParamsCardsAC>
+type ChangeCardParam = {
+    cardAnswer?: string,
+    cardQuestion?: string,
+    cardsPack_id?: string,
+
+    sortCards?: string,
+    page?: number,
+    pageCount?: number,
+}
 
 export const getCardsAC = (data: CardsResponseType ) => ({type: 'CARDS/GET-CARDS', payload: data} as const)
+export const setSearchParamsCardsAC = (data: ChangeCardParam ) => ({type: "CARDS/SET-PARAMS", payload: data} as const)
 export const updateCardAC = () => ({type: 'CARDS/UPDATE-CARD', payload: {}}as const)
 
 

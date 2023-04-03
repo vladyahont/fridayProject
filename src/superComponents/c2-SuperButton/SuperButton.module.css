@@ -14,6 +14,9 @@
     background: #65b0ff;
     color: #000777;
     outline: none;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    border: white 1px solid;
 }
 .safe {
     font-family: 'Montserrat', serif;
