@@ -10,5 +10,6 @@ export const subHeaderTitleStyles: SxProps = {
 export const subHeaderBtnStyles:SxProps={
   flex: '0 0 30%',
   maxWidth: 300,
-  borderRadius: "20px"
+  borderRadius: "20px",
+
 }

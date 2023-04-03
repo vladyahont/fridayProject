@@ -7,6 +7,7 @@ import {appStatusSelector, packsSelector} from "../../../../app/selectors";
 import {PackActions} from "./PackActions";
 import noCover from "./../../../../assest/imgs/noCover.png"
 import {useNavigate} from "react-router-dom";
+import {ImgBox} from "../../../components/imgBox/ImgBox";
 
 type Props = {
   emptyRows: number,
@@ -30,13 +31,7 @@ export const PacksTableBody = ({
             component="th"
             scope="row"
           >
-            {isLoading && (
-              <img
-                src={pack.deckCover ? pack.deckCover : noCover}
-                style={{ width: '100px', height: '40px'}}
-                alt="packImage"
-              />
-            )}
+            <ImgBox img={pack.deckCover } defaultImg={noCover} width={'100px'} height={'40px'} sx = { {alignSelf:"flex-start"}} />
             {pack.name}
           </TableCell>
           <TableCell align="left">{pack.cardsCount}</TableCell>
