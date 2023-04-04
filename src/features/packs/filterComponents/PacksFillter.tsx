@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../../app/store";
 import {useSearchParams} from "react-router-dom";
 import {searchPackAC} from "../packs-reducer";
 import {maxCardsCountSelector} from "../../../app/selectors";
 import s from "../Packs.module.css";
 import {SearchInput} from "./searchInput/SearchInput";
-import {ChosePack} from "./chosePacks/Chose";
+import {ChosePack} from "./chose/Chose";
 import {RangeSlider} from "./rangeSlider/RangeSlider";
 import SuperButton from "../../../superComponents/c2-SuperButton/SuperButton";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
@@ -16,10 +16,10 @@ export const PacksFilter = () => {
   const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
   const params = Object.fromEntries(searchParams)
   const maxCardsCount = useAppSelector(maxCardsCountSelector)
-  const resetFilter = () => {
+ /* const resetFilter = () => {
     delete params.user_id
-    /*delete params.packName*/
-    /*params.user_id = ""*/
+    /!*delete params.packName*!/
+    /!*params.user_id = ""*!/
     params.packName = ""
     params.sortPacks = "0updated"
     params.page = "1"
@@ -28,14 +28,17 @@ export const PacksFilter = () => {
     dispatch(searchPackAC(params))
     console.log(params)
     setSearchParams({...params})
-  };
+  };*/
+  const [searchValue,setSearchValue] = useState("")
 
+  const onChange  = (searchValue:string) =>{
+    console.log(searchValue)
+    setSearchValue(searchValue)
+  }
   return (
     <div className={s.filterContainer}>
-      <SearchInput/>
-      <ChosePack/>
-      <RangeSlider/>
-      <SuperButton onClick={resetFilter} children={  <FilterAltOffIcon/>} />
+      <SearchInput onChangeValue = {onChange} searchValue = {searchValue}/>
+
     </div>
   );
 };

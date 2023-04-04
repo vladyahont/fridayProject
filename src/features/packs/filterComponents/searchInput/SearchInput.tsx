@@ -1,50 +1,33 @@
-import React, {DetailedHTMLProps, InputHTMLAttributes, useEffect, useState} from 'react';
-import {useSearchParams} from "react-router-dom";
+import React, {useEffect, useState} from 'react';
 import {appStatusSelector} from "app/selectors";
-import {useAppDispatch, useAppSelector} from "app/store";
+import {useAppSelector} from "app/store";
 import {useDebounce} from "hooks/useDebounce";
 import SuperInputText from "../../../../superComponents/c1-SuperInputText/SuperInputText";
-import {searchPackAC} from "../../packs-reducer";
 
 
-type DefaultInputPropsType = DetailedHTMLProps<
-  InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
->;
-
-type SearchInputPropsType = Omit<DefaultInputPropsType, "type"> & {
-
+type SearchInputPropsType =  {
+  searchValue: string
+  onChangeValue: (searchValue: string) => void
 }
 export const SearchInput:React.FC<SearchInputPropsType> = ({
-                                                      ...restProps
+                                                             searchValue,
+                                                             onChangeValue
                                                     }) => {
 
   const appStatus = useAppSelector(appStatusSelector);
-  const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
-
-  const [searchValue,setSearchValue] = useState<string>(searchParams.get("packName") || '')
-  const params = Object.fromEntries(searchParams)
-
-  const dispatch = useAppDispatch()
+  const [value,setValue] = useState<string>(searchValue)
+  const searchDebouncedValue = useDebounce<string>(value, 800);
 
   useEffect(() => {
-    setSearchValue(searchParams.get("packName") || '')
-    }
-  , [searchParams])
+    setValue(searchValue)
+  }, [searchValue])
 
-  const searchDebouncedValue = useDebounce<string>(searchValue, 800);
   useEffect(() => {
-    if (!!searchDebouncedValue) {
-      setSearchParams({...params, packName: searchValue});
-      dispatch(searchPackAC({packName: searchValue}))
-    } else {
-      delete params.packName
-      setSearchParams(params)
-    }
+    onChangeValue(value)
   }, [searchDebouncedValue])
 
   const onChangeHandler = (value:string) =>{
-    setSearchValue(value)
+    setValue(value)
   }
   return (
     <div>
@@ -53,7 +36,6 @@ export const SearchInput:React.FC<SearchInputPropsType> = ({
         value={searchValue}
         onChangeText={onChangeHandler}
         placeholder={"Search"}
-        {...restProps}
         autoFocus
       />
     </div>
