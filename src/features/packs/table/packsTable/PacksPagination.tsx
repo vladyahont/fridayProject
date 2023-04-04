@@ -43,7 +43,7 @@ export const PacksPagination = ({setEmptyRow}:PaginationPropsType) => {
     <TablePagination
       component="div"
       count={cardPacksTotalCount}
-      page={page - 1}
+      page={searchParams.get('page')? page - 1 : 1}
       onPageChange={handleChangePage}
       rowsPerPageOptions={[5, 10, 15]}
       rowsPerPage={rowsPerPage}

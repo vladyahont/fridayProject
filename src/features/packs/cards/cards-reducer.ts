@@ -66,11 +66,11 @@ export const setSearchParamsCardsAC = (data: ChangeCardParam ) => ({type: "CARDS
 export const updateCardAC = () => ({type: 'CARDS/UPDATE-CARD', payload: {}}as const)
 
 
-export const getCardsTC = (): RootThunkType => async (dispatch, getState) => {
+export const getCardsTC = ({cardsPack_id}:{cardsPack_id:string}): RootThunkType => async (dispatch, getState) => {
     dispatch(setAppStatusAC('loading'))
     try {
         const params = getState().cards.params
-        const res = await cardsApi.getCards(params)
+        const res = await cardsApi.getCards({...params,cardsPack_id})
         dispatch(getCardsAC(res.data))
         dispatch(setAppStatusAC('succeeded'))
     } catch (err: unknown) {
@@ -83,11 +83,12 @@ export const getCardsTC = (): RootThunkType => async (dispatch, getState) => {
     }
 }
 
-export const addCardTC = (card: CardRequestType): RootThunkType => async (dispatch) => {
+export const addCardTC = (card: CardRequestType): RootThunkType => async (dispatch, getState) => {
     dispatch(setAppStatusAC('loading'))
     try {
         await cardsApi.addCard(card)
-        dispatch(getCardsTC())
+        const cardsPack_id = getState().cards.params.cardsPack_id
+        dispatch(getCardsTC({cardsPack_id}))
         dispatch(setAppStatusAC('succeeded'))
     } catch (err: unknown) {
         console.log(err)
@@ -99,11 +100,13 @@ export const addCardTC = (card: CardRequestType): RootThunkType => async (dispat
         }
     }
 }
-export const deleteCardTC = (id: string): RootThunkType => async (dispatch) => {
+export const deleteCardTC = (id: string): RootThunkType => async (dispatch, getState) => {
     dispatch(setAppStatusAC('loading'))
     try {
         await cardsApi.deleteCard(id)
-        dispatch(getCardsTC())
+
+        const cardsPack_id = getState().cards.params.cardsPack_id
+        dispatch(getCardsTC({cardsPack_id}))
         dispatch(setAppStatusAC('succeeded'))
     } catch (err: unknown) {
         dispatch(setAppStatusAC('failed'))
@@ -114,11 +117,12 @@ export const deleteCardTC = (id: string): RootThunkType => async (dispatch) => {
         }
     }
 }
-export const updateCardTC = (card: UpdateCardType): RootThunkType => async (dispatch) => {
+export const updateCardTC = (card: UpdateCardType): RootThunkType => async (dispatch, getState) => {
     dispatch(setAppStatusAC('loading'))
     try {
         await cardsApi.updateCard(card)
-        dispatch(getCardsTC())
+        const cardsPack_id = getState().cards.params.cardsPack_id
+        dispatch(getCardsTC({cardsPack_id}))
         dispatch(setAppStatusAC('succeeded'))
     } catch (err: unknown) {
         dispatch(setAppStatusAC('failed'))

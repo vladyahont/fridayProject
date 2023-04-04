@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
-import {HeadTable} from "../HeadTable";
+import {HeadTable} from "../../../components/headTable/HeadTable";
 import {TableDataType} from "./PacksTable";
-import {HeaderType, Order} from "../typesTable";
+import {HeaderType, Order} from "../../../components/headTable/typesTable";
 import {searchPackAC} from "../../packs-reducer";
 import {useAppDispatch, useAppSelector} from "../../../../app/store";
 import {useSearchParams} from "react-router-dom";

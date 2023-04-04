@@ -64,6 +64,7 @@ export type CardParamsType = {
     sortCards: string
     page: number
     pageCount: number
+
 }
 export type CardsResponseType = {
     cards: CardsType[]
