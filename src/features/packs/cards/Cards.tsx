@@ -8,6 +8,7 @@ import noCover from "./../../../assest/imgs/noCover.png"
 import {SubHeader} from "../../components/subHeader/SubHeader";
 import {ImgBox} from "../../components/imgBox/ImgBox";
 import {useCardsFetch} from "./useCardsFetch";
+import {CardsTable} from "./cardsTable/CardsTable";
 
 export const Cards = () => {
 
@@ -34,6 +35,7 @@ export const Cards = () => {
                    onClick={isMyPack ? () => console.log("my") : () => console.log("learn")} disabled={false}/>
         <ImgBox defaultImg={noCover} sx = { {alignSelf:"flex-start"}} />
       </div>
+      <CardsTable />
     </div>
 
   );
