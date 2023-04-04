@@ -28,7 +28,7 @@ export type PacksResponseType = {
     tokenDeathTime: number;
 }
 export type PacksParamsType = {
-    packName?: string
+    packName: string
     user_id?: string
     min: number
     max: number

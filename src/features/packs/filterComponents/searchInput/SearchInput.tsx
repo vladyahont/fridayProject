@@ -1,44 +1,30 @@
-import React, {useEffect, useState} from 'react';
-import {appStatusSelector} from "app/selectors";
-import {useAppSelector} from "app/store";
-import {useDebounce} from "hooks/useDebounce";
-import SuperInputText from "../../../../superComponents/c1-SuperInputText/SuperInputText";
+import React from 'react';
+import {useDebouncedSearchInput} from "./useDebouncedSearchInput";
+import {Grid, SxProps, TextField} from "@mui/material";
 
 
 type SearchInputPropsType =  {
-  searchValue: string
-  onChangeValue: (searchValue: string) => void
+  disabled:boolean,
+  searchValue: string,
+  onChangeSearchValue: (searchValue: string) => void
+  sx?: SxProps,
 }
 export const SearchInput:React.FC<SearchInputPropsType> = ({
                                                              searchValue,
-                                                             onChangeValue
+                                                             onChangeSearchValue,
+                                                             disabled,
+                                                             sx
                                                     }) => {
-
-  const appStatus = useAppSelector(appStatusSelector);
-  const [value,setValue] = useState<string>(searchValue)
-  const searchDebouncedValue = useDebounce<string>(value, 800);
-
-  useEffect(() => {
-    setValue(searchValue)
-  }, [searchValue])
-
-  useEffect(() => {
-    onChangeValue(value)
-  }, [searchDebouncedValue])
-
-  const onChangeHandler = (value:string) =>{
-    setValue(value)
-  }
-  return (
-    <div>
-      <SuperInputText
-        disabled={appStatus === "loading"}
-        value={searchValue}
-        onChangeText={onChangeHandler}
-        placeholder={"Search"}
-        autoFocus
+  const {value,onChangeValueHandler} = useDebouncedSearchInput(searchValue,onChangeSearchValue,600)
+  return (<Grid flex={'0 0 auto'}>
+      <TextField
+        disabled={disabled}
+        onChange={onChangeValueHandler}
+        value={value}
+        sx={ sx? sx:{ minWidth: '400px' }}
+        placeholder={'Search'}
       />
-    </div>
+    </Grid>
   );
 };
 

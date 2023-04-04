@@ -1,20 +1,14 @@
-import React, {useState} from 'react';
+import React, {useCallback} from 'react';
 import {useAppDispatch, useAppSelector} from "../../../app/store";
-import {useSearchParams} from "react-router-dom";
 import {searchPackAC} from "../packs-reducer";
-import {maxCardsCountSelector} from "../../../app/selectors";
+import {appStatusSelector, getPackNameParamsSelector, maxCardsCountSelector} from "../../../app/selectors";
 import s from "../Packs.module.css";
 import {SearchInput} from "./searchInput/SearchInput";
-import {ChosePack} from "./chose/Chose";
-import {RangeSlider} from "./rangeSlider/RangeSlider";
-import SuperButton from "../../../superComponents/c2-SuperButton/SuperButton";
-import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
 
 export const PacksFilter = () => {
 
   const dispatch = useAppDispatch()
-  const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
-  const params = Object.fromEntries(searchParams)
+
   const maxCardsCount = useAppSelector(maxCardsCountSelector)
  /* const resetFilter = () => {
     delete params.user_id
@@ -29,15 +23,16 @@ export const PacksFilter = () => {
     console.log(params)
     setSearchParams({...params})
   };*/
-  const [searchValue,setSearchValue] = useState("")
 
-  const onChange  = (searchValue:string) =>{
-    console.log(searchValue)
-    setSearchValue(searchValue)
-  }
+  const packName = useAppSelector(getPackNameParamsSelector)
+  const onSearchChange = useCallback((searchValue: string) => {
+    dispatch(searchPackAC({ packName: searchValue }))
+  }, [])
+  const appStatus = useAppSelector(appStatusSelector);
+  const isLoading = appStatus === "loading"
   return (
     <div className={s.filterContainer}>
-      <SearchInput onChangeValue = {onChange} searchValue = {searchValue}/>
+      <SearchInput onChangeSearchValue = {onSearchChange} searchValue = {packName} disabled={isLoading}/>
 
     </div>
   );
