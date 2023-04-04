@@ -13,7 +13,7 @@ type SubHeaderProps = {
   disabled?: boolean,
 }
 
-export const SubHeader = ({
+export const SubHeaderTable = ({
                      title,
                      titleButton,
                      onClick,
@@ -27,7 +27,7 @@ export const SubHeader = ({
         {title}
       </PageTitle>
       {titleButton && (
-        <Button onClick={onClick} disabled={disabled} variant={"contained"} sx = {subHeaderBtnStyles}>
+        <Button onClick={onClick} disabled={disabled? disabled:isLoading} variant={"contained"} sx = {subHeaderBtnStyles}>
           {titleButton}
         </Button>
       )}

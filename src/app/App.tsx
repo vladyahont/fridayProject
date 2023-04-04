@@ -19,6 +19,7 @@ import {ErrorPage} from "features/components/errorPage/ErrorPage";
 import {PasswordRecovery} from "features/auth/recoveryPassword/PasswordRecovery";
 import {NewPassword} from "features/auth/recoveryPassword/creadeNew/NewPassword";
 import {Cards} from "../features/packs/cards/Cards";
+import s from "../features/packs/Packs.module.css";
 
 function App() {
   const dispatch = useAppDispatch()
@@ -41,20 +42,22 @@ function App() {
     <div>
       {status === 'loading' && <Loading />}
       <Header />
-      <Routes>
-        <Route path={`/`} element={<Navigate to={PATH.PROFILE} />} />
-        <Route path={PATH.PROFILE} element={<Profile />} />
-        <Route path={PATH.LOGIN} element={<Login />} />
-        <Route path={PATH.REGISTRATION} element={<SignUp />} />
-        <Route path={PATH['400']} element={<ErrorPage />} />
-        <Route path={PATH.RECOVERY} element={<PasswordRecovery />} />
-        <Route path={PATH.NEWPASSWORD} element={<NewPassword />} />
-        <Route path={PATH.PACKS} element={<Packs />} />
-        <Route path={PATH.CARDS} element={<Cards />} />
-        <Route path={PATH.CHECK_EMAIL} element={<CheckEmail />} />
-        <Route path={'*'} element={<Navigate to={PATH['400']} />} />
-      </Routes>
-      <DevFooter/>
+      <div className={s.componentContainer}>
+        <Routes>
+          <Route path={`/`} element={<Navigate to={PATH.PROFILE} />} />
+          <Route path={PATH.PROFILE} element={<Profile />} />
+          <Route path={PATH.LOGIN} element={<Login />} />
+          <Route path={PATH.REGISTRATION} element={<SignUp />} />
+          <Route path={PATH['400']} element={<ErrorPage />} />
+          <Route path={PATH.RECOVERY} element={<PasswordRecovery />} />
+          <Route path={PATH.NEWPASSWORD} element={<NewPassword />} />
+          <Route path={PATH.PACKS} element={<Packs />} />
+          <Route path={PATH.CARDS} element={<Cards />} />
+          <Route path={PATH.CHECK_EMAIL} element={<CheckEmail />} />
+          <Route path={'*'} element={<Navigate to={PATH['400']} />} />
+        </Routes>
+        <DevFooter/>
+      </div>
     </div>
   )
 }

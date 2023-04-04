@@ -5,7 +5,7 @@ import {BackToRouteButton} from "../../components/backToRouteButton/BackToRouteB
 import {useAppDispatch, useAppSelector} from "../../../app/store";
 import {appStatusSelector, packNameSelector, packUserIdSelector, userIdSelector} from "../../../app/selectors";
 import noCover from "./../../../assest/imgs/noCover.png"
-import {SubHeader} from "../../components/subHeader/SubHeader";
+import {SubHeaderTable} from "../../components/subHeaderTable/SubHeaderTable";
 import {ImgBox} from "../../components/imgBox/ImgBox";
 import {useCardsFetch} from "./useCardsFetch";
 import {CardsTable} from "./cardsTable/CardsTable";
@@ -29,10 +29,10 @@ export const Cards = () => {
     <div>
       <BackToRouteButton title={"Back to Packs List"} route={PATH.PACKS}/>
       <div className={s.componentContainer}>
-        <SubHeader title={packName}
-                   isLoading={isLoading}
-                   titleButton={isMyPack ? "Add new card" : "Learn to pack"}
-                   onClick={isMyPack ? () => console.log("my") : () => console.log("learn")} disabled={false}/>
+        <SubHeaderTable title={packName}
+                        isLoading={isLoading}
+                        titleButton={isMyPack ? "Add new card" : "Learn to pack"}
+                        onClick={isMyPack ? () => console.log("my") : () => console.log("learn")} disabled={false}/>
         <ImgBox defaultImg={noCover} sx = { {alignSelf:"flex-start"}} />
       </div>
       <CardsTable />
