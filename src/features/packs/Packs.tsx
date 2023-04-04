@@ -1,15 +1,22 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {PacksTable} from "./table/packsTable/PacksTable";
 import s from './Packs.module.css'
 import {PacksFilter} from "./filterComponents/PacksFillter";
 import {usePacksFetch} from "./usePacksFetch";
-import {useAppSelector} from "../../app/store";
+import {useAppDispatch, useAppSelector} from "../../app/store";
 import {appStatusSelector} from "../../app/selectors";
 import {SubHeaderTable} from "../components/subHeaderTable/SubHeaderTable";
+import {useSearchParams} from "react-router-dom";
+import {getPacksTC, searchPackAC} from "./packs-reducer";
 
 export const Packs = () => {
     const appStatus = useAppSelector(appStatusSelector)
-    usePacksFetch()
+    const dispatch = useAppDispatch()
+
+
+
+
+  usePacksFetch()
 
     return (
         <>
