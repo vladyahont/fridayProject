@@ -1,24 +1,13 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import s from "../Packs.module.css";
 import {PATH} from "../../../app/Path";
 import {BackToRouteButton} from "../../components/backToRouteButton/BackToRouteButton";
-import {getCardsTC, setSearchParamsCardsAC} from "./cards-reducer";
-import {useParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../app/store";
-import {
-  appStatusSelector,
-  getCardQuestionParamsSelector,
-  getCardsPack_idParamsSelector,
-  getCardsPageCountParamsSelector, getCardsPageParamsSelector,
-  getPageCountParamsSelector,
-  getSortCardsParamsSelector,
-  packNameSelector,
-  packUserIdSelector,
-  userIdSelector
-} from "../../../app/selectors";
+import {appStatusSelector, packNameSelector, packUserIdSelector, userIdSelector} from "../../../app/selectors";
 import noCover from "./../../../assest/imgs/noCover.png"
 import {SubHeader} from "../../components/subHeader/SubHeader";
 import {ImgBox} from "../../components/imgBox/ImgBox";
+import {useCardsFetch} from "./useCardsFetch";
 
 export const Cards = () => {
 
@@ -29,21 +18,8 @@ export const Cards = () => {
   const userId = useAppSelector(userIdSelector)
   const packName = useAppSelector(packNameSelector)
 
-  const cardsPageCountParam = useAppSelector(getCardsPageCountParamsSelector)
-  const cardsPageParam = useAppSelector(getCardsPageParamsSelector)
-  const cardsSearchValueParam = useAppSelector(getCardQuestionParamsSelector)
-  const cardsSortParam = useAppSelector(getSortCardsParamsSelector)
 
-  const { packId } = useParams<{ packId: string }>()
-
-  useEffect(() => {
-    dispatch(getCardsTC({ cardsPack_id: packId as string }))
-  }, [cardsPageCountParam, cardsPageParam, cardsSearchValueParam, cardsSortParam])
-
-  useEffect(() => {
-    dispatch(setSearchParamsCardsAC({ cardsPack_id: packId as string }))
-  }, [])
-
+  useCardsFetch()
 
   const isMyPack = userId === packUserId
   const isLoading = appStatus === "loading"
