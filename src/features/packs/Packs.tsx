@@ -12,12 +12,14 @@ import {getPacksTC, searchPackAC} from "./packs-reducer";
 export const Packs = () => {
     const appStatus = useAppSelector(appStatusSelector)
     const dispatch = useAppDispatch()
+    const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
+    const searchParamsObject = Object.fromEntries(searchParams);
 
+    useEffect(() => {
+      dispatch(searchPackAC(searchParamsObject))
+    }, [searchParams])
 
-
-
-  usePacksFetch()
-
+    usePacksFetch()
     return (
         <>
           <SubHeaderTable

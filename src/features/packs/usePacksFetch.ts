@@ -9,7 +9,8 @@ import {
   getSortPacksParamsSelector,
   getUserIdParamsSelector
 } from "../../app/selectors";
-import {getPacksTC} from "./packs-reducer";
+import {getPacksTC, searchPackAC} from "./packs-reducer";
+import {useSearchParams} from "react-router-dom";
 
 export const usePacksFetch = () => {
   const dispatch = useAppDispatch()
@@ -25,6 +26,5 @@ export const usePacksFetch = () => {
   useEffect(() => {
     dispatch(getPacksTC())
   }, [min, max, page, packName,userId,pageCount,page,sortPacks])
-
 };
 

@@ -10,6 +10,9 @@ import {useSearchParams} from "react-router-dom";
 import {Slider} from "@mui/material";
 import {changeMinMaxCountAC} from "../../packs-reducer";
 
+
+
+
 export const RangeSlider = () => {
   const minCardsCount = useAppSelector(minCardsCountSelector);
   const maxCardsCount = useAppSelector(maxCardsCountSelector);
@@ -64,10 +67,10 @@ export const RangeSlider = () => {
   const disabled = appStatus === "loading" || values[0] === values[1]
 
   return (
-    <span>
-      <span>{values[0]}</span>
+    <div>
+      <div>{values[0]}</div>
       <Slider
-        min={0}
+        min={minCardsCount}
         max={maxCardsCount}
         value={values}
         onChange={changeSliderValues}
@@ -75,8 +78,8 @@ export const RangeSlider = () => {
         disableSwap
         disabled={disabled}
       />
-      <span>{values[1]}</span>
-    </span>
+      <div>{values[1]}</div>
+    </div>
   );
 };
 
