@@ -40,4 +40,5 @@ export const getCardsPageParamsSelector =(state: AppStateType) => state.cards.pa
 export const getCardQuestionParamsSelector =(state: AppStateType) => state.cards.params.cardQuestion;
 /* --- Cards-selector --- */
 export const packUserIdSelector =(state: AppStateType) => state.cards.packUserId;
-export const packNameSelector =(state: AppStateType) => state.cards.packName
+export const packNameSelector =(state: AppStateType) => state.cards.packName;
+export const cardsSelector =(state: AppStateType) => state.cards.cards;
