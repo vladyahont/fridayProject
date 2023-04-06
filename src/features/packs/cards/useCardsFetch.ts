@@ -4,7 +4,7 @@ import {
   getCardsPageCountParamsSelector,
   getCardsPageParamsSelector, getSortCardsParamsSelector
 } from "../../../app/selectors";
-import {useParams} from "react-router-dom";
+import {useParams, useSearchParams} from "react-router-dom";
 import {useEffect} from "react";
 import {getCardsTC, setSearchParamsCardsAC} from "./cards-reducer";
 
@@ -18,6 +18,8 @@ export const useCardsFetch = () => {
   const cardsSearchValueParam = useAppSelector(getCardQuestionParamsSelector)
   const cardsSortParam = useAppSelector(getSortCardsParamsSelector)
 
+  const [searchParams] = useSearchParams();
+  const params = Object.fromEntries(searchParams);
 
 
   useEffect(() => {
@@ -25,7 +27,7 @@ export const useCardsFetch = () => {
   }, [cardsPageCountParam, cardsPageParam, cardsSearchValueParam, cardsSortParam])
 
   useEffect(() => {
-    dispatch(setSearchParamsCardsAC({ cardsPack_id: packId as string }))
+    dispatch(setSearchParamsCardsAC({ ...params,cardsPack_id: packId as string }))
   }, [])
 };
 

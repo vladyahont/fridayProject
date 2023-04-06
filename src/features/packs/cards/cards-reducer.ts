@@ -13,7 +13,7 @@ const initialState = {
         cardAnswer: '',
         cardQuestion: '',
         cardsPack_id: '',
-        sortCards: '',
+        sortCards: '0updated',
         page: 1,
         pageCount: 10,
     } as CardParamsType,

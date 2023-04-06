@@ -38,7 +38,6 @@ export const HeadTable = <D extends unknown>({
           (headCell.sortable) ? <TableCell
               key={headCell.id as string}
               align={'left'}
-              padding={headCell.disablePadding ? 'none' : 'normal'}
               sortDirection={orderBy === headCell.id ? reOrder : false}
             >
               <TableSortLabel
