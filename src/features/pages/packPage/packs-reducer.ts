@@ -3,7 +3,13 @@ import {RootThunkType} from "app/store";
 import {setAppStatusAC} from "app/app-reducer";
 import {AxiosError} from "axios";
 import {errorUtils} from "utils/error-utils";
-import {CardPackType, NewPackType, PacksParamsType, PacksResponseType, UpdatePackType} from "features/packs/packTypes";
+import {
+    CardPackType,
+    NewPackType,
+    PacksParamsType,
+    PacksResponseType,
+    UpdatePackType
+} from "./packTypes";
 
 const initialState = {
     cardPacks: [] as CardPackType[],
@@ -11,9 +17,9 @@ const initialState = {
         packName: '',
         user_id: '' ,
         min: 0,
-        max: 10,
+        max: 100,
         sortPacks: "0updated",
-        page: 1,
+        page: 0,
         pageCount: 5,
         block: false
     } as PacksParamsType,

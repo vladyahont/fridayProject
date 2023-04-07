@@ -1,19 +1,20 @@
 import {useAppDispatch, useAppSelector} from "../../../../app/store";
-import {searchCardsAC} from "../../../packs/cards/cards-reducer";
 import {useSearchParams} from "react-router-dom";
 import * as React from "react";
 import {useEffect} from "react";
-import {searchPackAC} from "../../../packs/packs-reducer";
+import {searchCardsAC} from "../../../pages/cardPage/cards-reducer";
+import {searchPackAC} from "../../../pages/packPage/packs-reducer";
 import {
   cardPageCountParamsSelector,
   cardPageParamsSelector,
   cardTotalCountSelector
-} from "../../../packs/cards/cardSelector";
+} from "../../../pages/cardPage/cardSelector";
 import {
   cardPacksTotalCountSelector,
   packPageCountParamsSelector,
   pageParamsSelector
-} from "../../../packs/packSelectors";
+} from "../../../pages/packPage/packSelectors";
+
 
 export const usePagination = (totalCountSelector:totalCountSelectorType,
                               rowsPerPageSelector:rowsPerPageSelectorType,

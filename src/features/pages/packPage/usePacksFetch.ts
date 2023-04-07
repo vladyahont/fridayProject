@@ -1,5 +1,5 @@
 import {useEffect} from 'react';
-import {useAppDispatch, useAppSelector} from "../../app/store";
+
 import {getPacksTC, searchPackAC} from "./packs-reducer";
 import {
   packMaxParamsSelector,
@@ -11,6 +11,7 @@ import {
   userIdParamsSelector
 } from "./packSelectors";
 import {useSearchParams} from "react-router-dom";
+import {useAppDispatch, useAppSelector} from "../../../app/store";
 
 export const usePacksFetch = () => {
 

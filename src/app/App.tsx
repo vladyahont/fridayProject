@@ -13,13 +13,14 @@ import {Loading} from "features/components/loading/Loading";
 import {Loader} from "features/components/loading/Loader";
 import {appStatusSelector, isInitializedSelector} from "./selectors";
 import {DevFooter} from "features/components/devFooter/DevFooter";
-import {Packs} from "features/packs/Packs";
 import {CheckEmail} from "features/auth/recoveryPassword/checkEmail/CheckEmail";
 import {ErrorPage} from "features/components/errorPage/ErrorPage";
 import {PasswordRecovery} from "features/auth/recoveryPassword/PasswordRecovery";
 import {NewPassword} from "features/auth/recoveryPassword/creadeNew/NewPassword";
-import {Cards} from "../features/packs/cards/Cards";
-import s from "../features/packs/Packs.module.css";
+
+
+import {Packs} from "../features/pages/packPage/Packs";
+import {Cards} from "../features/pages/cardPage/Cards";
 
 function App() {
   const dispatch = useAppDispatch()
@@ -42,7 +43,6 @@ function App() {
     <div>
       {status === 'loading' && <Loading />}
       <Header />
-      <div className={s.componentContainer}>
         <Routes>
           <Route path={`/`} element={<Navigate to={PATH.PROFILE} />} />
           <Route path={PATH.PROFILE} element={<Profile />} />
@@ -57,7 +57,6 @@ function App() {
           <Route path={'*'} element={<Navigate to={PATH['400']} />} />
         </Routes>
         <DevFooter/>
-      </div>
     </div>
   )
 }

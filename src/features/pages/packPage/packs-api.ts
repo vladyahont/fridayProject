@@ -1,5 +1,5 @@
 import {instance} from 'app/instance'
-import {NewPackResponseType, NewPackType, PacksParamsType, PacksResponseType, UpdatePackType} from "features/packs/packTypes";
+import {NewPackResponseType, NewPackType, PacksParamsType, PacksResponseType, UpdatePackType} from "./packTypes";
 
 export const packsApi = {
     getPacks(params: PacksParamsType) {

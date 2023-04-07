@@ -1,16 +1,18 @@
 import React, {ChangeEvent, useState} from 'react';
-import {BasicModal} from "features/packs/modal/BasicModal";
+
 import {useAppDispatch, useAppSelector} from "app/store";
 import {Input, InputLabel} from "@material-ui/core";
 import auth from "features/auth/auth.module.css";
 import Button from "@mui/material/Button";
-import {UpdatePackType} from "features/packs/packTypes";
-import {updatePackTC} from "features/packs/packs-reducer";
+
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton/IconButton";
 import {appStatusSelector} from "app/selectors";
 import {fileConverter} from "utils/add-img-utils";
 import noCover from './../../../../assest/imgs/noCover.png'
+import {UpdatePackType} from "../../packTypes";
+import {updatePackTC} from "../../packs-reducer";
+import {BasicModal} from "../BasicModal";
 
 
 type PropsType = {

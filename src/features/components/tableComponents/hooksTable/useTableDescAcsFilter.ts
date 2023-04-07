@@ -1,9 +1,8 @@
 import {useAppDispatch} from "../../../../app/store";
 import {useEffect, useState} from "react";
 import {useSearchParams} from "react-router-dom";
-import {searchCardsAC} from "../../../packs/cards/cards-reducer";
-import {searchPackAC} from "../../../packs/packs-reducer";
-
+import {searchCardsAC} from "../../../pages/cardPage/cards-reducer";
+import {searchPackAC} from "../../../pages/packPage/packs-reducer";
 
 type Order = 'asc' | 'desc'
 

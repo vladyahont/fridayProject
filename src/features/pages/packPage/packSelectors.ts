@@ -1,5 +1,5 @@
+import {AppStateType} from "../../../app/store";
 
-import {AppStateType} from "../../app/store";
 
 export const packsSelector = (state: AppStateType) => state.packs.cardPacks
 export const minCardsCountSelector = (state: AppStateType) => state.packs.minCardsCount

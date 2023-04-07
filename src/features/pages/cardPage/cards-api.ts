@@ -1,5 +1,5 @@
 import {instance} from "app/instance";
-import {CardParamsType, CardRequestType, CardsResponseType, UpdateCardType} from "features/packs/packTypes";
+import {CardParamsType, CardRequestType, CardsResponseType, UpdateCardType} from "../packPage/packTypes";
 
 export const cardsApi = {
     getCards(params: CardParamsType) {

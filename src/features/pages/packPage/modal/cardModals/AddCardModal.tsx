@@ -2,15 +2,15 @@ import React, {ChangeEvent, memo, useState} from 'react';
 import {Input, InputLabel} from "@material-ui/core";
 import auth from "features/auth/auth.module.css";
 import Button from '@mui/material/Button/Button';
-import {addPackTC} from "features/packs/packs-reducer";
+
 import {useAppDispatch, useAppSelector} from "app/store";
-import {NewPackType} from "features/packs/packTypes";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
+
 import IconButton from "@mui/material/IconButton/IconButton";
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import {BasicModal} from "features/packs/modal/BasicModal";
+
 import {appStatusSelector} from "app/selectors";
+import {NewPackType} from "../../packTypes";
+import {addPackTC} from "../../packs-reducer";
+import {BasicModal} from "../BasicModal";
 
 export const AddCardModal = memo(() => {
 

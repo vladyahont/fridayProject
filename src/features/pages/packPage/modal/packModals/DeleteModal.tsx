@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 import {useAppDispatch, useAppSelector} from "app/store";
-import {deletePackTC} from "features/packs/packs-reducer";
+
 import Button from "@mui/material/Button/Button";
-import {BasicModal} from "features/packs/modal/BasicModal";
+
 import IconButton from "@mui/material/IconButton/IconButton";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import {appStatusSelector} from "app/selectors";
+import {deletePackTC} from "../../packs-reducer";
+import {BasicModal} from "../BasicModal";
 
 type PropsType = {
     id: string

@@ -4,7 +4,7 @@ type Props = {
   packName?:string,
   idUser:string,
 }
-export const PackActions = ({packName,idUser}:Props) => {
+export const PackActions = ({}:Props) => {
   return (
     <div>
       {/*idUser !== myID*/}

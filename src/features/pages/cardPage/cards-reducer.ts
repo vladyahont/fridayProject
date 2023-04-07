@@ -3,7 +3,8 @@ import { setAppStatusAC } from "app/app-reducer";
 import { RootThunkType } from "app/store";
 import { errorUtils } from "utils/error-utils";
 import {cardsApi} from "./cards-api";
-import {CardParamsType, CardRequestType, CardsResponseType, CardsType, UpdateCardType} from "features/packs/packTypes";
+import {CardParamsType, CardRequestType, CardsResponseType, CardsType, UpdateCardType} from "../packPage/packTypes";
+
 
 
 

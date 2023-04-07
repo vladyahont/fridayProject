@@ -5,8 +5,9 @@ import { AuthActionsType, authReducer } from 'features/auth/auth-reducer'
 
 import { AppActionsType, appReducer } from './app-reducer'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
-import {PacksActionsType, packsReducer} from "features/packs/packs-reducer";
-import {CardsActionsType, cardsReducer} from "features/packs/cards/cards-reducer";
+import {PacksActionsType, packsReducer} from "../features/pages/packPage/packs-reducer";
+import {CardsActionsType, cardsReducer} from "../features/pages/cardPage/cards-reducer";
+
 
 const rootReducer = combineReducers({
   app: appReducer,

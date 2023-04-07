@@ -2,8 +2,9 @@ import React from "react";
 import {PackTable} from "./packTable/PacksTable";
 import {PacksFilter} from "./filterComponents/PacksFillter";
 import {usePacksFetch} from "./usePacksFetch";
-import {SubHeaderTable} from "../components/subHeaderTable/SubHeaderTable";
-import {useAppIsLoading} from "../../hooks/useAppIsLoading";
+import {SubHeaderTable} from "../../components/subHeaderTable/SubHeaderTable";
+import {useAppIsLoading} from "../../../hooks/useAppIsLoading";
+
 
 export const Packs = () => {
 

@@ -1,15 +1,17 @@
 import React from 'react';
-import {useAppDispatch, useAppSelector} from "../../../app/store";
+
 import {searchPackAC} from "../packs-reducer";
-import {appStatusSelector, userIdSelector} from "../../../app/selectors";
-import {SearchInput} from "./searchInput/SearchInput";
 import {Chose} from "./chose/Chose";
-import SuperButton from "../../../superComponents/c2-SuperButton/SuperButton";
 import {RangeSlider} from "./rangeSlider/RangeSlider";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
 import {useSearchParams} from "react-router-dom";
 import {packNameParamsSelector, userIdParamsSelector} from "../packSelectors";
-import {FilterContainer} from "../../components/filterContainer/FilterContainer";
+import {useAppDispatch, useAppSelector} from "../../../../app/store";
+import {appStatusSelector, userIdSelector} from "../../../../app/selectors";
+import {FilterContainer} from "../../../components/filterContainer/FilterContainer";
+import {SearchInput} from "../../../components/searchInput/SearchInput";
+import SuperButton from "../../../../superComponents/c2-SuperButton/SuperButton";
+
 
 export const PacksFilter = () => {
 
