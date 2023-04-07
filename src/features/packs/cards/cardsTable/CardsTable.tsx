@@ -8,7 +8,7 @@ import {
 } from "../cardSelector";
 import {useAppIsLoading} from "../../../../hooks/useAppIsLoading";
 import {useAppSelector} from "../../../../app/store";
-import {setSearchParamsCardsAC} from "../cards-reducer";
+import {searchCardsAC} from "../cards-reducer";
 import {useTableDescAcsFilter} from "../../../components/tableComponents/hooksTable/useTableDescAcsFilter";
 import {usePagination} from "../../../components/tableComponents/hooksTable/usePagination";
 import {CardTableRow} from "./CardTableRow";
@@ -23,14 +23,16 @@ export const CardsTable = () => {
 
   const {orderBy, order, handleRequestSort} =
     useTableDescAcsFilter<TableDataType>(
-      "sortCards", setSearchParamsCardsAC)
+      "sortCards", searchCardsAC)
 
   const {onChange, onChangePageCount, totalCount, rowsPerPage, page}
     = usePagination(
+
     cardTotalCountSelector,
     cardPageCountParamsSelector,
     cardPageParamsSelector,
-    setSearchParamsCardsAC)
+
+    searchCardsAC)
 
   const rowCards = cards.map((card) =>
     <CardTableRow key = {card._id}

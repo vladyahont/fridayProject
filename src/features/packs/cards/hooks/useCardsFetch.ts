@@ -1,7 +1,7 @@
 import {useAppDispatch, useAppSelector} from "../../../../app/store";
 import {useParams, useSearchParams} from "react-router-dom";
 import {useEffect} from "react";
-import {getCardsTC, setSearchParamsCardsAC} from "../cards-reducer";
+import {getCardsTC, searchCardsAC} from "../cards-reducer";
 import {
   cardPageCountParamsSelector,
   cardPageParamsSelector,
@@ -28,7 +28,7 @@ export const useCardsFetch = () => {
   }, [cardsPageCountParam, cardsPageParam, cardsSearchValueParam, cardsSortParam])
 
   useEffect(() => {
-    dispatch(setSearchParamsCardsAC({ ...params,cardsPack_id: packId as string }))
+    dispatch(searchCardsAC({ ...params,cardsPack_id: packId as string }))
   }, [])
 };
 

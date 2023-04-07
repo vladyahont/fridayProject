@@ -1,14 +1,14 @@
 import {useAppDispatch} from "../../../../app/store";
 import {useEffect, useState} from "react";
 import {useSearchParams} from "react-router-dom";
-import {setSearchParamsCardsAC} from "../../../packs/cards/cards-reducer";
+import {searchCardsAC} from "../../../packs/cards/cards-reducer";
 import {searchPackAC} from "../../../packs/packs-reducer";
 
 
 type Order = 'asc' | 'desc'
 
 type SetSearchParamACType =
-  typeof setSearchParamsCardsAC  |
+  typeof searchCardsAC  |
   typeof searchPackAC
 export const useTableDescAcsFilter = <D>(sortSearchParams:string,
                                          setSearchParamAC:SetSearchParamACType) =>{

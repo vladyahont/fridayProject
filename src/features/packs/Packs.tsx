@@ -1,35 +1,25 @@
-import React, {useEffect} from "react";
-import {PacksTable} from "./table/packsTable/PacksTable";
-import s from './Packs.module.css'
+import React from "react";
+import {PackTable} from "./packTable/PacksTable";
 import {PacksFilter} from "./filterComponents/PacksFillter";
 import {usePacksFetch} from "./usePacksFetch";
-import {useAppDispatch, useAppSelector} from "../../app/store";
-import {appStatusSelector} from "../../app/selectors";
 import {SubHeaderTable} from "../components/subHeaderTable/SubHeaderTable";
-import {useSearchParams} from "react-router-dom";
-import {getPacksTC, searchPackAC} from "./packs-reducer";
+import {useAppIsLoading} from "../../hooks/useAppIsLoading";
 
 export const Packs = () => {
-    const appStatus = useAppSelector(appStatusSelector)
-    const dispatch = useAppDispatch()
-    const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
-    const searchParamsObject = Object.fromEntries(searchParams);
 
-    useEffect(() => {
-      dispatch(searchPackAC(searchParamsObject))
-    }, [searchParams])
-
+    const isLoading = useAppIsLoading()
     usePacksFetch()
+
     return (
         <>
           <SubHeaderTable
-            isLoading={appStatus === "loading"}
+            isLoading={isLoading}
             title={'Pack list'}
             titleButton={'Add pack'}
             onClick={()=> console.log("Click")}
           />
             <PacksFilter />
-            <PacksTable />
+            <PackTable />
         </>
     )
 }

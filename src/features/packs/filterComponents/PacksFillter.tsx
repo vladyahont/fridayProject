@@ -36,7 +36,7 @@ export const PacksFilter = () => {
   const resetFilter = () => {
     params.pageCount = "5"
     params.sortPacks = "0updated"
-    params.page = "1"
+    params.page = "0"
     dispatch(searchPackAC({...params,packName: "",}))
     setSearchParams({...params})
    };

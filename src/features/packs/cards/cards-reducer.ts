@@ -50,7 +50,7 @@ export const cardsReducer = (
 export type CardsActionsType = GetCardsACType | UpdateCardACType|SetSearchParamsCardsACType
 type GetCardsACType = ReturnType<typeof getCardsAC>
 type UpdateCardACType = ReturnType<typeof updateCardAC>
-type SetSearchParamsCardsACType = ReturnType<typeof setSearchParamsCardsAC>
+type SetSearchParamsCardsACType = ReturnType<typeof searchCardsAC>
 type ChangeCardParam = {
     cardAnswer?: string,
     cardQuestion?: string,
@@ -62,7 +62,7 @@ type ChangeCardParam = {
 }
 
 export const getCardsAC = (data: CardsResponseType ) => ({type: 'CARDS/GET-CARDS', payload: data} as const)
-export const setSearchParamsCardsAC = (data: ChangeCardParam ) => ({type: "CARDS/SET-PARAMS", payload: data} as const)
+export const searchCardsAC = (data: ChangeCardParam ) => ({type: "CARDS/SET-PARAMS", payload: data} as const)
 export const updateCardAC = () => ({type: 'CARDS/UPDATE-CARD', payload: {}}as const)
 
 

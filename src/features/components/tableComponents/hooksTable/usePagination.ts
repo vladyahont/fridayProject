@@ -1,5 +1,5 @@
 import {useAppDispatch, useAppSelector} from "../../../../app/store";
-import {setSearchParamsCardsAC} from "../../../packs/cards/cards-reducer";
+import {searchCardsAC} from "../../../packs/cards/cards-reducer";
 import {useSearchParams} from "react-router-dom";
 import * as React from "react";
 import {useEffect} from "react";
@@ -64,7 +64,7 @@ export const usePagination = (totalCountSelector:totalCountSelectorType,
 
 
 type SetSearchParamACType =
-  typeof setSearchParamsCardsAC  |
+  typeof searchCardsAC  |
   typeof searchPackAC
 
 type totalCountSelectorType =

@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {FilterContainer} from "../../../components/filterContainer/FilterContainer";
 import {SearchInput} from "../../../components/searchInput/SearchInput";
 import {useAppDispatch} from "../../../../app/store";
-import {setSearchParamsCardsAC} from "../cards-reducer";
+import {searchCardsAC} from "../cards-reducer";
 import {useSearchParams} from "react-router-dom";
 
 
@@ -18,11 +18,11 @@ export const CardFilterPanel = ({isLoading}:CardFilterPanelProps) => {
   const search = params["cardQuestion"];
 
   useEffect(() => {
-    dispatch(setSearchParamsCardsAC({ ...params,cardQuestion: search }))
+    dispatch(searchCardsAC({ ...params,cardQuestion: search }))
   }, [])
   const onSearchChange = (search: string) => {
     setSearchParams({...params,cardQuestion: search});
-    dispatch(setSearchParamsCardsAC({ ...params,cardQuestion: search }))
+    dispatch(searchCardsAC({ ...params,cardQuestion: search }))
   }
   return (
     <FilterContainer>
