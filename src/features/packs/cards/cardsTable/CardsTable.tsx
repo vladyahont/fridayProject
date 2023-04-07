@@ -33,8 +33,12 @@ export const CardsTable = () => {
     setSearchParamsCardsAC)
 
   const rowCards = cards.map((card) =>
-    <CardTableRow _id={card._id} question={card.question} answer={card.answer}
-                  created={card.created} grade={card.grade}/>
+    <CardTableRow key = {card._id}
+                  _id={card._id}
+                  question={card.question}
+                  answer={card.answer}
+                  created={card.created}
+                  grade={card.grade}/>
   )
   return (
     <>
@@ -50,7 +54,7 @@ export const CardsTable = () => {
       <Pagination
         disabled={isLoading}
         rowsPerPage={rowsPerPage}
-        page={page}
+        page={page || 0}
         totalCount={totalCount}
         onChange={onChange}
         onChangePageCount={onChangePageCount}
