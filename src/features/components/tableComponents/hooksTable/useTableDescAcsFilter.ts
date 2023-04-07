@@ -1,11 +1,12 @@
 import {useAppDispatch} from "../../../../app/store";
 import {useEffect, useState} from "react";
 import {useSearchParams} from "react-router-dom";
-import {setSearchParamsCardsAC} from "../cards-reducer";
-import {searchPackAC} from "../../packs-reducer";
+import {setSearchParamsCardsAC} from "../../../packs/cards/cards-reducer";
+import {searchPackAC} from "../../../packs/packs-reducer";
 
 
 type Order = 'asc' | 'desc'
+
 type SetSearchParamACType =
   typeof setSearchParamsCardsAC  |
   typeof searchPackAC

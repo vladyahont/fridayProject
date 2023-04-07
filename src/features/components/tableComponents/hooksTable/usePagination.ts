@@ -1,15 +1,14 @@
 import {useAppDispatch, useAppSelector} from "../../../../app/store";
 import {
   cardPacksTotalCountSelector,
-  cardsTotalCountSelector,
-  getCardsPageCountParamsSelector,
-  getCardsPageParamsSelector, getPageCountParamsSelector, getPageParamsSelector
+  getPageParamsSelector
 } from "../../../../app/selectors";
-import {setSearchParamsCardsAC} from "../cards-reducer";
+import {setSearchParamsCardsAC} from "../../../packs/cards/cards-reducer";
 import {useSearchParams} from "react-router-dom";
 import {useEffect} from "react";
 import * as React from "react";
-import {searchPackAC} from "../../packs-reducer";
+import {searchPackAC} from "../../../packs/packs-reducer";
+import {cardPageCountParamsSelector, cardPageParamsSelector, cardTotalCountSelector} from "../../../packs/cards/cardSelector";
 
 export const usePagination = (totalCountSelector:totalCountSelectorType,
                               rowsPerPageSelector:rowsPerPageSelectorType,
@@ -64,13 +63,13 @@ type SetSearchParamACType =
   typeof searchPackAC
 
 type totalCountSelectorType =
-  typeof cardsTotalCountSelector  |
+  typeof cardTotalCountSelector  |
   typeof cardPacksTotalCountSelector
 
 type rowsPerPageSelectorType =
-  typeof getCardsPageCountParamsSelector  |
-  typeof getPageCountParamsSelector
+  typeof cardPageCountParamsSelector
+ // typeof cardPageCountParamsSelector
 
 type pageSelectorType =
   typeof getPageParamsSelector  |
-  typeof getCardsPageParamsSelector
+  typeof cardPageParamsSelector

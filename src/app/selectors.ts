@@ -32,16 +32,3 @@ export const getSortPacksParamsSelector =(state: AppStateType) => state.packs.pa
 export const getPackNameParamsSelector =(state: AppStateType) => state.packs.params.packName;
 export const getPageParamsSelector =(state: AppStateType) => state.packs.params.page;
 export const getUserIdParamsSelector =(state: AppStateType) => state.packs.params.user_id;
-/* --- Params-Cards-selector --- */
-export const getCardsPack_idParamsSelector =(state: AppStateType) => state.cards.params.cardsPack_id;
-export const getSortCardsParamsSelector =(state: AppStateType) => state.cards.params.sortCards;
-export const getCardsPageCountParamsSelector =(state: AppStateType) => state.cards.params.pageCount;
-export const getCardsPageParamsSelector =(state: AppStateType) => state.cards.params.page;
-export const getCardQuestionParamsSelector =(state: AppStateType) => state.cards.params.cardQuestion;
-/* --- Cards-selector --- */
-export const packUserIdSelector =(state: AppStateType) => state.cards.packUserId;
-export const packNameSelector =(state: AppStateType) => state.cards.packName;
-export const cardsSelector =(state: AppStateType) => state.cards.cards;
-export const cardsTotalCountSelector =(state: AppStateType) => state.cards.cardsTotalCount;
-export const cardsPageCountSelector =(state: AppStateType) => state.cards.pageCount;
-export const cardsPageSelector =(state: AppStateType) => state.cards.page;
