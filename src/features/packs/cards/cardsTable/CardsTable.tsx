@@ -6,16 +6,15 @@ import {
   getCardsPageCountParamsSelector,
   getCardsPageParamsSelector
 } from "../../../../app/selectors";
-import TableRow from "@mui/material/TableRow";
-import TableCell from "@mui/material/TableCell";
 import {useAppIsLoading} from "../../../../hooks/useAppIsLoading";
-import {HeaderType} from "../../../components/headTable/typesTable";
 import {setSearchParamsCardsAC} from "../cards-reducer";
 import {useTableDescAcsFilter} from "./useTableDescAcsFilter";
 import {usePagination} from "./usePagination";
 import {Pagination} from "../../../components/tableComponents/Pagination";
 import {TableContent} from "../../../components/tableComponents/TableContent";
+import {CardTableRow} from "./CardTableRow";
 
+import {HeaderType} from "../../../components/headTable/typesTable";
 
 
 type TableDataType = {
@@ -55,18 +54,14 @@ export const CardsTable = () => {
   const {orderBy, order, handleRequestSort} =
     useTableDescAcsFilter<TableDataType>("sortCards", setSearchParamsCardsAC)
 
-  const {onChange, onChangePageCount, totalCount, rowsPerPage, page, emptyRows}
+  const {onChange, onChangePageCount, totalCount, rowsPerPage, page}
     = usePagination(
     cardsTotalCountSelector, getCardsPageCountParamsSelector,
     getCardsPageParamsSelector, setSearchParamsCardsAC)
 
   const rowCards = cards.map((card) =>
-    <TableRow hover key={card._id}>
-      <TableCell>{card.question} </TableCell>
-      <TableCell>{card.answer} </TableCell>
-      <TableCell>{card.created} </TableCell>
-      <TableCell>{card.grade} </TableCell>
-    </TableRow>
+    <CardTableRow _id={card._id} question={card.question} answer={card.answer}
+                  created={card.created} grade={card.grade}/>
   )
   return (
     <>
