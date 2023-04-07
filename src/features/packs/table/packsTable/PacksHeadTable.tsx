@@ -9,36 +9,26 @@ import {appStatusSelector} from "../../../../app/selectors";
 const headCells: HeaderType<TableDataType>[] = [
   {
     id: 'name',
-    numeric: false,
-    disablePadding: true,
     label: 'Name',
     sortable:true,
   },
   {
     id: 'cardsCount',
-    numeric: true,
-    disablePadding: false,
     label: 'cards',
     sortable:true,
   },
   {
     id: 'updated',
-    numeric: false,
-    disablePadding: false,
     label: 'Last Updated',
     sortable:true,
   },
   {
     id: 'user_name',
-    numeric: false,
-    disablePadding: false,
     label: 'Created By',
     sortable:true,
   },
   {
     id: 'action',
-    numeric: false,
-    disablePadding: false,
     label: 'Actions',
     sortable:false,
   },

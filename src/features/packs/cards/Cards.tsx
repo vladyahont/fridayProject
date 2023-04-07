@@ -1,43 +1,41 @@
 import React from 'react';
-import s from "../Packs.module.css";
-import {PATH} from "../../../app/Path";
+
 import {BackToRouteButton} from "../../components/backToRouteButton/BackToRouteButton";
-import {useAppDispatch, useAppSelector} from "../../../app/store";
-import {appStatusSelector, packNameSelector, packUserIdSelector, userIdSelector} from "../../../app/selectors";
-import noCover from "./../../../assest/imgs/noCover.png"
-import {SubHeaderTable} from "../../components/subHeaderTable/SubHeaderTable";
+import {useAppSelector} from "../../../app/store";
+import {userIdSelector} from "../../../app/selectors";
+
+import {SubHeader} from "../../components/subHeader/SubHeader";
 import {ImgBox} from "../../components/imgBox/ImgBox";
-import {useCardsFetch} from "./useCardsFetch";
+import {useCardsFetch} from "./hooks/useCardsFetch";
 import {CardsTable} from "./cardsTable/CardsTable";
 
+import noCover from "./../../../assest/imgs/noCover.png"
+import {PATH} from "../../../app/Path";
+import {useAppIsLoading} from "../../../hooks/useAppIsLoading";
+import {CardFilterPanel} from "./cardFilterPanel/CardFilterPanel";
+import {packNameSelector, packUserIdSelector} from "./cardSelector";
+
 export const Cards = () => {
+  const isLoading = useAppIsLoading()
+  useCardsFetch()
 
-  const dispatch = useAppDispatch()
-
-  const appStatus = useAppSelector(appStatusSelector)
   const packUserId = useAppSelector(packUserIdSelector)
   const userId = useAppSelector(userIdSelector)
   const packName = useAppSelector(packNameSelector)
-
-
-  useCardsFetch()
-
   const isMyPack = userId === packUserId
-  const isLoading = appStatus === "loading"
 
   return (
-    <div>
+    <>
       <BackToRouteButton title={"Back to Packs List"} route={PATH.PACKS}/>
-      <div className={s.componentContainer}>
-        <SubHeaderTable title={packName}
-                        isLoading={isLoading}
-                        titleButton={isMyPack ? "Add new card" : "Learn to pack"}
-                        onClick={isMyPack ? () => console.log("my") : () => console.log("learn")} disabled={false}/>
-        <ImgBox defaultImg={noCover} sx = { {alignSelf:"flex-start"}} />
-      </div>
-      <CardsTable />
-    </div>
-
+      <SubHeader title={packName}
+                 isLoading={isLoading}
+                 titleButton={isMyPack ? "Add new card" : "Learn to pack"}
+                 onClick={isMyPack ? () => console.log("my") : () => console.log("learn")}
+                 disabled={isLoading}/>
+      <ImgBox defaultImg={noCover} sx={{alignSelf: "flex-start"}}/>
+      <CardFilterPanel isLoading={isLoading}/>
+      <CardsTable/>
+    </>
   );
 };
 

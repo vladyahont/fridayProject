@@ -41,6 +41,7 @@ export const PacksPagination = ({setEmptyRow}:PaginationPropsType) => {
 
   return (
     <TablePagination
+      sx = {{width: '100%', mb: 2}}
       component="div"
       count={cardPacksTotalCount}
       page={searchParams.get('page')? page - 1 : 1}
