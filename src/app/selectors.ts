@@ -42,3 +42,6 @@ export const getCardQuestionParamsSelector =(state: AppStateType) => state.cards
 export const packUserIdSelector =(state: AppStateType) => state.cards.packUserId;
 export const packNameSelector =(state: AppStateType) => state.cards.packName;
 export const cardsSelector =(state: AppStateType) => state.cards.cards;
+export const cardsTotalCountSelector =(state: AppStateType) => state.cards.cardsTotalCount;
+export const cardsPageCountSelector =(state: AppStateType) => state.cards.pageCount;
+export const cardsPageSelector =(state: AppStateType) => state.cards.page;

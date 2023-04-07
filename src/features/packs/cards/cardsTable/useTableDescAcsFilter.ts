@@ -10,7 +10,7 @@ type SetSearchParamACType =
   typeof setSearchParamsCardsAC  |
   typeof searchPackAC
 export const useTableDescAcsFilter = <D>(sortSearchParams:string,
-                                         actionSetSearchParam:SetSearchParamACType) =>{
+                                         setSearchParamAC:SetSearchParamACType) =>{
   const dispatch = useAppDispatch()
   const [order, setOrder] = useState<Order>("asc")
   const [orderBy, setOrderBy] = useState<keyof D>("" as keyof D)
@@ -22,14 +22,14 @@ export const useTableDescAcsFilter = <D>(sortSearchParams:string,
     const paramsOrderBy = params[sortSearchParams]?.substring(1);
     setOrder(paramsOrder === "0" ? 'asc' :  'desc'as Order)
     setOrderBy(paramsOrderBy as keyof D)
-  }, [params.sortCards])
+  }, [])
   const handleRequestSort = (property: keyof D) => {
     const newOrder = orderBy === String(property) && order === 'desc' ? 'asc' : 'desc';
     const sortCards = `${newOrder === 'asc' ? '0' : '1'}${String(property)}`;
     setOrder(newOrder);
     setOrderBy(property);
     setSearchParams({...params, [sortSearchParams]: sortCards});
-    dispatch(actionSetSearchParam({[sortSearchParams]:sortCards}))
+    dispatch(setSearchParamAC({[sortSearchParams]:sortCards}))
   }
   return {
     order,

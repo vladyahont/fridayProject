@@ -17,8 +17,6 @@ export const SearchInput:React.FC<SearchInputPropsType> = ({
                                                     }) => {
   const {value,onChangeValueHandler} = useDebouncedSearchInput(searchValue,onChangeSearchValue,600)
 
-
-
   return (<Grid flex={'0 0 auto'}>
       <TextField
         disabled={disabled}
