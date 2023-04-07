@@ -1,12 +1,7 @@
 import React from 'react';
 import {useAppDispatch, useAppSelector} from "../../../app/store";
 import {searchPackAC} from "../packs-reducer";
-import {
-  appStatusSelector,
-
-  userIdSelector
-} from "../../../app/selectors";
-import s from "../Packs.module.css";
+import {appStatusSelector, userIdSelector} from "../../../app/selectors";
 import {SearchInput} from "./searchInput/SearchInput";
 import {Chose} from "./chose/Chose";
 import SuperButton from "../../../superComponents/c2-SuperButton/SuperButton";
@@ -14,6 +9,7 @@ import {RangeSlider} from "./rangeSlider/RangeSlider";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
 import {useSearchParams} from "react-router-dom";
 import {packNameParamsSelector, userIdParamsSelector} from "../packSelectors";
+import {FilterContainer} from "../../components/filterContainer/FilterContainer";
 
 export const PacksFilter = () => {
 
@@ -49,12 +45,12 @@ export const PacksFilter = () => {
   const isLoading = appStatus === "loading"
 
   return (
-    <div className={s.filterContainer}>
+    <FilterContainer>
       <SearchInput onChangeSearchValue = {onSearchChange} searchValue = {packName} disabled={isLoading}/>
       <Chose disabled={isLoading} initValue={isMy} onFirstClick={getAllPacks} onSecondClick={getMyPacks}/>
       <RangeSlider/>
       <SuperButton onClick={resetFilter} children={<FilterAltOffIcon/>} />
-    </div>
+    </FilterContainer>
   );
 };
 

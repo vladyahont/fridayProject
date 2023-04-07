@@ -71,7 +71,10 @@ export const RangeSlider = () => {
   const disabled = appStatus === "loading" || values[0] === values[1]
 
   return (
-    <div>
+    <div style={ {display:"flex",
+      flexDirection:"row",
+      gap: "10px",
+      width:"400px"}}>
       <div>{values[0]}</div>
       <Slider
         min={minCardsCount}
