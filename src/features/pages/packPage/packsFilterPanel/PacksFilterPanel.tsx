@@ -13,7 +13,7 @@ import {SearchInput} from "../../../components/searchInput/SearchInput";
 import SuperButton from "../../../../superComponents/c2-SuperButton/SuperButton";
 
 
-export const PacksFilter = () => {
+export const PacksFilterPanel = () => {
 
   const dispatch = useAppDispatch()
   const userIdParam = useAppSelector(userIdParamsSelector)

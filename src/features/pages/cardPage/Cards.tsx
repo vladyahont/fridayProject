@@ -15,6 +15,7 @@ import {useAppIsLoading} from "../../../hooks/useAppIsLoading";
 import {CardFilterPanel} from "./cardFilterPanel/CardFilterPanel";
 import {packNameSelector, packUserIdSelector} from "./cardSelector";
 import {SubHeaderTable} from "../../components/subHeaderTable/SubHeaderTable";
+import {Container} from "../../components/container/Container";
 
 
 export const Cards = () => {
@@ -30,14 +31,16 @@ export const Cards = () => {
   return (
     <>
       <BackToRouteButton title={"Back to Packs List"} route={PATH.PACKS}/>
-      <SubHeaderTable title={packName}
-                 isLoading={isLoading}
-                 titleButton={isMyPack ? "Add new card" : "Learn to pack"}
-                 onClick={isMyPack ? () => console.log("my") : () => console.log("learn")}
-                 disabled={isLoading}/>
-      <ImgBox defaultImg={noCover} sx={{alignSelf: "flex-start"}}/>
-      <CardFilterPanel isLoading={isLoading}/>
-      <CardsTable/>
+      <Container>
+        <SubHeaderTable title={packName}
+                        isLoading={isLoading}
+                        titleButton={isMyPack ? "Add new card" : "Learn to pack"}
+                        onClick={isMyPack ? () => console.log("my") : () => console.log("learn")}
+                        disabled={isLoading}/>
+        <ImgBox defaultImg={noCover} sx={{alignSelf: "flex-start"}}/>
+        <CardFilterPanel isLoading={isLoading}/>
+        <CardsTable/>
+      </Container>
     </>
   );
 };

@@ -30,7 +30,7 @@ export const usePacksFetch = () => {
 
   useEffect(() => {
     dispatch(searchPackAC(searchParamsObject))
-  }, [])
+  },[])
 
   useEffect(() => {
     dispatch(getPacksTC())

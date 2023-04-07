@@ -128,9 +128,4 @@ const headCells: HeaderType<TableDataType>[] = [
     sortable:false,
   },
 ];
-/*<Box sx={{width: '100%'}}>
-  <Paper sx={{width: '100%', mb: 2}}>
-    <TableContainer>
-      <Table sx={{minWidth: 750, textAlign: 'center'}} aria-labelledby="tableTitle" size={'medium'}>    </TableContainer>
-  </Paper>
-</Box>*/
+
