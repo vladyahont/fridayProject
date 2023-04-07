@@ -15,17 +15,14 @@ import {useAppIsLoading} from "../../../hooks/useAppIsLoading";
 import {CardFilterPanel} from "./cardFilterPanel/CardFilterPanel";
 
 export const Cards = () => {
-
+  const isLoading = useAppIsLoading()
+  useCardsFetch()
 
   const packUserId = useAppSelector(packUserIdSelector)
   const userId = useAppSelector(userIdSelector)
   const packName = useAppSelector(packNameSelector)
 
-  const isLoading = useAppIsLoading()
-  useCardsFetch()
-
   const isMyPack = userId === packUserId
-
 
   return (
     <>

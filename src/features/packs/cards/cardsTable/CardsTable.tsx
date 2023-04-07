@@ -1,5 +1,4 @@
-import React, {ChangeEvent} from 'react';
-import {TableContent} from "./components/TableContent";
+import React from 'react';
 import {useAppSelector} from "../../../../app/store";
 import {
   cardsSelector,
@@ -13,8 +12,10 @@ import {useAppIsLoading} from "../../../../hooks/useAppIsLoading";
 import {HeaderType} from "../../../components/headTable/typesTable";
 import {setSearchParamsCardsAC} from "../cards-reducer";
 import {useTableDescAcsFilter} from "./useTableDescAcsFilter";
-import TablePagination from "@mui/material/TablePagination";
 import {usePagination} from "./usePagination";
+import {Pagination} from "../../../components/tableComponents/Pagination";
+import {TableContent} from "../../../components/tableComponents/TableContent";
+
 
 
 type TableDataType = {
@@ -51,19 +52,21 @@ export const CardsTable = () => {
   const isLoading = useAppIsLoading()
   const cards = useAppSelector(cardsSelector)
 
-  const {orderBy, order, handleRequestSort} = useTableDescAcsFilter<TableDataType>("sortCards", setSearchParamsCardsAC)
+  const {orderBy, order, handleRequestSort} =
+    useTableDescAcsFilter<TableDataType>("sortCards", setSearchParamsCardsAC)
 
-  const {onChange, onChangePageCount, totalCount, rowsPerPage, page,emptyRows}
-    = usePagination(cardsTotalCountSelector,getCardsPageCountParamsSelector,
-    getCardsPageParamsSelector,setSearchParamsCardsAC)
+  const {onChange, onChangePageCount, totalCount, rowsPerPage, page, emptyRows}
+    = usePagination(
+    cardsTotalCountSelector, getCardsPageCountParamsSelector,
+    getCardsPageParamsSelector, setSearchParamsCardsAC)
 
   const rowCards = cards.map((card) =>
-      <TableRow hover key={card._id}>
-        <TableCell>{card.question} </TableCell>
-        <TableCell>{card.answer} </TableCell>
-        <TableCell>{card.created} </TableCell>
-        <TableCell>{card.grade} </TableCell>
-      </TableRow>
+    <TableRow hover key={card._id}>
+      <TableCell>{card.question} </TableCell>
+      <TableCell>{card.answer} </TableCell>
+      <TableCell>{card.created} </TableCell>
+      <TableCell>{card.grade} </TableCell>
+    </TableRow>
   )
   return (
     <>
@@ -77,60 +80,15 @@ export const CardsTable = () => {
         {rowCards}
       </TableContent>
       <Pagination
-        disabled = {isLoading}
-        rowsPerPage = {rowsPerPage}
+        disabled={isLoading}
+        rowsPerPage={rowsPerPage}
         page={page}
         totalCount={totalCount}
-        onChange = {onChange}
-        onChangePageCount = {onChangePageCount}
+        onChange={onChange}
+        onChangePageCount={onChangePageCount}
       />
     </>
-
   );
 };
 
-
-type PaginationType = {
-  page: number
-  rowsPerPage: number
-  totalCount: number
-  disabled: boolean
-  onChange: (page: number) => void
-  onChangePageCount: (pageCount: number) => void
-}
-
-export const Pagination = ({
-                             onChange,
-                             page,
-                             rowsPerPage,
-                             onChangePageCount,
-                             totalCount,
-                             disabled,
-                           }: PaginationType) => {
-
-  const isDisabled = Math.ceil(totalCount / rowsPerPage) - 1 == page || page <= -1
-  const handleChangePage = (event: unknown, newPage: number) => {
-    onChange(newPage)
-  }
-  const handleChangeRowsPerPage = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    onChangePageCount(Number(event.target.value))
-    console.log(Number(event.target.value))
-  }
-  return (
-    <TablePagination
-      component="div"
-      count={totalCount}
-      page={page > 0 && totalCount < rowsPerPage ? 0 : page}
-      rowsPerPageOptions={[5, 10, 15]}
-      onPageChange={handleChangePage}
-      rowsPerPage={rowsPerPage}
-      onRowsPerPageChange={handleChangeRowsPerPage}
-      backIconButtonProps={{disabled: page == 0}}
-      nextIconButtonProps={{disabled: isDisabled}}
-      showFirstButton
-      showLastButton
-      hidden={!totalCount}
-    />
-  )
-}
 

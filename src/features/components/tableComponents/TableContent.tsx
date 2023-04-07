@@ -3,11 +3,9 @@ import {Paper} from "@mui/material";
 import TableContainer from "@mui/material/TableContainer";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import {TableSkeleton} from "../../../../components/tableSkeleton/TableSkeleton";
-
-import {MyTableHead, Order} from "../../../../components/tableComponents/MyTableHead";
-import {HeaderType} from "../../../../components/headTable/typesTable";
-
+import {HeaderType} from "../headTable/typesTable";
+import {MyTableHead, Order} from "./MyTableHead";
+import {TableSkeleton} from "../tableSkeleton/TableSkeleton";
 
 type PropsTableContent<D> = {
   headCells: HeaderType<D>[],
