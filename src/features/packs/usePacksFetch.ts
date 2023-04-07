@@ -1,27 +1,26 @@
 import {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../app/store";
+import {getPacksTC} from "./packs-reducer";
 import {
-  getMaxParamsSelector,
-  getMinParamsSelector,
-  getPackNameParamsSelector,
-  getPageCountParamsSelector,
-  getPageParamsSelector,
-  getSortPacksParamsSelector,
-  getUserIdParamsSelector
-} from "../../app/selectors";
-import {getPacksTC, searchPackAC} from "./packs-reducer";
-import {useSearchParams} from "react-router-dom";
+  packMaxParamsSelector,
+  packMinParamsSelector,
+  packNameParamsSelector,
+  packPageCountParamsSelector,
+  packSortParamsSelector,
+  pageParamsSelector,
+  userIdParamsSelector
+} from "./packSelectors";
 
 export const usePacksFetch = () => {
   const dispatch = useAppDispatch()
 
-  const min = useAppSelector(getMinParamsSelector)
-  const max = useAppSelector(getMaxParamsSelector)
-  const packName = useAppSelector(getPackNameParamsSelector)
-  const page = useAppSelector(getPageParamsSelector)
-  const pageCount = useAppSelector(getPageCountParamsSelector)
-  const sortPacks = useAppSelector(getSortPacksParamsSelector)
-  const userId = useAppSelector(getUserIdParamsSelector)
+  const min = useAppSelector(packMinParamsSelector)
+  const max = useAppSelector(packMaxParamsSelector)
+  const packName = useAppSelector(packNameParamsSelector)
+  const page = useAppSelector(pageParamsSelector)
+  const pageCount = useAppSelector(packPageCountParamsSelector)
+  const sortPacks = useAppSelector(packSortParamsSelector)
+  const userId = useAppSelector(userIdParamsSelector)
 
   useEffect(() => {
     dispatch(getPacksTC())

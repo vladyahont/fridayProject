@@ -4,7 +4,7 @@ import {BackToRouteButton} from "../../components/backToRouteButton/BackToRouteB
 import {useAppSelector} from "../../../app/store";
 import {userIdSelector} from "../../../app/selectors";
 
-import {SubHeader} from "../../components/subHeader/SubHeader";
+
 import {ImgBox} from "../../components/imgBox/ImgBox";
 import {useCardsFetch} from "./hooks/useCardsFetch";
 import {CardsTable} from "./cardsTable/CardsTable";
@@ -14,10 +14,13 @@ import {PATH} from "../../../app/Path";
 import {useAppIsLoading} from "../../../hooks/useAppIsLoading";
 import {CardFilterPanel} from "./cardFilterPanel/CardFilterPanel";
 import {packNameSelector, packUserIdSelector} from "./cardSelector";
+import {SubHeaderTable} from "../../components/subHeaderTable/SubHeaderTable";
+
 
 export const Cards = () => {
-  const isLoading = useAppIsLoading()
+
   useCardsFetch()
+  const isLoading = useAppIsLoading()
 
   const packUserId = useAppSelector(packUserIdSelector)
   const userId = useAppSelector(userIdSelector)
@@ -27,7 +30,7 @@ export const Cards = () => {
   return (
     <>
       <BackToRouteButton title={"Back to Packs List"} route={PATH.PACKS}/>
-      <SubHeader title={packName}
+      <SubHeaderTable title={packName}
                  isLoading={isLoading}
                  titleButton={isMyPack ? "Add new card" : "Learn to pack"}
                  onClick={isMyPack ? () => console.log("my") : () => console.log("learn")}

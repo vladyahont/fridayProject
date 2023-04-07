@@ -2,9 +2,10 @@ import React, {useEffect} from 'react'
 
 import TablePagination from '@mui/material/TablePagination'
 import {useAppDispatch, useAppSelector} from "../../../../app/store";
-import {cardPacksTotalCountSelector} from "../../../../app/selectors";
+
 import {searchPackAC} from "../../packs-reducer";
 import {useSearchParams} from "react-router-dom";
+import {cardPacksTotalCountSelector} from "../../packSelectors";
 
 
 type PaginationPropsType = {

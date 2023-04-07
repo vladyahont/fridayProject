@@ -3,11 +3,11 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody"
 import {useAppSelector} from "../../../../app/store";
-import {appStatusSelector, packsSelector} from "../../../../app/selectors";
 import {PackActions} from "./PackActions";
 import noCover from "./../../../../assest/imgs/noCover.png"
 import {useNavigate} from "react-router-dom";
 import {ImgBox} from "../../../components/imgBox/ImgBox";
+import {packsSelector} from "../../packSelectors";
 
 type Props = {
   emptyRows: number,
@@ -16,10 +16,7 @@ export const PacksTableBody = ({
                                  emptyRows,
                                }: Props) => {
   const packs = useAppSelector(packsSelector)
-  const appStatus = useAppSelector(appStatusSelector)
-  const isLoading = appStatus === "loading"
   const navigate = useNavigate()
-  console.log(emptyRows)
 
   return (
     <TableBody>

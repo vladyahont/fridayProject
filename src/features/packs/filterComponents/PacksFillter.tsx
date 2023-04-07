@@ -3,8 +3,7 @@ import {useAppDispatch, useAppSelector} from "../../../app/store";
 import {searchPackAC} from "../packs-reducer";
 import {
   appStatusSelector,
-  getPackNameParamsSelector,
-  getUserIdParamsSelector,
+
   userIdSelector
 } from "../../../app/selectors";
 import s from "../Packs.module.css";
@@ -14,14 +13,15 @@ import SuperButton from "../../../superComponents/c2-SuperButton/SuperButton";
 import {RangeSlider} from "./rangeSlider/RangeSlider";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
 import {useSearchParams} from "react-router-dom";
+import {packNameParamsSelector, userIdParamsSelector} from "../packSelectors";
 
 export const PacksFilter = () => {
 
   const dispatch = useAppDispatch()
-  const userIdParam = useAppSelector(getUserIdParamsSelector)
+  const userIdParam = useAppSelector(userIdParamsSelector)
   const userId = useAppSelector(userIdSelector)
   const isMy = !!userIdParam
-  const packName = useAppSelector(getPackNameParamsSelector)
+  const packName = useAppSelector(packNameParamsSelector)
 
   const onSearchChange = (searchValue: string) => {
     dispatch(searchPackAC({ packName: searchValue }))
