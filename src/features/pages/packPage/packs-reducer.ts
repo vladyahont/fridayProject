@@ -58,7 +58,9 @@ type ChangePackParam = {
     user_id?: string,
     page?: number,
     pageCount?: number
-    sortPacks?:string
+    sortPacks?:string,
+    min?: number,
+    max?: number,
 }
 
 export const getPacksAC = (data: PacksResponseType) => ({type: 'PACKS/GET-PACKS', payload: {data}} as const)

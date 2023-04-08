@@ -5,7 +5,6 @@ import Switch from "@mui/material/Switch";
 
 type ChosePropsType =  {
   disabled:boolean,
-
   initValue:boolean,
   onFirstClick: () => void
   onSecondClick: () => void

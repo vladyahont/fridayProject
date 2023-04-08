@@ -19,14 +19,12 @@ export const useCardsFetch = () => {
   const cardsSearchValueParam = useAppSelector(cardQuestionParamsSelector)
   const cardsSortParam = useAppSelector(cardSortParamsSelector)
 
+  const [searchParams] = useSearchParams();
+  const params = Object.fromEntries(searchParams);
 
   useEffect(() => {
     dispatch(getCardsTC({cardsPack_id: packId as string}))
   }, [cardsPageCountParam, cardsPageParam, cardsSearchValueParam, cardsSortParam])
-
-
-  const [searchParams] = useSearchParams();
-  const params = Object.fromEntries(searchParams);
 
   useEffect(() => {
       params["cardQuestion"] = params["cardQuestion"] || ""

@@ -16,6 +16,11 @@ export const PacksFilterPanel = () => {
   const {
     packName,
     isMy,
+    minCardsCount,
+    maxCardsCount,
+    valuesSlider,
+    setValuesSlider,
+    onSliderChange,
     onMyPacks,
     onAllPacks,
     onResetFilter,
@@ -24,10 +29,19 @@ export const PacksFilterPanel = () => {
 
   return (
     <FilterContainer>
-      <SearchInput   onChangeSearchValue = {onSearchChange} searchValue = {packName} disabled={isLoading}/>
-      <Chose   initValue={isMy} onFirstClick={onAllPacks} onSecondClick={onMyPacks} disabled={isLoading}/>
-      <RangeSlider />
-      <SuperButton onClick={onResetFilter} children={<FilterAltOffIcon/>} />
+      <SearchInput onChangeSearchValue={onSearchChange} searchValue={packName} disabled={isLoading}/>
+      <Chose initValue={isMy}
+             onFirstClick={onAllPacks}
+             onSecondClick={onMyPacks}
+             disabled={isLoading}/>
+      <RangeSlider min={minCardsCount}
+                   max={maxCardsCount}
+                   minDistance={5}
+                   current={valuesSlider}
+                   onChangeCurrent={setValuesSlider}
+                   onChangeCommitted={onSliderChange}
+                   disabled={isLoading}/>
+      <SuperButton onClick={onResetFilter} disabled={isLoading} children={<FilterAltOffIcon/>}/>
     </FilterContainer>
   );
 };

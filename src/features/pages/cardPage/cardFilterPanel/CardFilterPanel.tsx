@@ -15,13 +15,8 @@ export const CardFilterPanel = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const params = Object.fromEntries(searchParams);
- // const search = params["cardQuestion"];
   const search = useAppSelector(cardQuestionParamsSelector);
 
-/*
-  useEffect(() => {
-    dispatch(searchCardsAC({ ...params,cardQuestion: search }))
-  }, [])*/
   const onSearchChange = (search: string) => {
     setSearchParams({...params,cardQuestion: search});
     dispatch(searchCardsAC({ ...params,cardQuestion: search }))

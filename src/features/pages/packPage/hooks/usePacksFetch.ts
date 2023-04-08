@@ -28,7 +28,6 @@ export const usePacksFetch = () => {
   const [searchParams] = useSearchParams();
   const searchParamsObject = Object.fromEntries(searchParams);
 
-
   useEffect(() => {
     dispatch(getPacksTC())
   }, [min, max, page, packName,userId,pageCount,page,sortPacks])
