@@ -11,6 +11,11 @@ export const useDebouncedSearchInput = (searchValue:string,onChangeSearchValue: 
     onChangeSearchValue(value)
   }, [searchDebouncedValue])
 
+
+  useEffect(() => {
+    setValue(searchValue)
+  }, [searchValue])
+
   const onChangeValueHandler = (event: ChangeEvent<HTMLInputElement>) =>{
     setValue(event.target.value)
   }

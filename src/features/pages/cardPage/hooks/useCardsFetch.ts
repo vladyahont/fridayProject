@@ -11,7 +11,7 @@ import {
 
 export const useCardsFetch = () => {
 
-  const { packId } = useParams<{ packId: string }>()
+  const {packId} = useParams<{ packId: string }>()
   const dispatch = useAppDispatch()
 
   const cardsPageCountParam = useAppSelector(cardPageCountParamsSelector)
@@ -19,16 +19,19 @@ export const useCardsFetch = () => {
   const cardsSearchValueParam = useAppSelector(cardQuestionParamsSelector)
   const cardsSortParam = useAppSelector(cardSortParamsSelector)
 
+
+  useEffect(() => {
+    dispatch(getCardsTC({cardsPack_id: packId as string}))
+  }, [cardsPageCountParam, cardsPageParam, cardsSearchValueParam, cardsSortParam])
+
+
   const [searchParams] = useSearchParams();
   const params = Object.fromEntries(searchParams);
 
-
   useEffect(() => {
-    dispatch(getCardsTC({ cardsPack_id: packId as string }))
-  }, [cardsPageCountParam, cardsPageParam, cardsSearchValueParam, cardsSortParam])
-
-  useEffect(() => {
-    dispatch(searchCardsAC({ ...params,cardsPack_id: packId as string }))
-  }, [])
+      params["cardQuestion"] = params["cardQuestion"] || ""
+      dispatch(searchCardsAC({...params, cardsPack_id: packId as string}))
+    },
+    [])
 };
 

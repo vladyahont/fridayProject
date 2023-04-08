@@ -38,7 +38,7 @@ export const Cards = () => {
                         onClick={isMyPack ? () => console.log("my") : () => console.log("learn")}
                         disabled={isLoading}/>
         <ImgBox defaultImg={noCover} sx={{alignSelf: "flex-start"}}/>
-        <CardFilterPanel isLoading={isLoading}/>
+        <CardFilterPanel/>
         <CardsTable/>
       </Container>
     </>

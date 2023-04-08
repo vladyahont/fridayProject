@@ -1,6 +1,6 @@
 import {useEffect} from 'react';
 
-import {getPacksTC, searchPackAC} from "./packs-reducer";
+import {getPacksTC, searchPackAC} from "../packs-reducer";
 import {
   packMaxParamsSelector,
   packMinParamsSelector,
@@ -9,9 +9,9 @@ import {
   packSortParamsSelector,
   pageParamsSelector,
   userIdParamsSelector
-} from "./packSelectors";
+} from "../packSelectors";
 import {useSearchParams} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from "../../../app/store";
+import {useAppDispatch, useAppSelector} from "../../../../app/store";
 
 export const usePacksFetch = () => {
 
@@ -28,12 +28,14 @@ export const usePacksFetch = () => {
   const [searchParams] = useSearchParams();
   const searchParamsObject = Object.fromEntries(searchParams);
 
-  useEffect(() => {
-    dispatch(searchPackAC(searchParamsObject))
-  },[])
 
   useEffect(() => {
     dispatch(getPacksTC())
   }, [min, max, page, packName,userId,pageCount,page,sortPacks])
+
+  useEffect(() => {
+    dispatch(searchPackAC({...searchParamsObject}))
+  }, [])
+
 };
 
