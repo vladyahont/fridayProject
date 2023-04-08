@@ -30,13 +30,13 @@ export const usePacksFilter = () => {
   }, [minCardsCount,maxCardsCount])
 
   const onSearchChange = (searchValue: string) => {
-    setSearchParams({...params,packName: searchValue});
-    dispatch(searchPackAC({ packName: searchValue }))
+    setSearchParams({...params,packName: searchValue, page: 0});
+    dispatch(searchPackAC({ packName: searchValue ,page: 0 }))
   }
 
   const onAllPacks = () => {
-    setSearchParams({...params,user_id: userId,min: minCardsCount, max:maxCardsCount});
-    dispatch(searchPackAC({ user_id: userId,min: minCardsCount, max:maxCardsCount }))
+    setSearchParams({...params,user_id: userId,min: minCardsCount, max:maxCardsCount, page: 0});
+    dispatch(searchPackAC({ user_id: userId,min: minCardsCount, max:maxCardsCount, page: 0 }))
   }
 
   const onMyPacks  = () => {
@@ -44,8 +44,8 @@ export const usePacksFilter = () => {
     dispatch(searchPackAC({ user_id: '',min: minCardsCount, max:maxCardsCount }))
   }
   const onSliderChange = (min:number,max:number) => {
-    setSearchParams({...params,min,max});
-    dispatch(searchPackAC({min,max}))
+    setSearchParams({...params,min,max, page: 0});
+    dispatch(searchPackAC({min,max, page: 0}))
   }
   const onResetFilter = () => {
     setValuesSlider([minCardsCount,maxCardsCount])

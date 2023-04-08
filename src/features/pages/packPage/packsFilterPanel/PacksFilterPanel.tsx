@@ -1,6 +1,6 @@
 import React from 'react';
 import {Chose} from "../../../components/chose/Chose";
-import {RangeSlider} from "./rangeSlider/RangeSlider";
+import {RangeSlider} from "../../../components/rangeSlider/RangeSlider";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
 import {FilterContainer} from "../../../components/filterContainer/FilterContainer";
 import {SearchInput} from "../../../components/searchInput/SearchInput";
