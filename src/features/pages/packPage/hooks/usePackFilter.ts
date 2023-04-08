@@ -10,11 +10,7 @@ export const usePacksFilter = () => {
   const params = Object.fromEntries(searchParams)
 
   const userId = useAppSelector(userIdSelector)
-
   const userIdParam = useAppSelector(userIdParamsSelector)
-
-
-
   const packName = useAppSelector(packNameParamsSelector)
 
   const isMy = !!userIdParam
