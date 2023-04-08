@@ -26,6 +26,12 @@ export const Chose = ({
       onSecondClick()
     }
   }, [switcher])
+
+  useEffect(() => {
+    setSwitcher(initValue)
+  }, [initValue])
+
+
   const onChangeHandler = () => {
     setSwitcher(!switcher)
   }
