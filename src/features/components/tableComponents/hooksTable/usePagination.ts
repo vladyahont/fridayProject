@@ -16,13 +16,28 @@ import {
 } from "../../../pages/packPage/packSelectors";
 
 
+type SetSearchParamACType =
+  typeof searchCardsAC  |
+  typeof searchPackAC
+
+type totalCountSelectorType =
+  typeof cardTotalCountSelector  |
+  typeof cardPacksTotalCountSelector
+
+type rowsPerPageSelectorType =
+  typeof cardPageCountParamsSelector |
+  typeof packPageCountParamsSelector
+
+type pageSelectorType =
+  typeof pageParamsSelector  |
+  typeof cardPageParamsSelector
+
 export const usePagination = (totalCountSelector:totalCountSelectorType,
                               rowsPerPageSelector:rowsPerPageSelectorType,
                               pageSelector:pageSelectorType,
                               setSearchParamAC:SetSearchParamACType) => {
   const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
   const params = Object.fromEntries(searchParams);
-
 
   const dispatch = useAppDispatch();
 
@@ -36,8 +51,8 @@ export const usePagination = (totalCountSelector:totalCountSelectorType,
     }
   }, [])
 
-
   const [emptyRows, setEmptyRows] = React.useState(0);
+
   useEffect(() => {
     setEmptyRows(page != 0 ? page === Math.floor(totalCount / rowsPerPage)?
       rowsPerPage - (totalCount % rowsPerPage)
@@ -64,18 +79,3 @@ export const usePagination = (totalCountSelector:totalCountSelectorType,
 }
 
 
-type SetSearchParamACType =
-  typeof searchCardsAC  |
-  typeof searchPackAC
-
-type totalCountSelectorType =
-  typeof cardTotalCountSelector  |
-  typeof cardPacksTotalCountSelector
-
-type rowsPerPageSelectorType =
-  typeof cardPageCountParamsSelector |
-  typeof packPageCountParamsSelector
-
-type pageSelectorType =
-  typeof pageParamsSelector  |
-  typeof cardPageParamsSelector

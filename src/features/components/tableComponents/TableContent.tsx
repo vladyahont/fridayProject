@@ -9,10 +9,8 @@ import {TableSkeleton} from "../tableSkeleton/TableSkeleton";
 
 type PropsTableContent<D> = {
   headCells: HeaderType<D>[],
-  children?: JSX.Element[],
-
+  children: JSX.Element,
   pageCount?: number,
-
   isLoading: boolean,
   onRequestSort: (property: keyof D) => void,
   order:Order,

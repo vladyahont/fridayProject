@@ -7,7 +7,6 @@ import {useAppIsLoading} from "../../../hooks/useAppIsLoading";
 import {Container} from "../../components/container/Container";
 import {usePacksFetch} from "./hooks/usePacksFetch";
 
-
 export const Packs = () => {
 
   const isLoading = useAppIsLoading()

@@ -27,11 +27,9 @@ export const CardsTable = () => {
 
   const {onChange, onChangePageCount, totalCount, rowsPerPage, page}
     = usePagination(
-
     cardTotalCountSelector,
     cardPageCountParamsSelector,
     cardPageParamsSelector,
-
     searchCardsAC)
 
   const rowCards = cards.map((card) =>
