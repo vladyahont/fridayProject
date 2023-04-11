@@ -5,13 +5,14 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import {ImgBox} from "../../../components/imgBox/ImgBox";
 import noCover from "../../../../assest/imgs/noCover.png";
-import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
+import {useModals} from "../../../modals/useModals";
 
 export const PackTableBody = () => {
   const packs = useAppSelector(packsSelector)
   const navigate = useNavigate()
 
+  const {showModal} = useModals()
 
   const packRows = packs.map((pack) =>
     <TableRow key={pack._id} sx={{'&:last-child td, &:last-child th': {border: 0}}}>
@@ -32,9 +33,12 @@ export const PackTableBody = () => {
       <TableCell align="left">{pack.updated.substring(0, 10)}</TableCell>
       <TableCell align="left">{pack.user_name}</TableCell>
       <TableCell align="left">
-        <Button title={"Edit"} onClick={showModal("edit")}/>
-        <Button title={"Learn"} onClick={showModal("learn")}/>
-        <Button title={"Delete"} onClick={showModal("delete")}/>
+        <div onClick={() => showModal("delete",{name:pack.name})}>
+          Delete
+        </div>
+        <div onClick={() => showModal("edit",{name:pack.name})}>
+          Edit
+        </div>
       </TableCell>
     </TableRow>)
   return (<>

@@ -33,25 +33,25 @@ export function PackTable() {
     useTableDescAcsFilter<TableDataType>(
       "sortPacks", searchPackAC)
   return (
-    <>
-      <TableContent
-        orderBy={orderBy}
-        order={order}
-        onRequestSort={handleRequestSort}
-        headCells={headCells}
-        isLoading={isLoading}
-        pageCount={rowsPerPage}>
-        {<PackTableBody/>}
-      </TableContent>
-      <Pagination
-        disabled={isLoading}
-        rowsPerPage={rowsPerPage}
-        page={page || 0}
-        totalCount={totalCount}
-        onChange={onChange}
-        onChangePageCount={onChangePageCount}
-      />
-    </>
+ <>
+   <TableContent
+     orderBy={orderBy}
+     order={order}
+     onRequestSort={handleRequestSort}
+     headCells={headCells}
+     isLoading={isLoading}
+     pageCount={rowsPerPage}>
+     <PackTableBody />
+   </TableContent>
+   <Pagination
+     disabled={isLoading}
+     rowsPerPage={rowsPerPage}
+     page={page || 0}
+     totalCount={totalCount}
+     onChange={onChange}
+     onChangePageCount={onChangePageCount}
+   />
+ </>
   );
 }
 
@@ -59,27 +59,27 @@ const headCells: HeaderType<TableDataType>[] = [
   {
     id: 'name',
     label: 'Name',
-    sortable: true,
+    sortable:true,
   },
   {
     id: 'cardsCount',
     label: 'cards',
-    sortable: true,
+    sortable:true,
   },
   {
     id: 'updated',
     label: 'Last Updated',
-    sortable: true,
+    sortable:true,
   },
   {
     id: 'user_name',
     label: 'Created By',
-    sortable: true,
+    sortable:true,
   },
   {
     id: 'action',
     label: 'Actions',
-    sortable: false,
+    sortable:false,
   },
 ];
 

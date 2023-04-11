@@ -8,9 +8,10 @@ import {useAppDispatch, useAppSelector} from "app/store";
 import IconButton from "@mui/material/IconButton/IconButton";
 
 import {appStatusSelector} from "app/selectors";
+
 import {BasicModal} from "../BasicModal";
-import {NewPackType} from "../../pages/packPage/packTypes";
-import {addPackTC} from "../../pages/packPage/packs-reducer";
+import {NewPackType} from "../../../pages/packPage/packTypes";
+import {addPackTC} from "../../../pages/packPage/packs-reducer";
 
 export const AddCardModal = memo(() => {
 

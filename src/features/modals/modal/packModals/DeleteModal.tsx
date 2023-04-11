@@ -6,9 +6,8 @@ import Button from "@mui/material/Button/Button";
 import IconButton from "@mui/material/IconButton/IconButton";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import {appStatusSelector} from "app/selectors";
-
 import {BasicModal} from "../BasicModal";
-import {deletePackTC} from "../../pages/packPage/packs-reducer";
+import {deletePackTC} from "../../../pages/packPage/packs-reducer";
 
 type PropsType = {
     id: string

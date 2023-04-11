@@ -7,18 +7,20 @@ import { AppActionsType, appReducer } from './app-reducer'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import {PacksActionsType, packsReducer} from "../features/pages/packPage/packs-reducer";
 import {CardsActionsType, cardsReducer} from "../features/pages/cardPage/cards-reducer";
+import {ModalActionsType, modalReducer} from "../features/modals/modaReduser";
 
 
 const rootReducer = combineReducers({
   app: appReducer,
   auth: authReducer,
   packs: packsReducer,
-  cards: cardsReducer
+  cards: cardsReducer,
+  modal: modalReducer,
 })
 
 export type AppStateType = ReturnType<typeof rootReducer>
 
-export type RootActionType = AppActionsType | AuthActionsType | PacksActionsType | CardsActionsType
+export type RootActionType = AppActionsType | AuthActionsType | PacksActionsType | CardsActionsType |ModalActionsType
 
 export type RootThunkType<ReturnType = void> = ThunkAction<
   ReturnType,

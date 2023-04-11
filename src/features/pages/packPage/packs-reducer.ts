@@ -25,7 +25,7 @@ const initialState = {
     } as PacksParamsType,
     cardPacksTotalCount: 0,
     minCardsCount: 0,
-    maxCardsCount: 10,
+    maxCardsCount: 100,
 
 }
 type InitialStateType = typeof initialState

@@ -1,25 +1,19 @@
 import React from 'react';
 
-import {
-  cardPageCountParamsSelector,
-  cardPageParamsSelector,
-  cardsSelector,
-  cardTotalCountSelector
-} from "../cardSelector";
+import {cardPageCountParamsSelector, cardPageParamsSelector, cardTotalCountSelector} from "../cardSelector";
 import {useAppIsLoading} from "../../../../hooks/useAppIsLoading";
-import {useAppSelector} from "../../../../app/store";
 import {searchCardsAC} from "../cards-reducer";
 import {useTableDescAcsFilter} from "../../../components/tableComponents/hooksTable/useTableDescAcsFilter";
 import {usePagination} from "../../../components/tableComponents/hooksTable/usePagination";
-import {CardTableRow} from "./CardTableRow";
 import {TableContent} from "../../../components/tableComponents/TableContent";
 import {Pagination} from "../../../components/tableComponents/Pagination";
 import {HeaderType} from "../../../components/headTable/typesTable";
+import {CardTableBody} from "./CardTableBody";
 
 export const CardsTable = () => {
 
   const isLoading = useAppIsLoading()
-  const cards = useAppSelector(cardsSelector)
+
 
   const {orderBy, order, handleRequestSort} =
     useTableDescAcsFilter<TableDataType>(
@@ -27,19 +21,14 @@ export const CardsTable = () => {
 
   const {onChange, onChangePageCount, totalCount, rowsPerPage, page}
     = usePagination(
+
     cardTotalCountSelector,
     cardPageCountParamsSelector,
     cardPageParamsSelector,
+
     searchCardsAC)
 
-  const rowCards = cards.map((card) =>
-    <CardTableRow key = {card._id}
-                  _id={card._id}
-                  question={card.question}
-                  answer={card.answer}
-                  created={card.created}
-                  grade={card.grade}/>
-  )
+
   return (
     <>
       <TableContent
@@ -49,7 +38,7 @@ export const CardsTable = () => {
         headCells={headCells}
         isLoading={isLoading}
         pageCount={rowsPerPage}>
-        {rowCards}
+        <CardTableBody />
       </TableContent>
       <Pagination
         disabled={isLoading}

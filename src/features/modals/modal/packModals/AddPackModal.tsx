@@ -10,9 +10,10 @@ import Checkbox from "@mui/material/Checkbox";
 
 import {appStatusSelector} from "app/selectors";
 import {fileConverter} from "utils/add-img-utils";
+import {NewPackType} from "../../../pages/packPage/packTypes";
+import {addPackTC} from "../../../pages/packPage/packs-reducer";
 import {BasicModal} from "../BasicModal";
-import {NewPackType} from "../../pages/packPage/packTypes";
-import {addPackTC} from "../../pages/packPage/packs-reducer";
+
 
 export const AddPackModal = memo(() => {
 

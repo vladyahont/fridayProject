@@ -3,7 +3,7 @@ import {useSearchParams} from "react-router-dom";
 import {searchPackAC} from "../packs-reducer";
 import {
   maxCardsCountSelector,
-  minCardsCountSelector,
+  minCardsCountSelector, packMaxParamsSelector, packMinParamsSelector,
   packNameParamsSelector,
   userIdParamsSelector
 } from "../packSelectors";
@@ -18,16 +18,28 @@ export const usePacksFilter = () => {
   const userId = useAppSelector(userIdSelector)
   const userIdParam = useAppSelector(userIdParamsSelector)
   const packName = useAppSelector(packNameParamsSelector)
+
+  const min = useAppSelector(packMinParamsSelector)
+  const max = useAppSelector(packMaxParamsSelector)
+
   const minCardsCount = useAppSelector(minCardsCountSelector)
   const maxCardsCount = useAppSelector(maxCardsCountSelector)
 
   const isMy = !!userIdParam
 
-  const [valuesSlider, setValuesSlider] = useState<[number, number]>([minCardsCount, maxCardsCount]);
+  const [valuesSlider, setValuesSlider] = useState<[number, number]>([minCardsCount,maxCardsCount]);
+
+
+  useEffect(() => {
+    setValuesSlider([min,max])
+  }, [])
 
   useEffect(() => {
     setValuesSlider([minCardsCount,maxCardsCount])
   }, [minCardsCount,maxCardsCount])
+
+
+
 
   const onSearchChange = (searchValue: string) => {
     setSearchParams({...params,packName: searchValue, page: 0});
