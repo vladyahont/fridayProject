@@ -39,8 +39,6 @@ export const usePacksFilter = () => {
   }, [minCardsCount,maxCardsCount])
 
 
-
-
   const onSearchChange = (searchValue: string) => {
     setSearchParams({...params,packName: searchValue, page: 0});
     dispatch(searchPackAC({ packName: searchValue ,page: 0 }))

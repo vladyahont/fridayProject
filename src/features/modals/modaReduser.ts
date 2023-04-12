@@ -6,18 +6,14 @@ const initialState = {
     name: '',
   },
   modalsStatus: {
-
     isEdit: false,
-
     isDelete: false,
-
     isAdd: false,
   }
 }
 
 type InitialStateType = {
   modalData: ModalDataType,
-
   modalsStatus: Partial<ModalStatusType>
 }
 
