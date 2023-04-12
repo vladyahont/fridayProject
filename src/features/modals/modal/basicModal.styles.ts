@@ -6,9 +6,11 @@ export const containerStyle: SxProps = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
-  bgcolor: 'white',
+  bgcolor: 'background.paper',
   outline: 0,
-  padding: "10px 20px"
+  padding: "5px 10px",
+  boxShadow: 24,
+ /* p: 4,*/
 }
 export const headerStyle:SxProps={
   display:"flex",

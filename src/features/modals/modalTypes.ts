@@ -4,6 +4,6 @@ export type ModalStatusType = {
   isAdd: boolean,
 }
 export type ModalDataType = {
-  _id?: string,
-  name?: string,
+  _id: string,
+  name: string,
 }
