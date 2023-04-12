@@ -9,10 +9,10 @@ import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton/IconButton";
 import {appStatusSelector} from "app/selectors";
 import {fileConverter} from "utils/add-img-utils";
-import noCover from './../../../../assest/imgs/noCover.png'
-import {BasicModal} from "../BasicModal";
-import {UpdatePackType} from "../../../pages/packPage/packTypes";
-import {updatePackTC} from "../../../pages/packPage/packs-reducer";
+import noCover from '../../../../../assest/imgs/noCover.png'
+import {BasicModal} from "../../BasicModal";
+import {UpdatePackType} from "../../../../pages/packPage/packTypes";
+import {updatePackTC} from "../../../../pages/packPage/packs-reducer";
 
 
 type PropsType = {
@@ -57,7 +57,7 @@ export const EditModal = (props: PropsType) => {
             <IconButton onClick={onOpen} disabled={appStatus === 'loading'}>
                 <EditIcon/>
             </IconButton>
-            <BasicModal open={open} onClose={onClose}>
+            <BasicModal title={"Delete pack"} open={open} onClose={onClose}>
                 <h4>Edit pack</h4>
                 <InputLabel>Name pack</InputLabel>
                 <Input className={auth.input}

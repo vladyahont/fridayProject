@@ -12,6 +12,7 @@ import {addPackTC, deletePackTC, updatePackTC} from "./packs-reducer";
 import {useAppDispatch} from "../../../app/store";
 import {NewPackType, UpdatePackType} from "./packTypes";
 import noCover from './../../../assest/imgs/noCover.png'
+import {DeleteModal} from "../../modals/modal/DeleteModal";
 
 
 export const Packs = () => {
@@ -21,24 +22,22 @@ export const Packs = () => {
 
   usePacksFetch()
 
-  const {modalData, isEdit, isAdd, isDelete, closeModal, showModal,setDeckCover} = useModals()
-  const {_id,name,deckCover} = modalData
-
+  const {modalData:{_id,deckCover}, isEdit, isAdd, isDelete, showModal} = useModals()
   const removePack = (_id: string) => {
     return () => dispatch(deletePackTC(_id))
   }
-  const editPack = (_id: string,deckCover:string) => {
+  const editPack = (_id: string, deckCover: string) => {
     return (data: UpdatePackType) => {
       dispatch(
-        updatePackTC({...data, _id,deckCover}
+        updatePackTC({...data, _id, deckCover}
         )
       )
     }
   }
-  const addPack = (deckCover:string) => {
+  const addPack = (deckCover: string) => {
     return (data: NewPackType) => {
       dispatch(
-        addPackTC({...data,deckCover}
+        addPackTC({...data, deckCover}
         )
       )
     }
@@ -49,28 +48,22 @@ export const Packs = () => {
         isLoading={isLoading}
         title={'Pack list'}
         titleButton={'Add pack'}
-        onClick={() => showModal("add", {_id:"",name:"",deckCover:noCover})}
+        onClick={() => showModal("add", {_id: "", name: "", deckCover: noCover})}
       />
 
       <PacksFilterPanel/>
       <PackTable/>
-
-      <PackModal name={name}
-                 title={"Edit pack"}
+      <PackModal title={"Edit pack"}
                  open={isEdit}
-                 closeModal={closeModal}
-                 onSubmit={editPack(_id,deckCover)}
-                 deckCover={deckCover}
-                 setDeckCover={setDeckCover}/>
-
-      <PackModal name={name}
-                 title={"Add pack"}
+                 onSubmit={editPack(_id, deckCover)}
+      />
+      <PackModal title={"Add pack"}
                  open={isAdd}
-                 closeModal={closeModal}
                  onSubmit={addPack(deckCover)}
-                 deckCover={deckCover}
-                 setDeckCover={setDeckCover}/>
-
+      />
+      <DeleteModal title={"Delete pack"}
+                   open={isDelete}
+                   onDelete={removePack(_id)}/>
     </Container>
   )
 }

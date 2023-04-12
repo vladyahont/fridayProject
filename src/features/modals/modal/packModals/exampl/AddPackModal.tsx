@@ -10,9 +10,9 @@ import Checkbox from "@mui/material/Checkbox";
 
 import {appStatusSelector} from "app/selectors";
 import {fileConverter} from "utils/add-img-utils";
-import {NewPackType} from "../../../pages/packPage/packTypes";
-import {addPackTC} from "../../../pages/packPage/packs-reducer";
-import {BasicModal} from "../BasicModal";
+import {NewPackType} from "../../../../pages/packPage/packTypes";
+import {addPackTC} from "../../../../pages/packPage/packs-reducer";
+import {BasicModal} from "../../BasicModal";
 
 
 export const AddPackModal = memo(() => {
@@ -56,7 +56,7 @@ export const AddPackModal = memo(() => {
                     disabled={appStatus === 'loading'}>
                 <div>Add new pack</div>
             </Button>
-            <BasicModal open={open} onClose={onClose}>
+            <BasicModal open={open} onClose={onClose} title={"Delete pack"}>
                 <h4>Add new pack</h4>
                 <InputLabel>Name pack</InputLabel>
                 <Input className={auth.input} value={name} onChange={enterNameHandler}/>

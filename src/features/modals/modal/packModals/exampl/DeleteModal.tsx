@@ -6,8 +6,8 @@ import Button from "@mui/material/Button/Button";
 import IconButton from "@mui/material/IconButton/IconButton";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import {appStatusSelector} from "app/selectors";
-import {BasicModal} from "../BasicModal";
-import {deletePackTC} from "../../../pages/packPage/packs-reducer";
+import {BasicModal} from "../../BasicModal";
+import {deletePackTC} from "../../../../pages/packPage/packs-reducer";
 
 type PropsType = {
     id: string
@@ -36,8 +36,7 @@ export const DeleteModal = (props: PropsType) => {
             <IconButton onClick={onOpen} disabled={appStatus === 'loading'}>
                 <HighlightOffIcon/>
             </IconButton>
-            <BasicModal open={open} onClose={onClose}>
-                <h4>Delete pack</h4>
+            <BasicModal title={"Delete pack"} open={open} onClose={onClose}>
                 <div>Do you really want ro remove <span style={{fontWeight: '600'}}>{props.packName}</span>?
                     All cards will be deleted
                 </div>
