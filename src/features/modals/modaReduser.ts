@@ -4,6 +4,7 @@ const initialState = {
   modalData: {
     _id: '',
     name: '',
+    deckCover:''
   },
   modalsStatus: {
     isEdit: false,

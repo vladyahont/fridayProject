@@ -8,12 +8,10 @@ import {userIdSelector} from "../../../app/selectors";
 import {ImgBox} from "../../components/imgBox/ImgBox";
 import {useCardsFetch} from "./hooks/useCardsFetch";
 import {CardsTable} from "./cardsTable/CardsTable";
-
-import noCover from "./../../../assest/imgs/noCover.png"
 import {PATH} from "../../../app/Path";
 import {useAppIsLoading} from "../../../hooks/useAppIsLoading";
 import {CardFilterPanel} from "./cardFilterPanel/CardFilterPanel";
-import {packNameSelector, packUserIdSelector} from "./cardSelector";
+import {packDeckCoverSelector, packNameSelector, packUserIdSelector} from "./cardSelector";
 import {SubHeaderTable} from "../../components/subHeaderTable/SubHeaderTable";
 import {Container} from "../../components/container/Container";
 
@@ -26,6 +24,7 @@ export const Cards = () => {
   const packUserId = useAppSelector(packUserIdSelector)
   const userId = useAppSelector(userIdSelector)
   const packName = useAppSelector(packNameSelector)
+  const packDeckCover = useAppSelector(packDeckCoverSelector)
   const isMyPack = userId === packUserId
 
   return (
@@ -37,7 +36,7 @@ export const Cards = () => {
                         titleButton={isMyPack ? "Add new card" : "Learn to pack"}
                         onClick={isMyPack ? () => console.log("my") : () => console.log("learn")}
                         disabled={isLoading}/>
-        <ImgBox defaultImg={noCover} sx={{alignSelf: "flex-start"}}/>
+        <ImgBox defaultImg={packDeckCover} height={"250px"} width={"400px"} sx={{alignSelf: "flex-start"}}/>
         <CardFilterPanel/>
         <CardsTable/>
       </Container>

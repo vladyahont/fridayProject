@@ -73,7 +73,8 @@ export type CardsResponseType = {
     minGrade: number
     page: number
     pageCount: number
-    packUserId: string
+    packUserId: string,
+    packDeckCover: string,
 }
 export type CardsType = {
     answer: string

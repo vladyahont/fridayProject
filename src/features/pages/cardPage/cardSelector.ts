@@ -7,6 +7,7 @@ export const cardQuestionParamsSelector =(state: AppStateType) => state.cards.pa
 export const packUserIdSelector =(state: AppStateType) => state.cards.packUserId;
 export const packNameSelector =(state: AppStateType) => state.cards.packName;
 export const cardsSelector =(state: AppStateType) => state.cards.cards;
+export const packDeckCoverSelector =(state: AppStateType) => state.cards.packDeckCover;
 export const cardTotalCountSelector =(state: AppStateType) => state.cards.cardsTotalCount;
 export const cardPageCountSelector =(state: AppStateType) => state.cards.pageCount;
 export const cardPageSelector =(state: AppStateType) => state.cards.page;

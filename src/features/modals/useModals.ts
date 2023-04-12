@@ -30,6 +30,9 @@ export const useModals = () => {
       }
     }
   }
+  const setDeckCover = (file64: string) => {
+    dispatch(setDataModalAC({ ...modalData,deckCover: file64 }))
+  }
   const closeModal = () => {
     dispatch(resetDataModalAC())
   }
@@ -39,7 +42,7 @@ export const useModals = () => {
       isEdit:isEdit as boolean,
       isAdd:isAdd as boolean,
       isDelete:isDelete as boolean
-      , closeModal, showModal}
+      , closeModal, showModal,setDeckCover}
   );
 };
 

@@ -6,4 +6,6 @@ export type ModalStatusType = {
 export type ModalDataType = {
   _id: string,
   name: string,
+
+  deckCover:string,
 }

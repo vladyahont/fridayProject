@@ -27,6 +27,7 @@ const initialState = {
     question: '',
     answer: '',
     packName: '',
+    packDeckCover: '',
 }
 export type CardsInitialStateType = typeof initialState
 
