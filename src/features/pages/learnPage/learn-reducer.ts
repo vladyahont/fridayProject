@@ -1,10 +1,10 @@
 import {CardsType} from "../packPage/packTypes";
 import {RootThunkType} from "../../../app/store";
 import {setAppStatusAC} from "../../../app/app-reducer";
-import {AxiosError} from "axios/index";
 import {errorUtils} from "../../../utils/error-utils";
 import {learnAPI} from "./learn-api";
 import {UpdateGradeRequestType} from "./learnType";
+import {AxiosError} from "axios";
 
 const initialState = {
   learnCards: [] as CardsType[],
