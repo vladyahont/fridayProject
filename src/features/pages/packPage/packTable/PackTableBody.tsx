@@ -33,10 +33,10 @@ export const PackTableBody = () => {
       <TableCell align="left">{pack.updated.substring(0, 10)}</TableCell>
       <TableCell align="left">{pack.user_name}</TableCell>
       <TableCell align="left">
-        <div onClick={() => showModal("delete", {_id: pack._id, deckCover: pack.deckCover, name: pack.name || ""})}>
+        <div onClick={showModal("delete", {_id: pack._id})}>
           Delete
         </div>
-        <div onClick={() => showModal("edit", {_id: pack._id, deckCover: pack.deckCover, name: pack.name || ""})}>
+        <div onClick={showModal("edit", {_id: pack._id, deckCover: pack.deckCover, name: pack.name || ""})}>
           Edit
         </div>
       </TableCell>

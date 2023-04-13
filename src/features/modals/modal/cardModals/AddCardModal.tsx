@@ -54,8 +54,7 @@ export const AddCardModal = memo(() => {
                     disabled={appStatus === 'loading'}>
                 <div>Add new pack</div>
             </Button>
-            <BasicModal open={open} onClose={onClose}>
-                <h4>Add new pack</h4>
+            <BasicModal title={"Add new pack"} open={open} onClose={onClose}>
                 <InputLabel>Name pack</InputLabel>
                 <Input className={auth.input} value={name} onChange={enterNameHandler}/>
                 <IconButton component="label">

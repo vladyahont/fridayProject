@@ -3,9 +3,11 @@ export type ModalStatusType = {
   isDelete: boolean,
   isAdd: boolean,
 }
+
 export type ModalDataType = {
   _id: string,
   name: string,
-
   deckCover:string,
+  answer: string,
+  question: string,
 }

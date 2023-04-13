@@ -38,7 +38,7 @@ export type PacksParamsType = {
     block: boolean;
 }
 export type NewPackType = {
-    name: string
+    name?: string
     private?: boolean
     deckCover?: string
 }
@@ -48,8 +48,8 @@ export type NewPackResponseType = {
     tokenDeathTime?: number
 }
 export type UpdatePackType = {
-    _id: string
-    name: string
+    _id?: string
+    name?: string
     deckCover?: string
 }
 

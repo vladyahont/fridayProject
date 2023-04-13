@@ -3,6 +3,7 @@ import {BasicModal} from "../BasicModal";
 
 import {useModals} from "../../useModals";
 import {PackModalForm} from "./PackModalForm";
+import noCover from "./../../../../assest/imgs/noCover.png"
 
 type PackModalProps = {
   title: string
@@ -15,14 +16,15 @@ export const PackModal = ({
                             onSubmit,
                           }: PackModalProps) => {
   const {modalData:{name,deckCover},closeModal,setDeckCover} = useModals()
+
   return (
     <BasicModal open={open}
                 onClose={closeModal}
                 title={title}
     >
-      <PackModalForm name={name}
+      <PackModalForm name={name || ''}
                  onSubmit={onSubmit}
-                 deckCover={deckCover}
+                 deckCover={deckCover || noCover}
                  setDeckCover={setDeckCover}
                  closeModal={closeModal}/>
     </BasicModal>

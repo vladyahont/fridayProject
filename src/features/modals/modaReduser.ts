@@ -4,7 +4,9 @@ const initialState = {
   modalData: {
     _id: '',
     name: '',
-    deckCover:''
+    deckCover:'',
+    answer: '',
+    question: '',
   },
   modalsStatus: {
     isEdit: false,
@@ -14,7 +16,7 @@ const initialState = {
 }
 
 type InitialStateType = {
-  modalData: ModalDataType,
+  modalData: Partial<ModalDataType>,
   modalsStatus: Partial<ModalStatusType>
 }
 
@@ -56,7 +58,7 @@ export const switchModalAC = (data:  Partial<ModalStatusType>) => ({
     newStatus: data,
   },
 } as const)
-export const setDataModalAC = (data: ModalDataType) => ({
+export const setDataModalAC = (data: Partial<ModalDataType>) => ({
   type: 'MODAL/SET-DATA',
   payload: {
     newData: data,

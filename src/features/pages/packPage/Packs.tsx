@@ -26,7 +26,7 @@ export const Packs = () => {
   const removePack = (_id: string) => {
     return () => dispatch(deletePackTC(_id))
   }
-  const editPack = (_id: string, deckCover: string) => {
+  const editPack = (_id: string, deckCover?: string) => {
     return (data: UpdatePackType) => {
       dispatch(
         updatePackTC({...data, _id, deckCover}
@@ -34,7 +34,7 @@ export const Packs = () => {
       )
     }
   }
-  const addPack = (deckCover: string) => {
+  const addPack = (deckCover?: string) => {
     return (data: NewPackType) => {
       dispatch(
         addPackTC({...data, deckCover}
@@ -48,7 +48,7 @@ export const Packs = () => {
         isLoading={isLoading}
         title={'Pack list'}
         titleButton={'Add pack'}
-        onClick={() => showModal("add", {_id: "", name: "", deckCover: noCover})}
+        onClick={showModal("add", {deckCover: noCover})}
       />
 
       <PacksFilterPanel/>
