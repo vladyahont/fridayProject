@@ -16,18 +16,14 @@ export const CardsTable = () => {
 
 
   const {orderBy, order, handleRequestSort} =
-    useTableDescAcsFilter<TableDataType>(
-      "sortCards", searchCardsAC)
+    useTableDescAcsFilter<TableDataType>("sortCards", searchCardsAC)
 
   const {onChange, onChangePageCount, totalCount, rowsPerPage, page}
     = usePagination(
-
     cardTotalCountSelector,
     cardPageCountParamsSelector,
     cardPageParamsSelector,
-
     searchCardsAC)
-
 
   return (
     <>

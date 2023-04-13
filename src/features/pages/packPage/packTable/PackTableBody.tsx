@@ -7,12 +7,14 @@ import {ImgBox} from "../../../components/imgBox/ImgBox";
 import noCover from "../../../../assest/imgs/noCover.png";
 import {useNavigate} from "react-router-dom";
 import {useModals} from "../../../modals/useModals";
+import {usePacks} from "../hooks/usePacks";
 
 export const PackTableBody = () => {
-  const packs = useAppSelector(packsSelector)
+
   const navigate = useNavigate()
 
   const {showModal} = useModals()
+  const {packs} = usePacks()
 
   const packRows = packs.map((pack) =>
     <TableRow key={pack._id} sx={{'&:last-child td, &:last-child th': {border: 0}}}>

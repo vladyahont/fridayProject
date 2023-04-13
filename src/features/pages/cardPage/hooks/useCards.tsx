@@ -6,11 +6,11 @@ import {packDeckCoverSelector, packNameSelector, packUserIdSelector} from "../ca
 import {userIdSelector} from "../../../../app/selectors";
 import {useParams} from "react-router-dom";
 
-const UseCards = () => {
+const useCards = () => {
   const dispatch = useAppDispatch()
 
   const { packId } = useParams<{ packId: string }>()
-  console.log(packId)
+
   const packUserId = useAppSelector(packUserIdSelector)
   const userId = useAppSelector(userIdSelector)
   const packName = useAppSelector(packNameSelector)
@@ -52,4 +52,4 @@ const UseCards = () => {
   );
 };
 
-export default UseCards;
+export default useCards;

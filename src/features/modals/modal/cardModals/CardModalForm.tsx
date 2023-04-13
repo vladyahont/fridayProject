@@ -31,7 +31,6 @@ export const CardModalForm = ({
 
   const isText = type === 'text'
 
-
   const validationValue = Yup.string()
     .min(2, 'Too Short!')
     .max(120, 'Too Long!')
@@ -53,7 +52,6 @@ export const CardModalForm = ({
     },
   });
 
-
   const onChangeAnswerImg = (e: ChangeEvent<HTMLInputElement>) => {
     fileConverter(e.target.files, (file64: string) => {
        setAnswerImg(file64)
@@ -67,7 +65,6 @@ export const CardModalForm = ({
   };
   return (
     <form onSubmit={formik.handleSubmit}>
-
       <TypeSelector type={type} setType={setType}/>
       {isText && <div>
           <TextField

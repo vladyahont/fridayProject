@@ -8,40 +8,20 @@ import {Container} from "../../components/container/Container";
 import {usePacksFetch} from "./hooks/usePacksFetch";
 import {useModals} from "../../modals/useModals";
 import {PackModal} from "../../modals/modal/packModals/PackModal";
-import {addPackTC, deletePackTC, updatePackTC} from "./packs-reducer";
-import {useAppDispatch} from "../../../app/store";
-import {NewPackType, UpdatePackType} from "./packTypes";
 import noCover from './../../../assest/imgs/noCover.png'
 import {DeleteModal} from "../../modals/modal/DeleteModal";
+import {usePacks} from "./hooks/usePacks";
 
 
 export const Packs = () => {
 
   const isLoading = useAppIsLoading()
-  const dispatch = useAppDispatch()
 
   usePacksFetch()
 
   const {modalData:{_id,deckCover}, isEdit, isAdd, isDelete, showModal} = useModals()
-  const removePack = (_id: string) => {
-    return () => dispatch(deletePackTC(_id))
-  }
-  const editPack = (_id: string, deckCover?: string) => {
-    return (data: UpdatePackType) => {
-      dispatch(
-        updatePackTC({...data, _id, deckCover}
-        )
-      )
-    }
-  }
-  const addPack = (deckCover?: string) => {
-    return (data: NewPackType) => {
-      dispatch(
-        addPackTC({...data, deckCover}
-        )
-      )
-    }
-  }
+  const {removePack, editPack, addPack} = usePacks()
+
   return (
     <Container>
       <SubHeaderTable
