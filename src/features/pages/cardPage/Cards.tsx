@@ -42,6 +42,7 @@ export const Cards = () => {
         <CardsTable/>
       </Container>
       <CardModal title={"Add new card"} open={isAdd} onSubmit={addCard()} />
+      <CardModal title={"Edit card"} open={isEdit} onSubmit={editCard(_id)} />
       <DeleteModal title={"Delete card"} open={isDelete} onDelete={removeCard(_id)} />
     </>
   );

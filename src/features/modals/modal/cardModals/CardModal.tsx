@@ -9,13 +9,13 @@ type CardModalProps = {
   onSubmit: (data: any) => void,
 }
 export const CardModal = ({title, open, onSubmit}: CardModalProps) => {
-  const {closeModal} = useModals()
+  const {closeModal,modalData:{question,answer}} = useModals()
   return (
     <BasicModal open={open}
                 onClose={closeModal}
                 title={title}
     >
-      <CardModalForm onSubmit={onSubmit} closeModal={closeModal}/>
+      <CardModalForm onSubmit={onSubmit} closeModal={closeModal} answer={answer} question={question}/>
     </BasicModal>
   )
 };
