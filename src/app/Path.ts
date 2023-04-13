@@ -1,6 +1,5 @@
 export const PATH = {
   HOME: '/',
-  CARD: '/packs/:packId',
   PROFILE: '/profile',
   REGISTRATION: '/registration',
   LOGIN: '/login',
@@ -10,4 +9,5 @@ export const PATH = {
   CARDS: '/packs/:packId',
   CHECK_EMAIL: "/checkMail",
   NEWPASSWORD: "/set-new-password/:token?",
+  LEARN_PACK: '/pack/learn/:packId',
 } as const

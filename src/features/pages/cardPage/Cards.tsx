@@ -24,9 +24,10 @@ export const Cards = () => {
 
   const isLoading = useAppIsLoading()
 
-  const {packName, packDeckCover, isMy, removeCard, addCard, editCard} = useCards()
+  const {packName, packDeckCover, isMy, removeCard, addCard, editCard,learnPack} = useCards()
 
   const {modalData:{_id}, isEdit, isAdd, isDelete ,showModal} = useModals()
+
 
   return (
     <>
@@ -35,7 +36,7 @@ export const Cards = () => {
         <SubHeaderTable title={packName}
                         isLoading={isLoading}
                         titleButton={isMy ? "Add new card" : "Learn to pack"}
-                        onClick={isMy ?showModal("add",{}) : () => console.log("learn")}
+                        onClick={isMy ?showModal("add",{}) : learnPack}
                         disabled={isLoading}/>
         <ImgBox defaultImg={noCover}  img ={packDeckCover} height={"250px"} width={"400px"} sx={{alignSelf: "flex-start"}}/>
         <CardFilterPanel/>

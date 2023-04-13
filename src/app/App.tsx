@@ -21,13 +21,13 @@ import {NewPassword} from "features/auth/recoveryPassword/creadeNew/NewPassword"
 
 import {Packs} from "../features/pages/packPage/Packs";
 import {Cards} from "../features/pages/cardPage/Cards";
+import {Learn} from "../features/pages/learnPage/Learn";
 
 function App() {
   const dispatch = useAppDispatch()
   const isInitialized = useAppSelector(isInitializedSelector)
   const status = useAppSelector(appStatusSelector)
 
-  // просим me
   useEffect(() => dispatch(initializeProfileTC()), [])
 
   if (!isInitialized) {
@@ -53,6 +53,7 @@ function App() {
           <Route path={PATH.NEWPASSWORD} element={<NewPassword />} />
           <Route path={PATH.PACKS} element={<Packs />} />
           <Route path={PATH.CARDS} element={<Cards />} />
+          <Route path={PATH.LEARN_PACK} element={<Learn />} />
           <Route path={PATH.CHECK_EMAIL} element={<CheckEmail />} />
           <Route path={'*'} element={<Navigate to={PATH['400']} />} />
         </Routes>

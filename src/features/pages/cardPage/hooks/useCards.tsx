@@ -4,7 +4,7 @@ import {UpdateCardType} from "../../packPage/packTypes";
 import {useAppDispatch, useAppSelector} from "../../../../app/store";
 import {packDeckCoverSelector, packNameSelector, packUserIdSelector} from "../cardSelector";
 import {userIdSelector} from "../../../../app/selectors";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 const useCards = () => {
   const dispatch = useAppDispatch()
@@ -39,6 +39,10 @@ const useCards = () => {
       )
     }
   }
+  const navigate = useNavigate()
+  const learnPack = () => {
+    navigate(`/pack/learn/${packId}`)
+  }
 
   return (
     {
@@ -47,7 +51,8 @@ const useCards = () => {
       isMy,
       removeCard,
       addCard,
-      editCard
+      editCard,
+      learnPack
     }
   );
 };
