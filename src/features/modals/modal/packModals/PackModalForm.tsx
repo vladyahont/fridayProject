@@ -56,8 +56,8 @@ export const PackModalForm = ({
           <input hidden accept="image/png, image/jpeg" type="file" onChange={onChangeCover}/>
           <PhotoCamera/>
         </IconButton>
+        <ImgBox defaultImg={deckCover}/>
       </Box>
-      <ImgBox defaultImg={deckCover}/>
       <TextField
         fullWidth id="name" name="name" label="Name"
         value={formik.values.name}

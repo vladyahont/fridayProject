@@ -36,6 +36,12 @@ export const useModals = () => {
   const setDeckCover = (file64: string) => {
     dispatch(setDataModalAC({...modalData, deckCover: file64}))
   }
+  const setAnswerImg = (file64: string) => {
+    dispatch(setDataModalAC({...modalData, answerImg: file64}))
+  }
+  const setQuestionImg = (file64: string) => {
+    dispatch(setDataModalAC({...modalData, questionImg: file64}))
+  }
   const closeModal = () => {
     dispatch(resetDataModalAC())
   }
@@ -43,10 +49,9 @@ export const useModals = () => {
   return (
     {
       modalData: {...modalData, _id: modalData._id as string},
-      isEdit,
-      isAdd,
-      isDelete
-      , closeModal, showModal, setDeckCover
+      isEdit, isAdd, isDelete,
+      closeModal, showModal,
+      setAnswerImg, setQuestionImg, setDeckCover
     }
   );
 };

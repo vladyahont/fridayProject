@@ -26,7 +26,7 @@ export const Cards = () => {
 
   const {packName, packDeckCover, isMy, removeCard, addCard, editCard} = useCards()
 
-  const {modalData:{_id}, isEdit, isAdd, isDelete, closeModal, showModal,setDeckCover} = useModals()
+  const {modalData:{_id}, isEdit, isAdd, isDelete ,showModal} = useModals()
 
   return (
     <>

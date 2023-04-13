@@ -10,4 +10,6 @@ export type ModalDataType = {
   deckCover:string,
   answer: string,
   question: string,
+  answerImg: string
+  questionImg: string
 }
