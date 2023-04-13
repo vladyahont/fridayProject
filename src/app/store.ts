@@ -8,6 +8,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import {PacksActionsType, packsReducer} from "../features/pages/packPage/packs-reducer";
 import {CardsActionsType, cardsReducer} from "../features/pages/cardPage/cards-reducer";
 import {ModalActionsType, modalReducer} from "../features/modals/modaReduser";
+import {LearnActionsType, learnReducer} from "../features/pages/learnPage/learn-reducer";
 
 
 const rootReducer = combineReducers({
@@ -16,11 +17,17 @@ const rootReducer = combineReducers({
   packs: packsReducer,
   cards: cardsReducer,
   modal: modalReducer,
+  learn: learnReducer,
 })
 
 export type AppStateType = ReturnType<typeof rootReducer>
 
-export type RootActionType = AppActionsType | AuthActionsType | PacksActionsType | CardsActionsType |ModalActionsType
+export type RootActionType = AppActionsType |
+  AuthActionsType |
+  PacksActionsType |
+  CardsActionsType |
+  ModalActionsType |
+  LearnActionsType
 
 export type RootThunkType<ReturnType = void> = ThunkAction<
   ReturnType,

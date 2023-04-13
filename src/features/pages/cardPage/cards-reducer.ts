@@ -4,6 +4,7 @@ import { RootThunkType } from "app/store";
 import { errorUtils } from "utils/error-utils";
 import {cardsApi} from "./cards-api";
 import {CardParamsType, CardRequestType, CardsResponseType, CardsType, UpdateCardType} from "../packPage/packTypes";
+import {setLearnCardAC, setLearnCardsAC} from "../learnPage/learn-reducer";
 
 
 
@@ -74,6 +75,7 @@ export const getCardsTC = ({cardsPack_id}:{cardsPack_id:string}): RootThunkType 
         const params = getState().cards.params
         const res = await cardsApi.getCards({...params,cardsPack_id})
         dispatch(getCardsAC(res.data))
+        dispatch(setLearnCardsAC(res.data.cards))
         dispatch(setAppStatusAC('succeeded'))
     } catch (err: unknown) {
         dispatch(setAppStatusAC('failed'))
