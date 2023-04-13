@@ -80,6 +80,8 @@ export type CardsType = {
     answer: string
     question: string
     cardsPack_id: string
+    questionImg:string,
+    answerImg:string,
     grade: number
     shots: number
     user_id: string

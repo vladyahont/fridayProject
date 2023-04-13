@@ -32,6 +32,8 @@ export const CardTableBody = () => {
                   _id: card._id,
                   answer: card.answer,
                   question: card.question,
+                  questionImg:card.questionImg,
+                  answerImg:card.answerImg,
                 })}
               >
                 <BorderColorOutlinedIcon/>
