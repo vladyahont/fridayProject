@@ -4,6 +4,7 @@ import {useFormik} from "formik";
 import * as Yup from "yup";
 import {fileConverter} from "../../../../utils/add-img-utils";
 import {TypeSelector, VariantType} from "../../../components/typeSelector/TypeSelector";
+import {TextField} from "@mui/material";
 
 type CardModalFormPropsType = {
   onSubmit: (data: any) => void,
@@ -52,7 +53,20 @@ export const CardModalForm = ({
 
       <TypeSelector type = {type} setType={setType}/>
       {isText && <div>
-          text
+          <TextField
+              fullWidth id="question" name="question" label="Question"
+              value={formik.values.question}
+              onChange={formik.handleChange}
+              error={formik.touched.question && Boolean(formik.errors.question)}
+              helperText={formik.touched.question && formik.errors.question}
+          />
+          <TextField
+              fullWidth id="answer" name="answer" label="Answer"
+              value={formik.values.answer}
+              onChange={formik.handleChange}
+              error={formik.touched.answer && Boolean(formik.errors.answer)}
+              helperText={formik.touched.answer && formik.errors.answer}
+          />
       </div>}
       {isText ||
           <div>

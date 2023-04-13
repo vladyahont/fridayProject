@@ -28,7 +28,7 @@ export const CardTableBody = () => {
           {isMe && (
             <span>
               <IconButton
-                onClick={() => showModal('edit', {
+                onClick={showModal('edit', {
                   _id: card._id,
                   answer: card.answer,
                   question: card.question,
@@ -36,7 +36,7 @@ export const CardTableBody = () => {
               >
                 <BorderColorOutlinedIcon/>
               </IconButton>
-              <IconButton onClick={() => showModal('delete', {})}>
+              <IconButton onClick={showModal('delete', {_id: card._id})}>
                 <DeleteOutlinedIcon/>
               </IconButton>
             </span>

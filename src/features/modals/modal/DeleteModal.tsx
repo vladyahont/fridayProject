@@ -6,6 +6,7 @@ import {useModals} from "../useModals";
 
 type DeleteModalPropsType = {
   title: string,
+
   open: boolean,
   onDelete: () => void,
 }

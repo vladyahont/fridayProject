@@ -9,10 +9,10 @@ import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton/IconButton";
 import {appStatusSelector} from "app/selectors";
 import {fileConverter} from "utils/add-img-utils";
-import noCover from '../../../../../assest/imgs/noCover.png'
-import {BasicModal} from "../../BasicModal";
-import {UpdatePackType} from "../../../../pages/packPage/packTypes";
-import {updatePackTC} from "../../../../pages/packPage/packs-reducer";
+import noCover from '../../../assest/imgs/noCover.png'
+import {BasicModal} from "../modal/BasicModal";
+import {UpdatePackType} from "../../pages/packPage/packTypes";
+import {updatePackTC} from "../../pages/packPage/packs-reducer";
 
 
 type PropsType = {

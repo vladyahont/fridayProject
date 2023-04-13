@@ -9,7 +9,7 @@ export const cardsApi = {
         return instance.post('cards/card', {card})
     },
     deleteCard(id: string) {
-        return instance.delete(`cards/card/${id}`)
+        return instance.delete(`cards/card/?id=${id}`)
     },
     updateCard(card: UpdateCardType) {
         return instance.put<any>('cards/card', {card})
